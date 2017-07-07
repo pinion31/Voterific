@@ -12,14 +12,7 @@ import SitePolls from './components/SitePolls';
 
 const NoMatch = () => <p>No Match Found</p>;
 
-const testdb = [{
-  username:'Chris',
-  password:'moon',
-  email:'pinion31@gmail.com',
-  polls:[{
-    question:'Which band is better?', choices: [{choice:'Pearl Jam', votes:0}, {choice:'Nirvana', votes:0},
-  {choice:'The Beatles', votes:0}]}],
-}];
+
 
 
 const Header = () => (
