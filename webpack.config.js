@@ -3,7 +3,8 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './js/source/app.js',
-    vendor: ['react', 'react-dom', 'whatwg-fetch'],
+    vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-bootstrap', 'babel-polyfill', 'react-router',
+             'react-router-bootstrap', 'react-router-dom'],
   },
   output: {
     path:'C:\\Users\\Chris\\Documents\\WebDev\\Voterific\\static',
@@ -22,6 +23,7 @@ module.exports = {
       }
     }
   },
+  devtool: 'source-map',
   module: {
     loaders: [
       {
