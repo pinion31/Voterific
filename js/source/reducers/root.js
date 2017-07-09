@@ -1,4 +1,3 @@
-import {store} from '../store/PollStore';
 import {userReducer} from './userReducer';
 /*
 let initialState = [{

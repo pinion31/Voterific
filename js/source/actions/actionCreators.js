@@ -8,12 +8,17 @@ export const deletePoll = () => ({
   type: DELETE_POLL,
 });
 
-export const addNewUser = () => ({
+export const addNewUser = (user) => ({
   type: ADD_NEW_USER,
+  name: user.name,
+  email: user.email,
+  password: user.password,
 });
 
-export const loginExistingUser = () => ({
+export const loginExistingUser = (user, pw) => ({
   type: LOGIN_EXISTING_USER,
+  username: user,
+  password:pw,
 });
 
 export const answerPoll = () => ({

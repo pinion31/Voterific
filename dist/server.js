@@ -21,14 +21,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //'use strict'
 _sourceMapSupport2.default.install();
 
-//const express = require('express');
+//let dbUrl = 'mongodb://127.0.0.1:27017/mydb'; //local db
+var dbUrl = 'mongodb://localhost/local'; //local db
 
+_mongodb.MongoClient.connect(dbUrl, function (err, db) {
+  if (err) {
+    return err;
+  };
 
-var app = (0, _express2.default)();
+  console.log('db connected');
 
-app.use(_express2.default.static('static'));
+  var app = (0, _express2.default)();
 
-app.listen(3000, function () {
-  console.log('App started on port 3000');
+  app.use(_express2.default.static('static'));
+  app.use(_bodyParser2.default.json());
+
+  app.post('/addUser', function (req, res) {
+    //console.log('receiving new user ' + req.body.user.name);
+    console.dir(req.body);
+
+    db.collection('users').insertOne(req.body, function () {
+      console.log('new user added to database');
+    });
+  });
+
+  app.listen(3000, function () {
+    console.log('App started on port 3000');
+  });
 });
 //# sourceMappingURL=server.js.map

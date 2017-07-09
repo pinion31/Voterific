@@ -9,11 +9,13 @@ import {BrowserRouter, Switch, HashRouter} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 import Dashboard from './components/Dashboard';
 import SitePolls from './components/SitePolls';
+import { Provider } from 'react-redux';
+
+//import {createStore} from 'redux';
+//import {rootReducer} from './reducers/root';
+import {store} from './store/UserStore';
 
 const NoMatch = () => <p>No Match Found</p>;
-
-
-
 
 const Header = () => (
   <Navbar>
@@ -38,13 +40,15 @@ const Header = () => (
 
 const Main = () => (
   <main>
-    <Switch>
-      <Route exact path="/" component={SitePolls} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/signUp" component={SignUp} />
-      <Route exact path="/dashboard" component={Dashboard} />
-      <Route path="*" component={NoMatch} />
-    </Switch>
+    <Provider store={store}>
+      <Switch>
+        <Route exact path="/" component={SitePolls} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signUp" component={SignUp} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route path="*" component={NoMatch} />
+      </Switch>
+    </Provider>
   </main>
 );
 
@@ -61,25 +65,46 @@ const RoutedApp = () => (
     <Route path="*" component={NoMatch} />
   </BrowserRouter>
 );*/
+/*
+const users =
+[{
+  username:'Chris',
+  password:'moon',
+  email:'pinion31@gmail.com',
+  polls:[{
+    question:'Which band is better?', choices: [{choice:'Pearl Jam', votes:0}, {choice:'Nirvana', votes:0},
+  {choice:'The Beatles', votes:0}], url:"", owner:'Chris'}],
+},
+{
+  username:'Nicole',
+  password:'lucy',
+  email:'utatci0@hotmail.com',
+  polls:[{
+    question:'Which pets are better?', choices: [{choice:'Cats', votes:0}, {choice:'Dogs', votes:0},
+  {choice:'Gerbils', votes:0}], url:"", owner:'Nicole'}],
+}];
+
+let initialState = {
+  userStore:
+    {currentUser:{users},
+     sitePolls:[
+      {
+        question:'Which pets are better?', choices: [{choice:'Cats', votes:0}, {choice:'Dogs', votes:0},
+        {choice:'Gerbils', votes:0}], url:"", owner:'Nicole'
+      }
+    ]}
+  };
+
+
+const store = createStore(rootReducer, initialState);*/
 
 const RoutedApp = () => (
   <div>
-    <Header />
-    <Main />
+      <Header />
+      <Main />
   </div>
 
 );
-
-
-/*
-ReactDOM.render(
-  <div>
-  <Header/>
-  <h1> Find out what your friends think with custom polls</h1>
-  <RoutedApp></RoutedApp>
-  </div>,
-  document.getElementById('app')
-  );*/
 
  ReactDOM.render(
    <HashRouter>
