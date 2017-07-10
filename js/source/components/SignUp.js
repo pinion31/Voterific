@@ -18,10 +18,15 @@ class SignUp extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("1 " + this.state.newUser.name);
-    console.log("2 " + this.state.newUser.email);
-    console.log("3 " + this.state.newUser.password);
-    store.dispatch(addNewUser(this.state.newUser));
+
+    store.dispatch(addNewUser(this.state.newUser, (userAddedSuccessful)=> {
+       if (userAddedSuccessful) {
+         this.props.history.push('/dashboard'); //redirects after successful user add
+       }
+       else {
+        //send error message
+       }
+    }));
   }
 
   onChange(event) {
@@ -38,7 +43,7 @@ class SignUp extends Component {
     return (
       <div>
         <h1> Voterific </h1>
-        <h2> Find out what your friends think with custom polls</h2>
+        <h2> Create polls and have your friends vote</h2>
 
         <form onSubmit={this.handleSubmit}>
           <label> Name</label>
@@ -50,7 +55,7 @@ class SignUp extends Component {
           <label> Password</label>
           <input type='text' id='password' name='password' onChange={this.onChange}/>
 
-          <button type='submit' >Sign Up</button>
+          <button type='submit'> Sign Up</button>
         </form>
       </div>
     )

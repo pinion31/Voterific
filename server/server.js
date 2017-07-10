@@ -23,13 +23,11 @@ MongoClient.connect(dbUrl, (err, db) => {
   app.use(bodyParser.json());
 
   app.post('/addUser', (req,res) => {
-    //console.log('receiving new user ' + req.body.user.name);
-    console.dir(req.body);
 
     db.collection('users').insertOne(req.body, () => {
       console.log('new user added to database');
+      res.send('user added');
     });
-
   });
 
   app.listen(3000, function(){

@@ -37,11 +37,10 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
   app.use(_bodyParser2.default.json());
 
   app.post('/addUser', function (req, res) {
-    //console.log('receiving new user ' + req.body.user.name);
-    console.dir(req.body);
 
     db.collection('users').insertOne(req.body, function () {
       console.log('new user added to database');
+      res.send('user added');
     });
   });
 

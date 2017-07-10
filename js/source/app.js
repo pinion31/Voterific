@@ -5,11 +5,11 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap';
 import {Redirect, Route} from 'react-router';
-import {BrowserRouter, Switch, HashRouter} from 'react-router-dom';
+import {BrowserRouter, Switch, HashRouter, history} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 import Dashboard from './components/Dashboard';
 import SitePolls from './components/SitePolls';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
 //import {createStore} from 'redux';
 //import {rootReducer} from './reducers/root';
@@ -51,6 +51,27 @@ const Main = () => (
     </Provider>
   </main>
 );
+
+
+const RoutedApp = () => (
+  <div>
+      <Header />
+      <Main />
+  </div>
+
+);
+
+ ReactDOM.render(
+   <HashRouter>
+   <RoutedApp/>
+   </HashRouter>,
+   document.getElementById('app')
+  );
+
+if (module.hot) {
+  module.hot.accept();
+}
+
 
 /*
 
@@ -97,22 +118,3 @@ let initialState = {
 
 
 const store = createStore(rootReducer, initialState);*/
-
-const RoutedApp = () => (
-  <div>
-      <Header />
-      <Main />
-  </div>
-
-);
-
- ReactDOM.render(
-   <HashRouter>
-   <RoutedApp/>
-   </HashRouter>,
-   document.getElementById('app')
-  );
-
-if (module.hot) {
-  module.hot.accept();
-}

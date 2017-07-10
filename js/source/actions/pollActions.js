@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import { history } from 'react-router';
 
 
 export const addPoll = () => {
@@ -30,12 +31,10 @@ export const loginExistingUser = (username,password) => {
     return newState;
 };
 
-export const addNewUser = (state, username,userEmail,pw) => {
+export const addNewUser = (state, username,userEmail, pw, callback) => {
   let newState = Object.assign({}, state);
 
-  let user = {name:username,email:userEmail,password:pw};
-  console.log("user.name.name =" + user.name.name);
-  console.log("user.name =" + user.name);
+  let user = {name:username,email:userEmail,password:pw, polls:[], loggedIn:true};
 
   // send new user to server
   fetch('/addUser', {
@@ -43,14 +42,15 @@ export const addNewUser = (state, username,userEmail,pw) => {
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify(user),
    }).then(response => {
-      if (response.ok) {
-        console.log('added User');
-      }
+        callback(response.ok);
+        newState.currentUser = user;
+
     }).catch(err => {
       alert('Error in sending data to server:' + err.message);
     });
 
-  return newState;
-
+    store.getState().currentUser = newState;
 };
+
+
 

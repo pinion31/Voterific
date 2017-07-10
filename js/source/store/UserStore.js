@@ -26,13 +26,14 @@ const users =
 
 let initialState = {
   userStore:
-    {currentUser:users[0],
+    {currentUser:{},
      sitePolls:[
       {
         question:'Which pets are better?', choices: [{choice:'Cats', votes:0}, {choice:'Dogs', votes:0},
-        {choice:'Gerbils', votes:0}], url:"", owner:'Nicole'
+        {choice:'Gerbils', votes:0}], url:"", owner:'Nicole',
       }
-    ]}
+    ]
+    }
   };
 
 

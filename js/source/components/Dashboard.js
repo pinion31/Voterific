@@ -27,7 +27,7 @@ class Dashboard extends Component {
 
   _routeToNewPoll() {
       this.setState({
-        userContent:<PollCreator submitPoll= {this.state.returnMessage} />,
+        userContent:<PollCreator returnPollCallback= {this.state.returnMessage} />,
         });
   }
 
@@ -37,6 +37,7 @@ class Dashboard extends Component {
       });
   }
 
+  //returns link to user poll
   returnPollLink() {
       console.log("hit");
       this.setState({

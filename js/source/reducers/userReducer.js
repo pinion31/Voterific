@@ -9,8 +9,7 @@ export const userReducer = (state, action) => {
     case DELETE_POLL:
       return deletePoll();
     case ADD_NEW_USER:
-      console.log('user reducer ' + action.name);
-      return addNewUser(state, action.name, action.email, action.password);
+      return addNewUser(state, action.name, action.email, action.password, action.callback);
     case LOGIN_EXISTING_USER:
       return loginExistingUser(action.username, action.password);
     case ANSWER_POLL:
