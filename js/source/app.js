@@ -10,6 +10,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 import Dashboard from './components/Dashboard';
 import SitePolls from './components/SitePolls';
 import {Provider} from 'react-redux';
+import {logOut} from './actions/actionCreators';
 
 //import {createStore} from 'redux';
 //import {rootReducer} from './reducers/root';
@@ -28,12 +29,16 @@ const Header = () => (
       </LinkContainer>
     </Nav>
     <Nav pullRight>
+      <LinkContainer to="/">
+        <NavItem onClick = {() => {store.dispatch(logOut());}}>Log Out</NavItem>
+      </LinkContainer>
       <LinkContainer to="/login">
-        <NavItem>Login</NavItem>
+        <NavItem>Log In</NavItem>
       </LinkContainer>
       <LinkContainer to="/signUp">
         <NavItem>Sign Up</NavItem>
       </LinkContainer>
+       <NavItem onClick = {()=> {console.dir(store.getState());}}>Print</NavItem>
     </Nav>
   </Navbar>
 );

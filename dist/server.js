@@ -53,6 +53,50 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
     });
   });
 
+  app.post('/logOut', function (req, res) {
+    db.collection('users').findAndModify({ name: req.body.name }, {}, //this must be here to work
+    { $set: { loggedIn: false } }, { upsert: true }, function (err, result) {
+      if (err) {
+        return err;
+      };
+    });
+  });
+
+  app.post('/logIn', function (req, res) {
+
+    db.collection('users').findOne({ name: req.body.name }, function (err, user) {
+
+      if (err) {
+        res.json(err);
+      }
+
+      if (user) {
+        if (user.password === req.body.password) {
+          res.json({ login: 'success', response: user });
+        } else {
+          res.json({ login: 'fail', response: 'Invalid Password' });
+        }
+      } else {
+        res.json({ login: 'fail', response: 'Invalid User' });
+      }
+    });
+
+    /*
+    let user = db.collection('users').findAndModify(
+        {name: req.body.name, password: req.body.password},
+        {},  //this must be here to work
+        {$set: {loggedIn:true}},
+        {new:true},
+      ).then(() => {
+      if (user) {
+        res.send(JSON.stringify(user));
+      }
+      else {
+        res.send('no match');
+      }
+      });*/
+  });
+
   app.listen(3000, function () {
     console.log('App started on port 3000');
   });

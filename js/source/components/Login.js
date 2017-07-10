@@ -10,25 +10,46 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      cred: {name:'', password:''},
     }
+
+    this.loginUser = this.loginUser.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   loginUser() {
-    let result = store.dispatch(loginExistingUser('Chris', 'moon'));
-    console.log("result is " + users);
+    store.dispatch(loginExistingUser(this.state.cred, () => {
+         this.props.history.push('/dashboard'); //redirects after successful user add
+
+    }));
+    //console.log("result is " + users);
   }
 
+  redirectAfterLogin() {
+
+
+  }
+
+  handleInput(event) {
+    let loginCreds = Object.assign({}, this.state.cred);
+    loginCreds[event.target.name] = event.target.value;
+
+    this.setState({
+      cred:loginCreds,
+    });
+
+
+
+  }
   render() {
     return (
       <div>
         <h1> Voterific </h1>
         <h2> Find out what your friends think with custom polls</h2>
-        Login: <br/>
-        <input type="text" name="loginName" placeholder="username"></input> <br/>
-        Password: <br/>
-        <input type="text" name="password" placeholder="password"></input> <br/>
-        <Link to="/dashboard"> Log In </Link>
+        <label>Login: </label>
+        <input type="text" name="name" placeholder="username" onChange={this.handleInput} ></input> <br/>
+        <label>Password: </label>
+        <input type="text" name="password" placeholder="password" onChange={this.handleInput}></input> <br/>
         <button onClick={this.loginUser}>Sign In</button>
       </div>
     )
@@ -36,3 +57,5 @@ class Login extends Component {
 }
 
 export default Login
+
+//<Link to="/dashboard"> Log In </Link>
