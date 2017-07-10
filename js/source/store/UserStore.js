@@ -6,7 +6,7 @@ database schema is :
 */
 const users =
 [{
-  username:'Chris',
+  name:'Chris',
   password:'moon',
   email:'pinion31@gmail.com',
   loggedIn:false,
@@ -15,7 +15,7 @@ const users =
   {choice:'The Beatles', votes:0}], url:"", owner:'Chris'}],
 },
 {
-  username:'Nicole',
+  name:'Nicole',
   password:'lucy',
   email:'utatci0@hotmail.com',
   loggedIn:false,
@@ -24,17 +24,16 @@ const users =
   {choice:'Gerbils', votes:0}], url:"", owner:'Nicole'}],
 }];
 
+
 let initialState = {
-  userStore:
-    {currentUser:{},
+    currentUser:{},
      sitePolls:[
       {
         question:'Which pets are better?', choices: [{choice:'Cats', votes:0}, {choice:'Dogs', votes:0},
         {choice:'Gerbils', votes:0}], url:"", owner:'Nicole',
       }
-    ]
-    }
-  };
+    ],
+   };
 
 
 export const store = createStore(rootReducer, initialState);

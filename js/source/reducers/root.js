@@ -1,4 +1,5 @@
 import {userReducer} from './userReducer';
+import {pollReducer} from './pollReducer';
 /*
 let initialState = [{
   username:'Chris',
@@ -10,7 +11,7 @@ let initialState = [{
 }];
 */
 export const rootReducer = (state, action) => {
-  return Object.assign({}, state, {userStore:userReducer(state.userStore,
-    action),
+  return Object.assign({}, state, {currentUser:userReducer(state,
+    action), sitePolls:pollReducer(state.sitePolls, action)
   });
 }

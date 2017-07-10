@@ -16,8 +16,6 @@ class Login extends Component {
 
   loginUser() {
     let result = store.dispatch(loginExistingUser('Chris', 'moon'));
-
-    //let users = Array.from(store.getStore());
     console.log("result is " + users);
   }
 

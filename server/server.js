@@ -30,6 +30,18 @@ MongoClient.connect(dbUrl, (err, db) => {
     });
   });
 
+  app.post('/addPoll', (req,res) => {
+      db.collection('users').findAndModify(
+          {name: req.body.owner},
+          {},  //this must be here to work
+          {$push:{polls:req.body}},
+          {upsert:true},
+          function(err,result) {
+            if(err) {return err};
+           }
+      );
+  });
+
   app.listen(3000, function(){
     console.log('App started on port 3000');
   });

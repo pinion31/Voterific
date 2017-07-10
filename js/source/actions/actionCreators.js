@@ -1,7 +1,8 @@
 import {ADD_POLL, DELETE_POLL, ADD_NEW_USER,LOGIN_EXISTING_USER,ANSWER_POLL} from '../constants/actionTypes';
 
-export const addPoll = () => ({
+export const addPoll = (newPoll) => ({
   type: ADD_POLL,
+  poll: newPoll,
 });
 
 export const deletePoll = () => ({

@@ -2,10 +2,27 @@ import 'whatwg-fetch';
 import { history } from 'react-router';
 
 
-export const addPoll = () => {
+export const addPoll = (state, action) => {
+  let newState = Object.assign({}, state);
+  newState.currentUser.polls.push(action.poll);
+  console.log(action.poll);
 
+    fetch('/addPoll', {
+    method:'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(action.poll),
+   }).then(response => {
+      if (response.ok) {
+        //console.log('poll added');
+      }
 
+    }).catch(err => {
+      alert('Error in sending data to server:' + err.message);
+    });
 
+  return newState.currentUser;
+
+  //TODO: addPoll to database
 };
 
 export const deletePoll = () => {
@@ -21,7 +38,7 @@ export const loginExistingUser = (username,password) => {
 
     let newState = store.getState().userStore.currentUser[0];
 
-    console.dir(newState);
+    //console.dir(newState);
     newState.forEach( users => {
       if (users.username === username && users.password === password) {
         users.loggedIn = true;
@@ -44,12 +61,14 @@ export const addNewUser = (state, username,userEmail, pw, callback) => {
    }).then(response => {
         callback(response.ok);
         newState.currentUser = user;
+        store.getState().currentUser = newState.currentUser; //need to refactor this
+        return newState;
 
     }).catch(err => {
       alert('Error in sending data to server:' + err.message);
     });
 
-    store.getState().currentUser = newState;
+
 };
 
 

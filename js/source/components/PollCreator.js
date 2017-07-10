@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
+import {addPoll} from '../actions/actionCreators';
 
 class PollCreator extends Component {
 
@@ -9,10 +10,7 @@ class PollCreator extends Component {
     this.state = {
       returnPoll:this.props.returnPollCallback,
       poll:{question:"", choices:[{choice:'', votes:0}, {choice:'', votes:0}],
-            url:'', owner: ''},
-      choiceCounter:2,
-      //question:"",
-      //choices:[],
+            url:'', owner: store.getState().currentUser.name},
     }
 
     this.submitPoll = this.submitPoll.bind(this);
@@ -23,13 +21,12 @@ class PollCreator extends Component {
 
   submitPoll(e) {
     e.preventDefault();
-    console.dir(store.getState());
-    console.dir(this.state.poll);
-   // store.dispatch(addPoll({}));
+    store.dispatch(addPoll(this.state.poll));
     //this.state.returnPoll(); // to be sent as callback?
   }
 
   setQuestion(event) {
+
     let newQuestion = this.state.poll.question;
     newQuestion = event.target.value;
 
@@ -47,11 +44,6 @@ class PollCreator extends Component {
       currentChoices[+event.target.name] = {choice:newChoice, votes:0};
 
    }
-   /*
-   else {
-      currentChoices.push({choice:newChoice, votes:0});
-      this.state.choiceCounter++;
-   }*/
 
    this.setState({
        poll: {question: this.state.poll.question, choices: currentChoices,
@@ -59,7 +51,8 @@ class PollCreator extends Component {
    });
   }
 
-  addNewChoiceSlot() {
+  addNewChoiceSlot(e) {
+    e.preventDefault();
     let currentChoices = this.state.poll.choices;
     currentChoices.push({choice:"", votes:0});
 
@@ -68,6 +61,11 @@ class PollCreator extends Component {
             url:'', owner: this.state.poll.owner},
    });
 
+  }
+
+//temp
+  printState() {
+    console.dir(store.getState());
   }
 
   render() {
@@ -84,7 +82,6 @@ class PollCreator extends Component {
 
         <button onClick={this.addNewChoiceSlot}>Add Choice </button>
         <button onClick={this.submitPoll} >Submit</button>
-
     </div>
     );
   }
@@ -93,5 +90,3 @@ class PollCreator extends Component {
 
 export default PollCreator
 
-/*     <input type="text" name="0" placeholder="answer one" onChange={this.updateChoice}/>
-        <input type="text" name="1" placeholder="answer two" onChange={this.updateChoice}/> */
