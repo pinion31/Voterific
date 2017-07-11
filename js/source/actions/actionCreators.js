@@ -1,8 +1,10 @@
 import {ADD_POLL, DELETE_POLL, ADD_NEW_USER,LOGIN_EXISTING_USER,ANSWER_POLL, LOG_OUT} from '../constants/actionTypes';
 
-export const addPoll = (newPoll) => ({
+export const addPoll = (newPoll, callback, url) => ({
   type: ADD_POLL,
   poll: newPoll,
+  callback,
+  url,
 });
 
 export const logOut = () => ({
@@ -23,7 +25,7 @@ export const addNewUser = (user, redirect) => ({
 
 export const loginExistingUser = (user, callback) => ({
   type: LOGIN_EXISTING_USER,
-  user: user,
+  user,
   callback,
 });
 

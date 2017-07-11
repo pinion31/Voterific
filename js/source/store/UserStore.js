@@ -4,6 +4,7 @@ import {rootReducer} from '../reducers/root';
 /*
 database schema is :
 */
+/*
 const users =
 [{
   name:'Chris',
@@ -24,7 +25,7 @@ const users =
   {choice:'Gerbils', votes:0}], url:"", owner:'Nicole'}],
 }];
 
-
+*/
 let initialState = {
     currentUser:{},
      sitePolls:[

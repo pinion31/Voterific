@@ -3,14 +3,19 @@ import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {addPoll} from '../actions/actionCreators';
 
+
+
+
 class PollCreator extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      returnPoll:this.props.returnPollCallback,
+      returnPoll:this.props.returnLink,
       poll:{question:"", choices:[{choice:'', votes:0}, {choice:'', votes:0}],
             url:'', owner: store.getState().currentUser.name},
+      counter: store.getState().currentUser.counter,
     }
 
     this.submitPoll = this.submitPoll.bind(this);
@@ -21,8 +26,14 @@ class PollCreator extends Component {
 
   submitPoll(e) {
     e.preventDefault();
-    store.dispatch(addPoll(this.state.poll));
-    //this.state.returnPoll(); // to be sent as callback?
+    store.dispatch(addPoll(this.state.poll, this.state.returnPoll, this.state.poll.url));
+
+    this.setState({
+      counter:store.getState().currentUser.counter,
+    });
+
+    console.log('counter is '+ this.state.counter);
+    //need to increment counter on currentUser then use that retrieve counter
   }
 
   setQuestion(event) {
@@ -32,7 +43,7 @@ class PollCreator extends Component {
 
     this.setState({
       poll: {question:newQuestion, choices: this.state.poll.choices,
-            url:'', owner: this.state.poll.owner},
+            url:`/${this.state.poll.owner}/${this.state.counter}`, owner: this.state.poll.owner},
     });
   }
 
@@ -47,7 +58,7 @@ class PollCreator extends Component {
 
    this.setState({
        poll: {question: this.state.poll.question, choices: currentChoices,
-            url:'', owner: this.state.poll.owner},
+            url:`/${this.state.poll.owner}/${this.state.counter}`, owner: this.state.poll.owner},
    });
   }
 
@@ -58,7 +69,7 @@ class PollCreator extends Component {
 
     this.setState({
        poll: {question: this.state.poll.question, choices: currentChoices,
-            url:'', owner: this.state.poll.owner},
+            url:`/${this.state.poll.owner}/${this.state.counter}`, owner: this.state.poll.owner},
    });
 
   }

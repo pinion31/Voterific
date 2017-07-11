@@ -5,6 +5,7 @@ import { history } from 'react-router';
 export const addPoll = (state, action) => {
   let newState = Object.assign({}, state);
   newState.currentUser.polls.push(action.poll);
+  newState.currentUser.counter++;
 
     fetch('/addPoll', {
     method:'POST',
@@ -12,14 +13,29 @@ export const addPoll = (state, action) => {
     body: JSON.stringify(action.poll),
    }).then(response => {
       if (response.ok) {
-        //console.log('poll added');
+        action.callback(action.url);
+        store.getState().currentUser = newState.currentUser;
+       // return newState.currentUser;
       }
 
     }).catch(err => {
-      alert('Error in sending data to server:' + err.message);
+      console.log('Error in sending data to server:' + err.message);
     });
 
-  return newState.currentUser;
+    fetch('/addPollToAll', {
+    method:'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(action.poll),
+   }).then(response => {
+      if (response.ok) {
+
+      }
+
+    }).catch(err => {
+      console.log('Error in sending data to server:' + err.message);
+    });
+
+ return newState.currentUser;
 
   //TODO: addPoll to database
 };
@@ -45,14 +61,15 @@ export const logOut = (state) => {
    }).then(response => {
       if (response.ok) {
         //console.log('poll added');
+
       }
 
     }).catch(err => {
-      alert('Error in sending data to server:' + err.message);
+      console.log('Error in sending data to server:' + err.message);
     });
 
 
-  return newState.currentUser;
+ return newState.currentUser;
 }
 
 export const loginExistingUser = (state,creds) => {
@@ -84,14 +101,14 @@ export const loginExistingUser = (state,creds) => {
         }
     })
       .catch(err => {
-        alert('Error in sending data to server:' + err.message);
+        console.log('Error in sending data to server:' + err.message);
     });
 };
 
 export const addNewUser = (state, username,userEmail, pw, callback) => {
   let newState = Object.assign({}, state);
 
-  let user = {name:username,email:userEmail,password:pw, polls:[], loggedIn:true};
+  let user = {name:username,email:userEmail,password:pw, polls:[], loggedIn:true, counter:1};
 
   // send new user to server
   fetch('/addUser', {
@@ -105,7 +122,7 @@ export const addNewUser = (state, username,userEmail, pw, callback) => {
         return newState.currentUser;
 
     }).catch(err => {
-      alert('Error in sending data to server:' + err.message);
+      console.log('Error in sending data to server:' + err.message);
     });
 
 
