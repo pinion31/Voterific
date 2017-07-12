@@ -66,18 +66,61 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
 
   //returns all user polls
   app.get('/getAllPolls', function (req, res) {
-    /* db.collection('polls').find({}).toArray((err, polls) => {
-       if (err) {return err;}
-       //console.dir(polls);
-         res.send(polls);
-     });*/
-
     db.collection('polls').find({}).toArray(function (err, result) {
       if (err) {
         return err;
       };
-      console.dir(result);
+      //console.dir(result);
       res.send(result);
+    });
+  });
+
+  app.get('/poll/:name/:id', function (req, res) {
+    db.collection('polls').find({ owner: req.params.name, id: req.params.id }).toArray(function (err, result) {
+      if (err) {
+        return err;
+      };
+      //console.dir(result);
+      res.send(result);
+    });
+  });
+
+  app.post('/answerPollForUsers', function (req, res) {
+    db.collection('users').find({ name: req.body.name }).toArray(function (err, user) {
+      if (err) return err;
+
+      var userCopy = user;
+      userCopy[0].polls.map(function (poll) {
+        if (poll.id === req.body.id) {
+          poll.choices.map(function (choice) {
+            if (choice.choice === req.body.answer) {
+              choice.votes++;
+            }
+          });
+        }
+      });
+
+      db.collection('users').findAndModify({ name: req.body.name }, {}, { $set: { polls: userCopy[0].polls } }, { new: true }, { upsert: true }, function (err, result) {
+        if (err) return err;
+        // res.send(result);
+      });
+    });
+  });
+
+  app.post('/answerPollForAll', function (req, res) {
+    db.collection('polls').find({ "choices.choice": "dog" }).toArray(function (err, result) {
+      if (err) return err;
+      var poll = result;
+
+      poll[0].choices.map(function (answer) {
+        if (answer.choice === 'dog') {
+          answer.votes++;
+        }
+      });
+
+      db.collection('polls').findAndModify({ "choices.choice": "dog" }, {}, { $set: { choices: poll[0].choices } }, { new: true }, { upsert: true }, function (err, result) {
+        if (err) return err;
+      });
     });
   });
 

@@ -44,8 +44,31 @@ export const deletePoll = () => {
 
 };
 
-export const answerPoll = () => {
+export const answerPoll = (action) => {
+  //action.answer
+  //action.name, action.id
+  fetch('/answerPollForUsers', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(action)})
+    .then ((err,res) => {
+        if (err) return err;
+    })
+    .catch(err => {
+    if (err) return err;
+    });
 
+
+  fetch('/answerPollForAll', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(action)})
+    .then ((err,res) => {
+        if (err) return err;
+    })
+    .catch(err => {
+    if (err) return err;
+    });
 
 };
 

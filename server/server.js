@@ -56,20 +56,81 @@ MongoClient.connect(dbUrl, (err, db) => {
 
   //returns all user polls
   app.get('/getAllPolls', (req,res) => {
-     /* db.collection('polls').find({}).toArray((err, polls) => {
-        if (err) {return err;}
-        //console.dir(polls);
-
-        res.send(polls);
-      });*/
-
       db.collection('polls').find({}).toArray((err,result) => {
         if (err) {return err};
-        console.dir(result);
+        //console.dir(result);
         res.send(result);
+      });
+  });
+
+  app.get('/poll/:name/:id', (req,res) => {
+      db.collection('polls').find({owner:req.params.name, id:req.params.id}).toArray((err,result) => {
+        if (err) {return err};
+        //console.dir(result);
+        res.send(result);
+      });
+  });
+
+
+  app.post('/answerPollForUsers', (req,res) => {
+      db.collection('users').find({name:req.body.name}).toArray((err,user) => {
+        if (err) return err;
+
+        let userCopy = user;
+        userCopy[0].polls.map((poll) => {
+           if (poll.id === req.body.id) {
+              poll.choices.map((choice => {
+                if (choice.choice === req.body.answer) {
+                  choice.votes++;
+                }
+              }));
+           }
+
+        });
+
+        db.collection('users').findAndModify(
+          {name: req.body.name},
+          {},
+          {$set:{polls:userCopy[0].polls}},
+          {new:true},
+          {upsert:true},
+          function(err, result) {
+            if (err) return err;
+           // res.send(result);
+          }
+          );
+
       });
 
 
+  });
+
+  app.post('/answerPollForAll', (req,res) => {
+       db.collection('polls').find(
+        {"choices.choice":"dog"})
+       .toArray(
+          (err, result) => {
+            if (err) return err;
+            let poll = result;
+
+            poll[0].choices.map((answer) => {
+              if (answer.choice === 'dog') {
+                answer.votes++;
+              }
+            });
+
+            db.collection('polls').findAndModify(
+                {"choices.choice":"dog"},
+                {},
+                {$set:{choices: poll[0].choices}},
+                {new:true},
+                {upsert:true},
+                function(err, result) {
+                  if (err) return err;
+                }
+            );
+          }
+        );
   });
 
   app.post('/logOut', (req,res) => {

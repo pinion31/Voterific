@@ -14,7 +14,9 @@ class PollCreator extends Component {
     this.state = {
       returnPoll:this.props.returnLink,
       poll:{question:"", choices:[{choice:'', votes:0}, {choice:'', votes:0}],
-            url:'', owner: store.getState().currentUser.name},
+           id:'', owner: store.getState().currentUser.name},
+     // poll:{question:"", choices:[{choice:{'':0} },{choice:{'': 0}}],
+       //     id:'', owner: store.getState().currentUser.name},
       counter: store.getState().currentUser.counter,
     }
 
@@ -26,7 +28,7 @@ class PollCreator extends Component {
 
   submitPoll(e) {
     e.preventDefault();
-    store.dispatch(addPoll(this.state.poll, this.state.returnPoll, this.state.poll.url));
+    store.dispatch(addPoll(this.state.poll, this.state.returnPoll, `poll/${this.state.poll.owner}/${this.state.poll.id}`));
 
     this.setState({
       counter:store.getState().currentUser.counter,
@@ -37,13 +39,12 @@ class PollCreator extends Component {
   }
 
   setQuestion(event) {
-
     let newQuestion = this.state.poll.question;
     newQuestion = event.target.value;
 
     this.setState({
       poll: {question:newQuestion, choices: this.state.poll.choices,
-            url:`/${this.state.poll.owner}/${this.state.counter}`, owner: this.state.poll.owner},
+            id:`${this.state.counter}`, owner: this.state.poll.owner},
     });
   }
 
@@ -58,7 +59,7 @@ class PollCreator extends Component {
 
    this.setState({
        poll: {question: this.state.poll.question, choices: currentChoices,
-            url:`/${this.state.poll.owner}/${this.state.counter}`, owner: this.state.poll.owner},
+            id:`${this.state.counter}`, owner: this.state.poll.owner},
    });
   }
 
@@ -69,7 +70,7 @@ class PollCreator extends Component {
 
     this.setState({
        poll: {question: this.state.poll.question, choices: currentChoices,
-            url:`/${this.state.poll.owner}/${this.state.counter}`, owner: this.state.poll.owner},
+            id:`${this.state.counter}`, owner: this.state.poll.owner},
    });
 
   }

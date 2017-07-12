@@ -9,14 +9,13 @@ import {BrowserRouter, Switch, HashRouter, history} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 import Dashboard from './components/Dashboard';
 import SitePolls from './components/SitePolls';
+import Poll from './components/Poll';
 import {Provider} from 'react-redux';
 import {logOut} from './actions/actionCreators';
 
-//import {createStore} from 'redux';
-//import {rootReducer} from './reducers/root';
 import {store} from './store/UserStore';
 
-const NoMatch = () => <p>No Match Found</p>;
+const NoMatch = () => <h2>This page does not exist! Please go back!</h2>;
 
 const Header = () => (
   <Navbar>
@@ -48,6 +47,7 @@ const Main = () => (
     <Provider store={store}>
       <Switch>
         <Route exact path="/" component={SitePolls} />
+        <Route path="/poll/:name/:id" component={Poll} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/dashboard" component={Dashboard} />
