@@ -3,6 +3,7 @@ import 'babel-polyfill';
 import ReactDOM from 'react-dom';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import PollResults from './components/PollResults';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap';
 import {Redirect, Route} from 'react-router';
 import {BrowserRouter, Switch, HashRouter, history} from 'react-router-dom';
@@ -23,8 +24,11 @@ const Header = () => (
       <Navbar.Brand>Voterific</Navbar.Brand>
     </Navbar.Header>
     <Nav>
-      <LinkContainer to="/">
+      <LinkContainer to="/Dashboard">
        <NavItem>Home</NavItem>
+      </LinkContainer>
+      <LinkContainer to="/">
+       <NavItem>All Polls</NavItem>
       </LinkContainer>
     </Nav>
     <Nav pullRight>
@@ -48,6 +52,7 @@ const Main = () => (
       <Switch>
         <Route exact path="/" component={SitePolls} />
         <Route path="/poll/:name/:id" component={Poll} />
+        <Route path="/results/:name/:id" component={PollResults} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/dashboard" component={Dashboard} />

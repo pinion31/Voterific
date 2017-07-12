@@ -29,9 +29,10 @@ export const loginExistingUser = (user, callback) => ({
   callback,
 });
 
-export const answerPoll = (answer, name, id) => ({
+export const answerPoll = (answer, name, id, callback) => ({
   type: ANSWER_POLL,
   answer,
   name,
-  id
+  id,
+  callback
 });

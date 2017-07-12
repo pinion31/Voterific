@@ -39,7 +39,8 @@ class SitePolls extends Component {
       <div>
         <h1>Latest Polls </h1>
         {this.state.poll.map((result,key) => {
-          return <div><a href={result.url} key={key}><h2>{result.question}</h2></a> </div>;
+          return <div><a href={`http://localhost:8080/#/poll/${result.owner}/${result.id}`} key={key}>
+            <h2  key={key}>{result.question}</h2></a> </div>;
           })
         }
       </div>

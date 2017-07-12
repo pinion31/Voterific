@@ -16,7 +16,7 @@ class PollLink extends Component {
       <div>
        <p> {`Your new poll can be found at:`} </p>
        <a href={`http://localhost:8080/#/${this.props.link}`}>
-       <h1> {`http://localhost:8080/#${this.props.link}`} </h1>
+       <h1> {`http://localhost:8080/#/${this.props.link}`} </h1>
        </a>
     </div>
     );

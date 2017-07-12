@@ -29,7 +29,6 @@ class Poll extends Component  {
     fetch(`/poll/${this.props.match.params.name}/${this.props.match.params.id}`)
     .then(result => {
       result.json().then(poll => {
-       // console.dir(poll);
         this.setState({
           question:poll[0].question,
           choices: poll[0].choices,
@@ -42,7 +41,12 @@ class Poll extends Component  {
   }
 
   answerPoll(e) {
-    store.dispatch(answerPoll(e.target.name, this.props.match.params.name,this.props.match.params.id ));
+    store.dispatch(answerPoll(e.target.name, this.props.match.params.name,this.props.match.params.id,
+      ()=>{
+         this.props.history.push(`/results/${this.props.match.params.name}/${this.props.match.params.id}`);
+      })
+    );
+
   }
 
   render() {
@@ -50,7 +54,6 @@ class Poll extends Component  {
       <div>
       <h1>{this.state.question}</h1>
       {this.state.choices.map((choice, key) => {
-         // console.log(choice);
           return <button name={choice.choice} onClick={this.answerPoll} key={key}>{choice.choice}</button>
         })
       }

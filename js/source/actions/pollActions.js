@@ -47,12 +47,13 @@ export const deletePoll = () => {
 export const answerPoll = (action) => {
   //action.answer
   //action.name, action.id
+
   fetch('/answerPollForUsers', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(action)})
-    .then ((err,res) => {
-        if (err) return err;
+    .then ((response) => {
+
     })
     .catch(err => {
     if (err) return err;
@@ -63,8 +64,14 @@ export const answerPoll = (action) => {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(action)})
-    .then ((err,res) => {
-        if (err) return err;
+    //.then(res => res.json())
+    .then ((response) => {
+        console.dir(response);
+        if (response.ok) {
+           console.log('callback');
+           action.callback();
+        }
+
     })
     .catch(err => {
     if (err) return err;

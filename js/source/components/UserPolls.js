@@ -30,8 +30,9 @@ class UserPolls extends Component {
     return (
       <div>
         {this.state.polls.map((poll,key) => {
-            return <h1 key={key}> {poll.question} </h1>;
-        })
+            return <div><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
+            <h2  key={key}>{poll.question}</h2></a> </div>;
+          })
         }
       </div>
     );

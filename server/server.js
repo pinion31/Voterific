@@ -85,7 +85,6 @@ MongoClient.connect(dbUrl, (err, db) => {
                 }
               }));
            }
-
         });
 
         db.collection('users').findAndModify(
@@ -107,26 +106,29 @@ MongoClient.connect(dbUrl, (err, db) => {
 
   app.post('/answerPollForAll', (req,res) => {
        db.collection('polls').find(
-        {"choices.choice":"dog"})
+        {"choices.choice":req.body.answer})
        .toArray(
           (err, result) => {
             if (err) return err;
             let poll = result;
 
             poll[0].choices.map((answer) => {
-              if (answer.choice === 'dog') {
+              if (answer.choice === req.body.answer) {
                 answer.votes++;
               }
             });
 
             db.collection('polls').findAndModify(
-                {"choices.choice":"dog"},
+                {"choices.choice":req.body.answer},
                 {},
                 {$set:{choices: poll[0].choices}},
                 {new:true},
                 {upsert:true},
-                function(err, result) {
-                  if (err) return err;
+                function(err, result2) {
+
+                  console.log(result2);
+                  if (err) {console.dir(err);};
+                  res.send(result2);
                 }
             );
           }

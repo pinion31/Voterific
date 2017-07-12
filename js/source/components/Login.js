@@ -25,11 +25,6 @@ class Login extends Component {
     //console.log("result is " + users);
   }
 
-  redirectAfterLogin() {
-
-
-  }
-
   handleInput(event) {
     let loginCreds = Object.assign({}, this.state.cred);
     loginCreds[event.target.name] = event.target.value;
@@ -37,8 +32,6 @@ class Login extends Component {
     this.setState({
       cred:loginCreds,
     });
-
-
 
   }
   render() {
@@ -58,4 +51,3 @@ class Login extends Component {
 
 export default Login
 
-//<Link to="/dashboard"> Log In </Link>
