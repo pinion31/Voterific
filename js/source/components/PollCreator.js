@@ -34,7 +34,6 @@ class PollCreator extends Component {
       counter:store.getState().currentUser.counter,
     });
 
-    console.log('counter is '+ this.state.counter);
     //need to increment counter on currentUser then use that retrieve counter
   }
 

@@ -39,14 +39,13 @@ export const deletePoll = (state, action) => {
   let newState = Object.assign({}, state);
 
   //local changes
-  newState.currentUser.polls = newState.currentUser.polls.filter((poll) => {
+    newState.currentUser.polls = newState.currentUser.polls.filter((poll) => {
     if (poll.id != action.id) {
       return poll;
     }
   });
 
   //database changes
-
   fetch('/deletePollForUsers', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -58,14 +57,13 @@ export const deletePoll = (state, action) => {
     if (err) return err;
     });
 
+
   fetch('/deletePollForAll', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(action)})
     .then ((response) => {
-        if (response.ok) {
 
-        }
     })
     .catch(err => {
     if (err) return err;

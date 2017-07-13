@@ -11,6 +11,8 @@ class UserPolls extends Component {
       polls: [{question:'No Polls Created'}], //default if no polls created by current user
 
     }
+
+    this.retrievePolls = this.retrievePolls.bind(this);
   }
 
   retrievePolls() {
@@ -35,8 +37,8 @@ class UserPolls extends Component {
   getFormattedLink(poll,key) {
     if (poll.owner) {
       return <div key={key}><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
-            <h2  key={key}>{poll.question}</h2></a> </div>;
-            <button onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</button>
+            <h2  key={key}>{poll.question}</h2></a>
+            <button onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</button></div>;
     }
     else {
       return <div key={key}> <h2 key={key}>{poll.question}</h2></div>;

@@ -32,30 +32,44 @@ MongoClient.connect(dbUrl, (err, db) => {
 
 //**************DELETE POLL***************************
 
-/*
-  app.post('/deletePollForUsers', (req,res) => {
-      db.collection('users').findAndModify(
-          {name: req.body.owner},
-          {},  //this must be here to work
-          {$push:{polls:req.body}, $inc:{counter:1}},
+
+ app.post('/deletePollForUsers', (req,res) => {
+      db.collection('users').find({name: req.body.name})
+      .toArray((err,user) => {
+        if (err) return err;
+
+        let userCopy = user;
+
+        userCopy[0].polls = userCopy[0].polls.filter((poll) => {
+          if (poll.id != req.body.id) {
+            return poll;
+          }
+        });
+
+        db.collection('users').findAndModify(
+          {name: req.body.name},
+          {},
+          {$set:{polls:userCopy[0].polls}},
+          {new:true},
           {upsert:true},
-          function(err,result) {
-            if(err) {return err};
+          function(err, result) {
+            if (err) return err;
             res.send(result);
           }
-      );
-  });*/
+          );
+      });
+  });
 
-  //adds polls to collective list
+  //delete polls from collective list
   app.post('/deletePollForAll',(req,res) => {
-         db.collection('polls').findAndModify(
-          {name: req.body.owner},
-          {},  //this must be here to work
-          {$push:{polls:req.body}, $inc:{counter:1}},
-          {upsert:true},
+         db.collection('polls').deleteOne(
+          {id: req.body.id.toString(), owner:req.body.name},
           function(err,result) {
+             console.log(req.body.id.toString());
+             console.log(req.body.name);
+            console.dir(result);
             if(err) {return err};
-            res.send(result);
+            //res.send(result);
           }
       );
   });
@@ -161,8 +175,6 @@ MongoClient.connect(dbUrl, (err, db) => {
                 {new:true},
                 {upsert:true},
                 function(err, result2) {
-
-                  console.log(result2);
                   if (err) {console.dir(err);};
                   res.send(result2);
                 }

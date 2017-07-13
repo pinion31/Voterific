@@ -46,28 +46,36 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
 
   //**************DELETE POLL***************************
 
-  /*
-    app.post('/deletePollForUsers', (req,res) => {
-        db.collection('users').findAndModify(
-            {name: req.body.owner},
-            {},  //this must be here to work
-            {$push:{polls:req.body}, $inc:{counter:1}},
-            {upsert:true},
-            function(err,result) {
-              if(err) {return err};
-              res.send(result);
-            }
-        );
-    });*/
 
-  //adds polls to collective list
+  app.post('/deletePollForUsers', function (req, res) {
+    db.collection('users').find({ name: req.body.name }).toArray(function (err, user) {
+      if (err) return err;
+
+      var userCopy = user;
+
+      userCopy[0].polls = userCopy[0].polls.filter(function (poll) {
+        if (poll.id != req.body.id) {
+          return poll;
+        }
+      });
+
+      db.collection('users').findAndModify({ name: req.body.name }, {}, { $set: { polls: userCopy[0].polls } }, { new: true }, { upsert: true }, function (err, result) {
+        if (err) return err;
+        res.send(result);
+      });
+    });
+  });
+
+  //delete polls from collective list
   app.post('/deletePollForAll', function (req, res) {
-    db.collection('polls').findAndModify({ name: req.body.owner }, {}, //this must be here to work
-    { $push: { polls: req.body }, $inc: { counter: 1 } }, { upsert: true }, function (err, result) {
+    db.collection('polls').deleteOne({ id: req.body.id.toString(), owner: req.body.name }, function (err, result) {
+      console.log(req.body.id.toString());
+      console.log(req.body.name);
+      console.dir(result);
       if (err) {
         return err;
       };
-      res.send(result);
+      //res.send(result);
     });
   });
 
@@ -152,8 +160,6 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
       });
 
       db.collection('polls').findAndModify({ "choices.choice": req.body.answer }, {}, { $set: { choices: poll[0].choices } }, { new: true }, { upsert: true }, function (err, result2) {
-
-        console.log(result2);
         if (err) {
           console.dir(err);
         };
