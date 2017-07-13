@@ -7,7 +7,7 @@ export const userReducer = (state, action) => {
     case ADD_POLL:
       return addPoll(state,action);
     case DELETE_POLL:
-      return deletePoll();
+      return deletePoll(state,action);
     case ADD_NEW_USER:
       return addNewUser(state, action.name, action.email, action.password, action.callback);
     case LOGIN_EXISTING_USER:

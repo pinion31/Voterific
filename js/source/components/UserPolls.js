@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
+import {deletePoll} from '../actions/actionCreators';
 
 class UserPolls extends Component {
 
@@ -27,10 +28,15 @@ class UserPolls extends Component {
     this.retrievePolls();
   }
 
+  deleteAPoll(id, owner) {
+    store.dispatch(deletePoll(id, owner, this.retrievePolls));
+  }
+
   getFormattedLink(poll,key) {
     if (poll.owner) {
       return <div key={key}><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
             <h2  key={key}>{poll.question}</h2></a> </div>;
+            <button onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</button>
     }
     else {
       return <div key={key}> <h2 key={key}>{poll.question}</h2></div>;

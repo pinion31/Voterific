@@ -35,7 +35,43 @@ export const addPoll = (state, action) => {
  return newState.currentUser;
 };
 
-export const deletePoll = () => {
+export const deletePoll = (state, action) => {
+  let newState = Object.assign({}, state);
+
+  //local changes
+  newState.currentUser.polls = newState.currentUser.polls.filter((poll) => {
+    if (poll.id != action.id) {
+      return poll;
+    }
+  });
+
+  //database changes
+
+  fetch('/deletePollForUsers', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(action)})
+    .then ((response) => {
+      action.callback();
+    })
+    .catch(err => {
+    if (err) return err;
+    });
+
+  fetch('/deletePollForAll', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(action)})
+    .then ((response) => {
+        if (response.ok) {
+
+        }
+    })
+    .catch(err => {
+    if (err) return err;
+    });
+
+  return newState.currentUser;
 
 };
 

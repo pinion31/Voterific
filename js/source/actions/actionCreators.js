@@ -12,8 +12,12 @@ export const logOut = (callback) => ({
   callback,
 })
 
-export const deletePoll = () => ({
+export const deletePoll = (id, name, callback) => ({
   type: DELETE_POLL,
+  id,
+  name,
+  callback,
+
 });
 
 export const addNewUser = (user, redirect) => ({

@@ -30,6 +30,38 @@ MongoClient.connect(dbUrl, (err, db) => {
     });
   });
 
+//**************DELETE POLL***************************
+
+/*
+  app.post('/deletePollForUsers', (req,res) => {
+      db.collection('users').findAndModify(
+          {name: req.body.owner},
+          {},  //this must be here to work
+          {$push:{polls:req.body}, $inc:{counter:1}},
+          {upsert:true},
+          function(err,result) {
+            if(err) {return err};
+            res.send(result);
+          }
+      );
+  });*/
+
+  //adds polls to collective list
+  app.post('/deletePollForAll',(req,res) => {
+         db.collection('polls').findAndModify(
+          {name: req.body.owner},
+          {},  //this must be here to work
+          {$push:{polls:req.body}, $inc:{counter:1}},
+          {upsert:true},
+          function(err,result) {
+            if(err) {return err};
+            res.send(result);
+          }
+      );
+  });
+
+//**************ADD POLL***************************
+
   app.post('/addPoll', (req,res) => {
       db.collection('users').findAndModify(
           {name: req.body.owner},
@@ -54,6 +86,9 @@ MongoClient.connect(dbUrl, (err, db) => {
        );
   });
 
+
+//**************GET POLLS***************************
+
   //returns all user polls
   app.get('/getAllPolls', (req,res) => {
       db.collection('polls').find({}).toArray((err,result) => {
@@ -71,6 +106,7 @@ MongoClient.connect(dbUrl, (err, db) => {
       });
   });
 
+//**************ANSWER POLL***************************
 
   app.post('/answerPollForUsers', (req,res) => {
       db.collection('users').find({name:req.body.name}).toArray((err,user) => {
@@ -135,6 +171,8 @@ MongoClient.connect(dbUrl, (err, db) => {
         );
   });
 
+//**************LOG OUT***************************
+
   app.post('/logOut', (req,res) => {
       db.collection('users').findAndModify(
           {name: req.body.name},
@@ -147,7 +185,7 @@ MongoClient.connect(dbUrl, (err, db) => {
            }
       );
   });
-
+//**************LOG IN***************************
   app.post('/logIn', (req,res) => {
 
        db.collection('users').findAndModify(
