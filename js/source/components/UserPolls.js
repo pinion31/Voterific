@@ -15,9 +15,10 @@ class UserPolls extends Component {
   retrievePolls() {
     let storedPolls = store.getState().currentUser.polls;
 
-    if (storedPolls.length > 0) { //currentUser has created polls, it will retrieve existing polls
+    if (storedPolls) { //currentUser has created polls, it will retrieve existing polls
       this.setState({
        polls:storedPolls,
+
       });
     }
   }
@@ -26,12 +27,22 @@ class UserPolls extends Component {
     this.retrievePolls();
   }
 
+  getFormattedLink(poll,key) {
+    if (poll.owner) {
+      return <div><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
+            <h2  key={key}>{poll.question}</h2></a> </div>;
+    }
+    else {
+      return <div> <h2 key={key}>{poll.question}</h2></div>;
+
+    }
+  }
+
   render() {
     return (
       <div>
-        {this.state.polls.map((poll,key) => {
-            return <div><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
-            <h2  key={key}>{poll.question}</h2></a> </div>;
+        { this.state.polls.map((poll,key) => {
+            return this.getFormattedLink(poll,key);
           })
         }
       </div>

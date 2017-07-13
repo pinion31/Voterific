@@ -62,7 +62,6 @@ const Main = () => (
   </main>
 );
 
-
 const RoutedApp = () => (
   <div>
       <Header />
