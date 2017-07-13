@@ -13,7 +13,7 @@ class Poll extends Component  {
       choices:[],
       owner:"",
       id: "",
-    }
+    };
 
     this.loadPoll = this.loadPoll.bind(this);
     this.answerPoll = this.answerPoll.bind(this);

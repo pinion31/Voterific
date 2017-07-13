@@ -13,9 +13,9 @@ export const userReducer = (state, action) => {
     case LOGIN_EXISTING_USER:
       return loginExistingUser(state, action);
     case ANSWER_POLL:
-      return answerPoll(action);
+      return answerPoll(state, action);
     case LOG_OUT:
-      return logOut(state);
+      return logOut(state,action.callback);
     default:
     return state;
   }

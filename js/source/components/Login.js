@@ -11,7 +11,8 @@ class Login extends Component {
     super(props);
     this.state = {
       cred: {name:'', password:''},
-    }
+      navBar: this.props.navBarRender,
+    };
 
     this.loginUser = this.loginUser.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -20,6 +21,8 @@ class Login extends Component {
   loginUser() {
     store.dispatch(loginExistingUser(this.state.cred, () => {
          this.props.history.push('/dashboard'); //redirects after successful user add
+         console.log('hit1');
+         this.state.navBar();
 
     }));
     //console.log("result is " + users);

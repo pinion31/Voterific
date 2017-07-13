@@ -29,11 +29,11 @@ class UserPolls extends Component {
 
   getFormattedLink(poll,key) {
     if (poll.owner) {
-      return <div><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
+      return <div key={key}><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
             <h2  key={key}>{poll.question}</h2></a> </div>;
     }
     else {
-      return <div> <h2 key={key}>{poll.question}</h2></div>;
+      return <div key={key}> <h2 key={key}>{poll.question}</h2></div>;
 
     }
   }

@@ -15,7 +15,6 @@ export const addPoll = (state, action) => {
       if (response.ok) {
         action.callback(action.url);
         store.getState().currentUser = newState.currentUser;
-       // return newState.currentUser;
       }
 
     }).catch(err => {
@@ -28,23 +27,19 @@ export const addPoll = (state, action) => {
     body: JSON.stringify(action.poll),
    }).then(response => {
       if (response.ok) {
-
       }
-
     }).catch(err => {
       console.log('Error in sending data to server:' + err.message);
     });
 
  return newState.currentUser;
-
-  //TODO: addPoll to database
 };
 
 export const deletePoll = () => {
 
 };
 
-export const answerPoll = (action) => {
+export const answerPoll = (state, action) => {
   //action.answer
   //action.name, action.id
 
@@ -64,22 +59,20 @@ export const answerPoll = (action) => {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(action)})
-    //.then(res => res.json())
     .then ((response) => {
-        console.dir(response);
         if (response.ok) {
-           console.log('callback');
            action.callback();
         }
-
     })
     .catch(err => {
     if (err) return err;
     });
 
+    return state.currentUser;
+
 };
 
-export const logOut = (state) => {
+export const logOut = (state, callback) => {
   let newState = Object.assign({}, state);
   let userToLogOut = {name:newState.currentUser.name}; //retrieve user's name to send off to db
   newState.currentUser = {}; //no more current user
@@ -90,14 +83,12 @@ export const logOut = (state) => {
     body: JSON.stringify(userToLogOut),
    }).then(response => {
       if (response.ok) {
-        //console.log('poll added');
-
+        callback();
       }
 
     }).catch(err => {
       console.log('Error in sending data to server:' + err.message);
     });
-
 
  return newState.currentUser;
 }
@@ -150,9 +141,8 @@ export const addNewUser = (state, username,userEmail, pw, callback) => {
         newState.currentUser = user;
         store.getState().currentUser = newState.currentUser; //need to refactor this
         return newState.currentUser;
-
     }).catch(err => {
-      console.log('Error in sending data to server:' + err.message);
+      console.log('Error in sending data to server:' + err.message); //alert for error
     });
 
 

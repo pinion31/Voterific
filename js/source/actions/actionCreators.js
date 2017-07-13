@@ -7,8 +7,9 @@ export const addPoll = (newPoll, callback, url) => ({
   url,
 });
 
-export const logOut = () => ({
+export const logOut = (callback) => ({
   type: LOG_OUT,
+  callback,
 })
 
 export const deletePoll = () => ({

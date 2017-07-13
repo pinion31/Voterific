@@ -1,74 +1,8 @@
 import React from 'react';
 import 'babel-polyfill';
 import ReactDOM from 'react-dom';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
-import PollResults from './components/PollResults';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap';
-import {Redirect, Route} from 'react-router';
-import {BrowserRouter, Switch, HashRouter, history} from 'react-router-dom';
-import {LinkContainer} from 'react-router-bootstrap';
-import Dashboard from './components/Dashboard';
-import SitePolls from './components/SitePolls';
-import Poll from './components/Poll';
-import {Provider} from 'react-redux';
-import {logOut} from './actions/actionCreators';
-
-import {store} from './store/UserStore';
-
-const NoMatch = () => <h2>This page does not exist! Please go back!</h2>;
-
-const Header = () => (
-  <Navbar>
-    <Navbar.Header>
-      <Navbar.Brand>Voterific</Navbar.Brand>
-    </Navbar.Header>
-    <Nav>
-      <LinkContainer to="/Dashboard">
-       <NavItem>Home</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/">
-       <NavItem>All Polls</NavItem>
-      </LinkContainer>
-    </Nav>
-    <Nav pullRight>
-      <LinkContainer to="/">
-        <NavItem onClick = {() => {store.dispatch(logOut());}}>Log Out</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/login">
-        <NavItem>Log In</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/signUp">
-        <NavItem>Sign Up</NavItem>
-      </LinkContainer>
-       <NavItem onClick = {()=> {console.dir(store.getState());}}>Print</NavItem>
-    </Nav>
-  </Navbar>
-);
-
-const Main = () => (
-  <main>
-    <Provider store={store}>
-      <Switch>
-        <Route exact path="/" component={SitePolls} />
-        <Route path="/poll/:name/:id" component={Poll} />
-        <Route path="/results/:name/:id" component={PollResults} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signUp" component={SignUp} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route path="*" component={NoMatch} />
-      </Switch>
-    </Provider>
-  </main>
-);
-
-const RoutedApp = () => (
-  <div>
-      <Header />
-      <Main />
-  </div>
-
-);
+import RoutedApp from './components/RoutedApp';
+import {BrowserRouter, HashRouter, history} from 'react-router-dom';
 
  ReactDOM.render(
    <HashRouter>
@@ -81,20 +15,6 @@ if (module.hot) {
   module.hot.accept();
 }
 
-
-/*
-
-<Route exact path="/" render={() => {
-        <Redirect to="/login"/>
-      }}/>
-const RoutedApp = () => (
-  <BrowserRouter>
-    <Redirect from="/" to="/login" />
-    <Route path="/login" component={Login} />
-    <Route path="/signUp" component={SignUp} />
-    <Route path="*" component={NoMatch} />
-  </BrowserRouter>
-);*/
 /*
 const users =
 [{
