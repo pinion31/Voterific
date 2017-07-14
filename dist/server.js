@@ -29,18 +29,24 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
     return err;
   };
 
-  console.log('db connected');
-
   var app = (0, _express2.default)();
 
   app.use(_express2.default.static('static'));
   app.use(_bodyParser2.default.json());
 
+  //***************ADD NEW USER********************
+
   app.post('/addUser', function (req, res) {
 
-    db.collection('users').insertOne(req.body, function () {
-      console.log('new user added to database');
-      res.send('user added');
+    console.dir(req.body);
+    db.collection('users').find({ name: req.body.name }).toArray(function (err, user) {
+      if (user.length > 0) {
+        res.status(400).send(false);
+      } else {
+        db.collection('users').insertOne(req.body, function (err, newUser) {
+          res.status(201).send(true);
+        });
+      }
     });
   });
 

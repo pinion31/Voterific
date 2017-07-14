@@ -23,7 +23,6 @@ class Login extends Component {
          this.props.history.push('/dashboard'); //redirects after successful user add
          console.log('hit1');
          this.state.navBar();
-
     }));
     //console.log("result is " + users);
   }

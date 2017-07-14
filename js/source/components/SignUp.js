@@ -14,19 +14,40 @@ class SignUp extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.verifyInput= this.verifyInput.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    store.dispatch(addNewUser(this.state.newUser, (userAddedSuccessful)=> {
-       if (userAddedSuccessful) {
-         this.props.history.push('/dashboard'); //redirects after successful user add
-       }
-       else {
-        //send error message
-       }
+    if (this.verifyInput(this.state.newUser)) { //if user credentials pass verification
+      store.dispatch(addNewUser(this.state.newUser, (userAddedSuccessful)=> {
+        if (userAddedSuccessful) {
+           this.props.history.push('/dashboard'); //redirects after successful user add
+           this.props.navBarRender();
+         }
+         else {
+          alert("Error adding user");
+         }
     }));
+    }
+  }
+
+  verifyInput(userInfo) {
+    let {name, email, password} = userInfo;
+
+    /*
+    if (!password.match(/[a-zA-Z0-9!$%#&*\^\.@?]{8}/)) { //verify password
+      alert("Password must be at least 8 characters.");
+      return false;
+    }
+
+    //verify email as valid email
+    if (!email.match(/^[a-zA-Z0-9\.]+[\@][a-zA-Z0-9]+[\.][a-zA-Z]{2,3}$/)) {
+      alert("Please enter a valid email.");
+      return false;
+    }*/
+    return true;
   }
 
   onChange(event) {
@@ -47,13 +68,13 @@ class SignUp extends Component {
 
         <form onSubmit={this.handleSubmit}>
           <label> Name</label>
-          <input type='text'id='name' name='name' onChange={this.onChange}/>
+          <input type='text'id='name' name='name' onChange={this.onChange} required/>
 
           <label> Email</label>
-          <input type='text' id='email' name='email' onChange={this.onChange}/>
+          <input type='text' id='email' name='email' onChange={this.onChange} required/>
 
           <label> Password</label>
-          <input type='text' id='password' name='password' onChange={this.onChange}/>
+          <input type='text' id='password' name='password' onChange={this.onChange} required/>
 
           <button type='submit'> Sign Up</button>
         </form>

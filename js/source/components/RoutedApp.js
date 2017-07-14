@@ -119,7 +119,7 @@ class RoutedApp extends Component {
         <Route path="/poll/:name/:id" component={Poll} />
         <Route path="/results/:name/:id" component={PollResults} />
         <Route exact path="/login" render={(props) => <Login navBarRender= {this.updateHeader} {...props} />} />
-        <Route exact path="/signUp" component={SignUp} />
+        <Route exact path="/signUp" render={(props) => <SignUp navBarRender= {this.updateHeader} {...props} />} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route path="*" component={NoMatch} />
       </Switch>

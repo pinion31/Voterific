@@ -14,19 +14,25 @@ let dbUrl = 'mongodb://localhost/local'; //local db
 MongoClient.connect(dbUrl, (err, db) => {
   if (err) {return err};
 
-  console.log('db connected');
-
-
   const app = express();
 
   app.use(express.static('static'));
   app.use(bodyParser.json());
 
+  //***************ADD NEW USER********************
+
   app.post('/addUser', (req,res) => {
 
-    db.collection('users').insertOne(req.body, () => {
-      console.log('new user added to database');
-      res.send('user added');
+    console.dir(req.body);
+    db.collection('users').find({name:req.body.name}).toArray((err, user) => {
+      if (user.length > 0) {
+           res.status(400).send(false);
+         }
+      else {
+          db.collection('users').insertOne(req.body, (err, newUser) => {
+            res.status(201).send(true);
+          });
+      }
     });
   });
 

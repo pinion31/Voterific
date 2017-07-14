@@ -82,12 +82,12 @@ class PollCreator extends Component {
   render() {
     return (<div>
       <h1>New Poll </h1>
-      <h2>Name your poll </h2>
+      <h2>Question: </h2>
 
-        <input type="text" name="question" placeholder="Question" onChange={this.setQuestion}/>
-        <h2>Choice</h2>
+        <input type="text" name="question" placeholder="Question" onChange={this.setQuestion} required/>
+        <h2>Choices</h2>
         {this.state.poll.choices.map((choice, key) => {
-            return <input type='text' key={key} name={key} placeholder='answer' onChange ={this.updateChoice}/>
+            return <input type='text' key={key} name={key} placeholder='answer' onChange ={this.updateChoice} required/>
           })
         }
 

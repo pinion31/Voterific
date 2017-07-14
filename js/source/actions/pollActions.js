@@ -171,10 +171,17 @@ export const addNewUser = (state, username,userEmail, pw, callback) => {
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify(user),
    }).then(response => {
-        callback(response.ok);
-        newState.currentUser = user;
-        store.getState().currentUser = newState.currentUser; //need to refactor this
+        if (response.status === 201) {
+          newState.currentUser = user;
+          store.getState().currentUser = newState.currentUser; //need to refactor this
+          callback(response.ok);
+
+        }
+        else if (response.status === 400) {
+          alert('User already exists. Please choose another name.');
+        }
         return newState.currentUser;
+
     }).catch(err => {
       console.log('Error in sending data to server:' + err.message); //alert for error
     });
