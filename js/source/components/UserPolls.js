@@ -18,9 +18,15 @@ class UserPolls extends Component {
   retrievePolls() {
     let storedPolls = store.getState().currentUser.polls;
 
-    if (storedPolls) { //currentUser has created polls, it will retrieve existing polls
+    if (storedPolls.length > 0) { //currentUser has created polls, it will retrieve existing polls
       this.setState({
        polls:storedPolls,
+
+      });
+    }
+    else {
+      this.setState({
+       polls:[{question:'No Polls Created'}],
 
       });
     }
