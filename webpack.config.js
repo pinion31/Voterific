@@ -1,3 +1,5 @@
+'use strict';
+
 const webpack = require('webpack');
 
 module.exports = {
@@ -12,7 +14,7 @@ module.exports = {
     filename: 'app.bundle.js'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({name:'vendor', filename:'vendor.bundle.js'})
+    new webpack.optimize.CommonsChunkPlugin({name:'vendor', filename:'vendor.bundle.js'}),
   ],
   devServer: {
     port: 8080,
@@ -33,6 +35,10 @@ module.exports = {
           presets: ['react', 'es2015']
         }
       },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+      }
     ]
   }
 };

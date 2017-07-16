@@ -130,9 +130,9 @@ class RoutedApp extends Component {
 
   getDynamicHeader(loggedIn) {
      if (loggedIn) {
-     return <Navbar>
+     return <Navbar id='navBar'>
         <Navbar.Header>
-          <Navbar.Brand>Voterific</Navbar.Brand>
+          <Navbar.Brand id="whiteText">Voterific</Navbar.Brand>
         </Navbar.Header>
         <Nav>
           <LinkContainer to="/Dashboard">

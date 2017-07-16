@@ -4,6 +4,7 @@ import {Component, PropTypes} from 'react';
 import PollCreator from './PollCreator';
 import UserPolls from './UserPolls';
 import PollLink from './PollLink';
+import { Row, Col, Button } from 'react-bootstrap';
 
 
 class Dashboard extends Component {
@@ -23,6 +24,10 @@ class Dashboard extends Component {
         });
   }
 
+  test1() {
+
+  }
+
   _routeToExistingPolls() {
       this.setState({
         userContent:<UserPolls/>,
@@ -38,11 +43,13 @@ class Dashboard extends Component {
 
   render() {
     return (
-        <div>
-       <h1> Voterific </h1>
-       <h2> What would you like to do today?</h2>
-       <button onClick={this._routeToNewPoll.bind(this)}> Create New Poll </button>
-       <button onClick={this._routeToExistingPolls.bind(this)}> My Polls </button>
+       <div>
+       <div className='dashboard'>
+         <h1 className='title'> Voterific </h1>
+         <h2 className='subtitle'> What would you like to do today?</h2>
+         <Button bsStyle="primary" onClick={this._routeToNewPoll.bind(this)}> Create New Poll </Button>
+         <Button bsStyle="primary" onClick={this._routeToExistingPolls.bind(this)}> My Polls </Button>
+       </div>
        {this.state.userContent}
 
        </div>

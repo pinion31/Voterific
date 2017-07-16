@@ -36,7 +36,6 @@ class SignUp extends Component {
   verifyInput(userInfo) {
     let {name, email, password} = userInfo;
 
-    /*
     if (!password.match(/[a-zA-Z0-9!$%#&*\^\.@?]{8}/)) { //verify password
       alert("Password must be at least 8 characters.");
       return false;
@@ -46,7 +45,8 @@ class SignUp extends Component {
     if (!email.match(/^[a-zA-Z0-9\.]+[\@][a-zA-Z0-9]+[\.][a-zA-Z]{2,3}$/)) {
       alert("Please enter a valid email.");
       return false;
-    }*/
+    }
+
     return true;
   }
 

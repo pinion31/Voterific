@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
 import {loginExistingUser} from '../actions/actionCreators';
+import { Row, Col, Button, Jumbotron, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 
 class Login extends Component {
@@ -39,17 +40,77 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h1> Voterific </h1>
-        <h2> Find out what your friends think with custom polls</h2>
-        <label>Login: </label>
-        <input type="text" name="name" placeholder="username" onChange={this.handleInput} ></input> <br/>
-        <label>Password: </label>
-        <input type="text" name="password" placeholder="password" onChange={this.handleInput}></input> <br/>
-        <button onClick={this.loginUser}>Sign In</button>
+      <div className="login">
+          <Row>
+          <Col xs={12} sm={12} md={12} lg={12}>
+          <h1 className="titleLogin"> Voterific </h1>
+          <h2 className="subtitleLogin"> Find out what your friends think with custom polls</h2>
+          </Col>
+          </Row>
+      </div>
+      <Row>
+      <Col md={3} mdOffset={4}>
+      <FormGroup>
+
+        <FormControl
+            type="text"
+            placeholder="Username"
+            onChange={this.handleInput}
+        />
+        <FormControl.Feedback />
+      </FormGroup>
+      </Col>
+      </Row>
+       <Row>
+      <Col md={3} mdOffset={4}>
+      <FormGroup>
+
+        <FormControl
+            type="text"
+            placeholder="Password"
+            onChange={this.handleInput}
+        />
+        <FormControl.Feedback />
+      </FormGroup>
+      </Col>
+      </Row>
+        <Row>
+      <Col md={3} mdOffset={4}>
+      <FormGroup>
+        <Button bsStyle="primary" onClick={this.loginUser}>Sign In</Button>
+       <FormControl.Feedback />
+      </FormGroup>
+      </Col>
+      </Row>
       </div>
     )
   }
 }
 
 export default Login
+/*
+ <Row>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          <h1> Voterific </h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          <h2> Find out what your friends think with custom polls</h2>
+        </Col>
+      </Row>*/
 
+
+/*
+    <Row>
+        <Col md={12} className="loginFields">
+          <label>Password: </label>
+          <input type="text" name="password" placeholder="password" onChange={this.handleInput}></input> <br/>
+
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} className="loginFields">
+        <Button bsStyle="primary" onClick={this.loginUser}>Sign In</Button>
+        </Col>
+      </Row>   */

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'babel-polyfill';
+import '../../sass/style.scss';
 import ReactDOM from 'react-dom';
 import RoutedApp from './components/RoutedApp';
 import {BrowserRouter, HashRouter, history} from 'react-router-dom';
@@ -14,6 +15,7 @@ import {BrowserRouter, HashRouter, history} from 'react-router-dom';
 if (module.hot) {
   module.hot.accept();
 }
+
 
 /*
 const users =
