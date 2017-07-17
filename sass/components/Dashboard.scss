@@ -1,6 +1,7 @@
-.dashboard {
+.dashBoard {
     background-color: $dashboard-bg-color;
-
+    margin-bottom: 20px;
+    padding: 0px 0px 70px 0px;
 }
 
 .title {
@@ -10,4 +11,24 @@
 
 .subtitle {
        font-family: 'Montserrat', sans-serif;
+}
+
+.dashBoardButton {
+  margin: 20px 20px 0px 20px;
+  width:25%;
+  background-color: $background-color-NavBar;
+  border-color: $background-color-NavBar;
+
+  &:hover {
+    background-color:$background-color-NavBar-hover;
+    border-color: $background-color-NavBar-hover;
+    color:red;
+  }
+
+  &:active {
+    color:white;
+    font-family: $navBarFont;
+    background-color: $background-color-NavBar-active;
+    border-color: $background-color-NavBar-active;
+  }
 }

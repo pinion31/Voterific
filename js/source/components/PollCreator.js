@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {addPoll} from '../actions/actionCreators';
-
-
-
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class PollCreator extends Component {
 
@@ -80,19 +78,58 @@ class PollCreator extends Component {
   }
 
   render() {
-    return (<div>
-      <h1>New Poll </h1>
-      <h2>Question: </h2>
-
-        <input type="text" name="question" placeholder="Question" onChange={this.setQuestion} required/>
-        <h2>Choices</h2>
-        {this.state.poll.choices.map((choice, key) => {
-            return <input type='text' key={key} name={key} placeholder='answer' onChange ={this.updateChoice} required/>
-          })
-        }
-
-        <button onClick={this.addNewChoiceSlot}>Add Choice </button>
-        <button onClick={this.submitPoll} >Submit</button>
+    return (<div className="pollCreator">
+      <div className="pollQuestion">
+        <Row>
+          <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
+            <h2 className="titleText">What Is Your Poll Question?</h2>
+          </Col>
+        </Row>
+        <Row>
+        <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
+          <FormGroup>
+            <FormControl
+                name="question"
+                type="text"
+                placeholder="Question"
+                onChange={this.setQuestion}
+            />
+            <FormControl.Feedback />
+          </FormGroup>
+        </Col>
+        </Row>
+      </div>
+       <Row>
+        <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
+          <h2 className="titleText">Answer Choices</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={4} mdOffset={4} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={4} lgOffset={4}>
+          {this.state.poll.choices.map((choice, key) => {
+            return  <FormGroup key={key}>
+                      <FormControl
+                          name={key}
+                          type="text"
+                          placeholder="Answer"
+                          onChange ={this.updateChoice}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+           })
+          }
+      </Col>
+      </Row>
+      <Row>
+        <Col md={4} mdOffset={4} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={4} lgOffset={4}>
+          <Button className="addChoice" bsStyle="primary" onClick={this.addNewChoiceSlot} className="addChoice">Add Choice</Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={4} mdOffset={4} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={4} lgOffset={4}>
+          <Button bsStyle="primary" onClick={this.submitPoll} block>Add Poll</Button>
+        </Col>
+      </Row>
     </div>
     );
   }
@@ -101,3 +138,12 @@ class PollCreator extends Component {
 
 export default PollCreator
 
+/* <input type="text" name="question" placeholder="Question" onChange={this.setQuestion} required/>
+        <h2>Choices</h2>
+        {this.state.poll.choices.map((choice, key) => {
+            return <input type='text' key={key} name={key} placeholder='answer' onChange ={this.updateChoice} required/>
+          })
+        }
+
+        <button onClick={this.addNewChoiceSlot}>Add Choice </button>
+        <button onClick={this.submitPoll} >Submit</button>*/

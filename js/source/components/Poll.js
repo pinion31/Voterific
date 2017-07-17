@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import 'whatwg-fetch';
 import {answerPoll} from '../actions/actionCreators';
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class Poll extends Component  {
 
@@ -51,12 +52,28 @@ class Poll extends Component  {
 
   render() {
     return (
-      <div>
-      <h1>{this.state.question}</h1>
-      {this.state.choices.map((choice, key) => {
-          return <button name={choice.choice} onClick={this.answerPoll} key={key}>{choice.choice}</button>
-        })
-      }
+      <div className="poll">
+      <Row>
+        <Col>
+            <div className="question">
+              <h1>{this.state.question}</h1>
+            </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
+          <div className="answers">
+          {this.state.choices.map((choice, key) => {
+              return (
+
+                  <Button bsSize="large" bsStyle="primary" name={choice.choice} onClick={this.answerPoll} key={key}>{choice.choice}</Button>
+
+              );
+            })
+          }
+          </div>
+        </Col>
+      </Row>
       </div>
     );
   }

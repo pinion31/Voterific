@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {deletePoll} from '../actions/actionCreators';
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class UserPolls extends Component {
 
@@ -42,12 +43,25 @@ class UserPolls extends Component {
 
   getFormattedLink(poll,key) {
     if (poll.owner) {
-      return <div key={key}><a href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
-            <h2  key={key}>{poll.question}</h2></a>
-            <button onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</button></div>;
+      return (
+       <div>
+         <Row>
+          <Col xs={8} xsOffset={1} sm={8} smOffset={1} md={8} mdOffset={1} lg={8} lgOffset={1} >
+              <a key={key}  href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
+                <div className="pollContainer">
+                  {poll.question}
+                </div>
+              </a>
+          </Col>
+          <Col xs={3} sm={3} md={3} lg={3}>
+              <Button className="dashBoardButton deletePollButton" bsStyle="primary" onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</Button>
+          </Col>
+        </Row>
+       </div>
+      );
     }
     else {
-      return <div key={key}> <h2 key={key}>{poll.question}</h2></div>;
+      return <div key={key}> <h1 key={key} className="noPolls">{poll.question}</h1></div>;
 
     }
   }
@@ -65,3 +79,27 @@ class UserPolls extends Component {
 }
 
 export default UserPolls
+
+/*
+ <Button className="dashBoardButton deletePollButton" bsStyle="primary" onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</Button>
+
+
+    <span key={key} className="pollContainer">
+                {poll.question}
+                </span>
+
+    <Row>
+          <Col xs={12} sm={12} md={12} lg={12}>
+              <span>
+              <a key={key} className="pollContainer" href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
+                {poll.question}
+              </a>
+              </span>
+              <Button className="dashBoardButton deletePollButton" bsStyle="primary" onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</Button>
+
+          </Col>
+         </Row>
+
+
+
+ */

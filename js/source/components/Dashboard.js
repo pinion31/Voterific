@@ -44,11 +44,18 @@ class Dashboard extends Component {
   render() {
     return (
        <div>
-       <div className='dashboard'>
-         <h1 className='title'> Voterific </h1>
-         <h2 className='subtitle'> What would you like to do today?</h2>
-         <Button bsStyle="primary" onClick={this._routeToNewPoll.bind(this)}> Create New Poll </Button>
-         <Button bsStyle="primary" onClick={this._routeToExistingPolls.bind(this)}> My Polls </Button>
+        <div className="dashBoard">
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+            <h1 className="subtitleLogin"> What would you like to do today?</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6} mdOffset={4} sm={6}  smOffset={4} xs={6}  xsOffset={4} lg={6} lgOffset={4}>
+              <Button className="dashBoardButton" bsStyle="danger" onClick={this._routeToNewPoll.bind(this)}> Create New Poll </Button>
+              <Button className="dashBoardButton" bsStyle="danger" onClick={this._routeToExistingPolls.bind(this)}> My Polls </Button>
+            </Col>
+          </Row>
        </div>
        {this.state.userContent}
 
@@ -60,3 +67,17 @@ class Dashboard extends Component {
 }
 
 export default Dashboard
+
+/*
+
+<div>
+       <div className='dashboard'>
+         <h1 className='title'> Voterific </h1>
+         <h2 className='subtitle'> What would you like to do today?</h2>
+         <Button bsStyle="primary" onClick={this._routeToNewPoll.bind(this)}> Create New Poll </Button>
+         <Button bsStyle="primary" onClick={this._routeToExistingPolls.bind(this)}> My Polls </Button>
+       </div>
+       {this.state.userContent}
+
+       </div>
+*/

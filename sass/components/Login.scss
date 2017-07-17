@@ -1,4 +1,4 @@
-.login {
+.header {
   background-color: $dashboard-bg-color;
   margin-bottom: 40px;
   padding: 0px 0px 70px 0px;
@@ -7,7 +7,7 @@
 
 .titleLogin {
   text-align: center;
-  font-family: 'Racing Sans One', cursive;
+  font-family: $logoFont;
   font-size:7em;
 }
 

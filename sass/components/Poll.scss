@@ -1,0 +1,27 @@
+
+.question {
+  color:black;
+  text-align: center;
+  margin-bottom: 50px;
+  h1 {
+      font-size:4em;
+      font-family: $navBarFont;
+  }
+}
+
+.answers {
+
+   margin-top: 20px;
+
+  .btn {
+    width: 35%;
+    margin: 1% 7%;
+  }
+
+}
+
+.poll {
+
+    margin-top: 5%;
+
+}

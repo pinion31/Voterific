@@ -62,13 +62,13 @@ const Header = () => {
     </Navbar>
   }
 };*/
-
+/*
 const rerenderNavBar = function() {
   this.setState({
       header: this.getDynamicHeader(store.getState().currentUser.loggedIn || false),
   });
- }
-
+ }*/
+/*
 const Main = (context) => (
   <main>
     <Provider store={store}>
@@ -84,7 +84,7 @@ const Main = (context) => (
     </Provider>
   </main>
 );
-
+*/
 //code to pass new props to components (used above)
  //<Route exact path="/login" render={() => <Login navBarRender= {() => {console.log('loggedIn')}} />} />
 
@@ -115,10 +115,10 @@ class RoutedApp extends Component {
     return  <main>
     <Provider store={store}>
       <Switch>
-        <Route exact path="/" component={SitePolls} />
+        <Route exact path="/allPolls" component={SitePolls} />
         <Route path="/poll/:name/:id" component={Poll} />
         <Route path="/results/:name/:id" component={PollResults} />
-        <Route exact path="/login" render={(props) => <Login navBarRender= {this.updateHeader} {...props} />} />
+        <Route exact path="/" render={(props) => <Login navBarRender= {this.updateHeader} {...props} />} />
         <Route exact path="/signUp" render={(props) => <SignUp navBarRender= {this.updateHeader} {...props} />} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route path="*" component={NoMatch} />
@@ -132,13 +132,13 @@ class RoutedApp extends Component {
      if (loggedIn) {
      return <Navbar id='navBar'>
         <Navbar.Header>
-          <Navbar.Brand id="whiteText">Voterific</Navbar.Brand>
+          <Navbar.Brand className="navItem">Voterific</Navbar.Brand>
         </Navbar.Header>
         <Nav>
           <LinkContainer to="/Dashboard">
-           <NavItem>Home</NavItem>
+           <NavItem className="navItem">Home</NavItem>
           </LinkContainer>
-          <LinkContainer to="/">
+          <LinkContainer to="/allPolls">
            <NavItem>All Polls</NavItem>
           </LinkContainer>
         </Nav>
@@ -146,28 +146,27 @@ class RoutedApp extends Component {
           <LinkContainer to="/">
             <NavItem onClick = {() => {store.dispatch(logOut(this.updateHeader));}}>Log Out</NavItem>
           </LinkContainer>
-          <NavItem onClick = {()=> {console.dir(store.getState());}}>Print</NavItem>
         </Nav>
       </Navbar>
+
     }
     else {
       return <Navbar>
         <Navbar.Header>
-          <Navbar.Brand>Voterific</Navbar.Brand>
+          <Navbar.Brand className="navItem">Voterific</Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          <LinkContainer to="/">
+          <LinkContainer to="/allPolls">
            <NavItem>All Polls</NavItem>
           </LinkContainer>
         </Nav>
         <Nav pullRight>
-          <LinkContainer to="/login">
+          <LinkContainer to="/">
             <NavItem>Log In</NavItem>
           </LinkContainer>
           <LinkContainer to="/signUp">
             <NavItem>Sign Up</NavItem>
           </LinkContainer>
-           <NavItem onClick = {()=> {console.dir(store.getState());}}>Print</NavItem>
         </Nav>
       </Navbar>
     }
@@ -182,3 +181,5 @@ class RoutedApp extends Component {
 }
 
 export default RoutedApp
+
+//     <NavItem onClick = {()=> {console.dir(store.getState());}}>Print</NavItem>

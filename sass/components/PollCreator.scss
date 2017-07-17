@@ -1,0 +1,59 @@
+.pollCreatorTitle {
+  font-family: $navBarFont;
+  text-align: center;
+}
+
+.pollCreator {
+  font-family: $navBarFont;
+  margin-bottom: 50px;
+
+}
+
+.pollQuestion {
+  background-color: #8FB8F2;
+  width: 75%;
+  border-radius: 15px;
+  margin : 0 auto;
+}
+
+.titleText {
+  text-align: center;
+}
+
+.addChoice {
+  margin: 10px 10px 10px 0px;
+  background-color: $background-color-NavBar;
+  border-color: $background-color-NavBar;
+
+  &:hover {
+    background-color:$background-color-NavBar-hover;
+    border-color: $background-color-NavBar-hover;
+    color:red;
+  }
+
+  &:active {
+    color:white;
+    font-family: $navBarFont;
+    background-color: $background-color-NavBar-active;
+    border-color: $background-color-NavBar-active;
+  }
+}
+
+.addPoll {
+  background-color: $background-color-NavBar;
+  border-color: $background-color-NavBar;
+
+  &:hover {
+    background-color:$background-color-NavBar-hover;
+    border-color: $background-color-NavBar-hover;
+    color:red;
+  }
+
+  &:active {
+    color:white;
+    font-family: $navBarFont;
+    background-color: $background-color-NavBar-active;
+    border-color: $background-color-NavBar-active;
+  }
+
+}

@@ -6,19 +6,36 @@
 .navbar {
   background-color: $background-color-NavBar;
 }
-/*
-.navbar-default {
-  color:white;
+
+.navbar-default .navbar-nav {
+
+  li a {
+     color:white;
+  }
+
+  .active a, .active a:focus, li a:active {
+    color:white;
+    font-family: $navBarFont;
+    background-color: $background-color-NavBar;
+  }
+
+
+  .active a:hover, li a:hover {
+    background-color:$background-color-NavBar-hover;
+    color:red;
+  }
+
 }
 
 .navbar-default .navbar-brand{
   color:white;
+  font-family: $logoFont;
+  font-size: 2em;
+
+  &:hover {
+    color:white
+  }
 }
-
-
-.navbar-brand {
-  color:white;
-}*/
 
 #whiteText {
   color:white;
