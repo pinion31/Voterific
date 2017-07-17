@@ -25,15 +25,18 @@ class BarChart extends Component {
          .domain([0, dataMax])
          .range([0, this.props.size[1]])
 
+      let barHeight = 0;
 
-     // const yAxis = d3.axisLeft()
-   //   .scale(yScale);
+     const yAxis = axisLeft()
+      .scale(yScale)
+      .ticks(1);
 
    select(node)
       .selectAll('rect')
       .data(this.props.data)
       .enter()
       .append('rect')
+
 
    select(node)
       .selectAll('rect')
@@ -46,16 +49,55 @@ class BarChart extends Component {
       .data(this.props.data)
       .style('fill', '#8FB8F2')
       //.attr('x', (d,i) => (i * 75) + 125)
-      .attr('x', (d,i) => (window.innerWidth/(this.props.data.length * 2)) * i )
+      .attr('x', (d,i) => ((window.innerWidth/(this.props.data.length * 2)) * i) + 25  )
       .attr('y', d => this.props.size[1] - yScale(d))
       .attr('height', d => yScale(d))
       .attr('width', window.innerWidth/(this.props.data.length*2.5))
 
+   select(node)
+      .selectAll('g')
+      .data(this.props.data)
+      .enter()
+      .append('text')
+
+
+
+   select(node)
+      .selectAll('g')
+      .data(this.props.choices)
+      .exit()
+      .remove()
+
+
+   select(node)
+      .selectAll('text')
+      .data(this.props.choices)
+      .text(d => d)
+      .attr('x', (d,i) =>
+         (((window.innerWidth/(this.props.data.length * 2)) * i) + 5)
+          + ((window.innerWidth/(this.props.data.length*2.5))/2)  )
+      .attr('y', 290)
+
+
+/*
+ select(node)
+      .selectAll('g')
+      .data(this.props.data)
+      .enter()
+      .append('g')
+
+
+   select(node)
+      .selectAll('g')
+      .data(this.props.data)
+      .call(yAxis)
+      .exit()
+      .remove()*/
+
 /*
    select(node)
-     // .append('g')
-      .attr('class', 'y axis')
-     // .attr('transform', translat)
+      .append('g')
+     // .attr('transform',`translate(35,0)`)
       .call(yAxis);*/
    }
 

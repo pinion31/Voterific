@@ -91,7 +91,10 @@ class PollResults extends Component {
       <h2 className="resultQuestion"> {this.state.poll.question} </h2>
       <BarChart data={
        this.state.poll.choices.map((ch, key)=> ch.votes)
-        } size={[(window.innerWidth/4) * 2,300]} />
+        } size={[(window.innerWidth/4) * 2,300]} choices= {
+       this.state.poll.choices.map((ch, key)=> ch.choice)
+        }
+          />
       </div>
     );
     //400  100
