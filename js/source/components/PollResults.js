@@ -10,6 +10,7 @@ class PollResults extends Component {
     super(props);
     this.state= {
       poll:{questions:"", choices:[{choice:"1",votes:"1"}]},
+
     }
     this.retrievePollData = this.retrievePollData.bind(this);
   }
@@ -85,6 +86,8 @@ class PollResults extends Component {
   }
 
   render() {
+   // let sendData = this.state.poll.choices.map((ch, key)=> ch.votes);
+
     return (
       <div>
       <h1 className="results"> Results</h1>
@@ -94,7 +97,7 @@ class PollResults extends Component {
         } size={[(window.innerWidth/4) * 2,300]} choices= {
        this.state.poll.choices.map((ch, key)=> ch.choice)
         }
-          />
+      />
       </div>
     );
     //400  100

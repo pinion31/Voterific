@@ -7,11 +7,14 @@ import {axisBottom, axisLeft} from 'd3-axis';
 class BarChart extends Component {
    constructor(props){
       super(props)
+      this.state = {
+         data: this.props.data
+      }
       this.createBarChart = this.createBarChart.bind(this)
    }
 
    componentDidMount() {
-      this.createBarChart()
+      //this.createBarChart()
    }
 
    componentDidUpdate() {
@@ -20,85 +23,42 @@ class BarChart extends Component {
 
    createBarChart() {
       const node = this.node
-      const dataMax = max(this.props.data)
+      console.log('data is ' + this.props.data);
       const yScale = scaleLinear()
-         .domain([0, dataMax])
+         .domain([0, max(this.props.data)])
          .range([0, this.props.size[1]])
 
-      let barHeight = 0;
+      const margin = {top: 20, right: 30, bottom: 30, left: 40};
+      const width = ((window.innerWidth/4) * 2) - margin.left - margin.right;
+      const height = 300- margin.top - margin.bottom;
+      const gapBetweenBars = 50;
 
-     const yAxis = axisLeft()
-      .scale(yScale)
+      const yAxis = axisLeft()
+         .scale(yScale)
 
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .enter()
-      .append('rect')
+     select(node)
+         .attr('width', width + margin.left + margin.right)
+         .attr('height', height + margin.top + margin.bottom)
 
+      console.log('width' + width);//551
+      console.log('inner width' + window.innerWidth); //1242
+      console.log('this.props.data.length' +this.props.data.length);
+      console.log('this.props.data' +this.props.data);
 
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .exit()
-      .remove()
-
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .style('fill', '#8FB8F2')
-      //.attr('x', (d,i) => (i * 75) + 125)
-      .attr('x', (d,i) => ((window.innerWidth/(this.props.data.length * 2)) * i) + 25  )
-      .attr('y', d => this.props.size[1] - yScale(d))
-      .attr('height', d => yScale(d))
-      .attr('width', window.innerWidth/(this.props.data.length*2.5))
-
-   select(node)
-      .selectAll('text')
-      .data(this.props.data)
-      .enter()
-      .append('text')
+      select(node)
+         .selectAll('foo')
+         .data(this.props.data)
+         .enter()
+         .append('rect')
+         .style('fill', '#8FB8F2')
+         .attr('y',d => this.props.size[1] - yScale(d))
+         .attr('x', (d,i) => (i * (width/this.props.data.length) + gapBetweenBars))
+         .attr('height', d => yScale(d))
+         .attr('width', (width/this.props.data.length) * .75)
 
 
 
-   select(node)
-      .selectAll('text')
-      .data(this.props.choices)
-      .exit()
-      .remove()
 
-
-   select(node)
-      .selectAll('text')
-      .data(this.props.choices)
-      .text(d => d)
-      .attr('x', (d,i) =>
-         (((window.innerWidth/(this.props.data.length * 2)) * i) + 5)
-          + ((window.innerWidth/(this.props.data.length*2.5))/2)  )
-      .attr('y', 290)
-
-/*
-
-
- select(node)
-      .selectAll('g')
-      .data(this.props.data)
-      .enter()
-      .append('g')
-
-
-   select(node)
-      .selectAll('g')
-      .data(this.props.data)
-      .call(yAxis)
-      .exit()
-      .remove()
-
-
-   select(node)
-      .append('g')
-     // .attr('transform',`translate(35,0)`)
-      .call(yAxis);*/
    }
 
 render() {
