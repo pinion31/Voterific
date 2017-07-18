@@ -132,27 +132,3 @@ class SignUp extends Component {
 
 export default SignUp
 
-/*
-
-render() {
-    return (
-      <div>
-        <h1> Voterific </h1>
-        <h2> Create polls and have your friends vote</h2>
-
-        <form onSubmit={this.handleSubmit}>
-          <label> Name</label>
-          <input type='text'id='name' name='name' onChange={this.onChange} required/>
-
-          <label> Email</label>
-          <input type='text' id='email' name='email' onChange={this.onChange} required/>
-
-          <label> Password</label>
-          <input type='text' id='password' name='password' onChange={this.onChange} required/>
-
-          <button type='submit'> Sign Up</button>
-        </form>
-      </div>
-    )
-  }
- */

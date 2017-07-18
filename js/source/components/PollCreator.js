@@ -13,8 +13,6 @@ class PollCreator extends Component {
       returnPoll:this.props.returnLink,
       poll:{question:"", choices:[{choice:'', votes:0}, {choice:'', votes:0}],
            id:'', owner: store.getState().currentUser.name},
-     // poll:{question:"", choices:[{choice:{'':0} },{choice:{'': 0}}],
-       //     id:'', owner: store.getState().currentUser.name},
       counter: store.getState().currentUser.counter,
     }
 
@@ -138,12 +136,3 @@ class PollCreator extends Component {
 
 export default PollCreator
 
-/* <input type="text" name="question" placeholder="Question" onChange={this.setQuestion} required/>
-        <h2>Choices</h2>
-        {this.state.poll.choices.map((choice, key) => {
-            return <input type='text' key={key} name={key} placeholder='answer' onChange ={this.updateChoice} required/>
-          })
-        }
-
-        <button onClick={this.addNewChoiceSlot}>Add Choice </button>
-        <button onClick={this.submitPoll} >Submit</button>*/

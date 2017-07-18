@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import 'whatwg-fetch';
 import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import {HOST} from '../constants/actionTypes';
 
 class SitePolls extends Component {
 
@@ -48,7 +49,7 @@ class SitePolls extends Component {
             {this.state.poll.map((result,key) => {
               return(
                   <div key={key} className="sitePollsLinkText">
-                    <a href={`http://localhost:8080/#/poll/${result.owner}/${result.id}`} key={key}>
+                    <a href={`${HOST}${result.owner}/${result.id}`} key={key}>
                       <div className="pollContainer" key={key}>{result.question}</div>
                     </a>
                   </div>

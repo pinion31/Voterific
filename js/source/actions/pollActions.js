@@ -141,17 +141,19 @@ export const loginExistingUser = (state,creds) => {
         if (user.login === 'success') {
           newState.currentUser = user.response;
           store.getState().currentUser = newState.currentUser; // need to refactor and figure out issue there; happens below too
-          creds.callback(); //redirect to dashboard
+          creds.callback(user); //redirect to dashboard
           return newState.currentUser;
         }
         else if (user.response === 'Invalid Password') {
           //TODO: alert invalid password
           console.log('Invalid Password');
+           creds.callback(user);
 
         }
         else if (user.response === 'Invalid User') {
           //TODO: alert invalid User
           console.log('Invalid User');
+           creds.callback(user);
 
         }
     })

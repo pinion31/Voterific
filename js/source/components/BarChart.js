@@ -13,17 +13,12 @@ class BarChart extends Component {
       this.createBarChart = this.createBarChart.bind(this)
    }
 
-   componentDidMount() {
-      //this.createBarChart()
-   }
-
    componentDidUpdate() {
       this.createBarChart()
    }
 
    createBarChart() {
       const node = this.node
-      console.log('data is ' + this.props.data);
       const yScale = scaleLinear()
          .domain([0, max(this.props.data)])
          .range([0, this.props.size[1]])
@@ -69,16 +64,10 @@ class BarChart extends Component {
          .exit()
          .remove()
 
-
       select(node)
-         //.selectAll('g')
          .append('g')
          .attr("transform", "translate(25)")
          .call(yAxis)
-
-
-
-
    }
 
 render() {

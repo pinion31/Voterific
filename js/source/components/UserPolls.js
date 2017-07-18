@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {deletePoll} from '../actions/actionCreators';
 import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import {HOST} from '../constants/actionTypes';
 
 class UserPolls extends Component {
 
@@ -47,7 +48,7 @@ class UserPolls extends Component {
        <div>
          <Row>
           <Col xs={8} xsOffset={1} sm={8} smOffset={1} md={8} mdOffset={1} lg={8} lgOffset={1} >
-              <a key={key}  href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
+              <a key={key}  href={`${HOST}${poll.owner}/${poll.id}`}>
                 <div className="pollContainer">
                   {poll.question}
                 </div>
@@ -80,26 +81,3 @@ class UserPolls extends Component {
 
 export default UserPolls
 
-/*
- <Button className="dashBoardButton deletePollButton" bsStyle="primary" onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</Button>
-
-
-    <span key={key} className="pollContainer">
-                {poll.question}
-                </span>
-
-    <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-              <span>
-              <a key={key} className="pollContainer" href={`http://localhost:8080/#/poll/${poll.owner}/${poll.id}`}>
-                {poll.question}
-              </a>
-              </span>
-              <Button className="dashBoardButton deletePollButton" bsStyle="primary" onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</Button>
-
-          </Col>
-         </Row>
-
-
-
- */

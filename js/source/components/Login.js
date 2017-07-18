@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
 import {loginExistingUser} from '../actions/actionCreators';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
 
 
 class Login extends Component {
@@ -13,18 +13,34 @@ class Login extends Component {
     this.state = {
       cred: {name:'', password:''},
       navBar: this.props.navBarRender,
+      showingValidation:false,
+      validationMessage: null,
     };
 
     this.loginUser = this.loginUser.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.showValidation = this.showValidation.bind(this);
+    this.dismissValidation = this.dismissValidation.bind(this);
+    this.validateLogin = this.validateLogin.bind(this);
   }
 
   loginUser() {
-    store.dispatch(loginExistingUser(this.state.cred, () => {
-         this.props.history.push('/dashboard'); //redirects after successful user add
-         this.state.navBar();
-    }));
-    //console.log("result is " + users);
+
+    if (this.validateLogin(this.state.cred)) {
+      store.dispatch(loginExistingUser(this.state.cred, (result) => {
+            if (result.login === 'success') {
+              this.props.history.push('/dashboard'); //redirects after successful user add
+              this.state.navBar();
+            }
+            else  {
+              let alert = this.getAlertMessage(result.response);
+
+              this.setState ({
+                validationMessage: alert,
+              })
+            }
+      }));
+    }
   }
 
   handleInput(event) {
@@ -36,6 +52,51 @@ class Login extends Component {
     });
 
   }
+
+  getAlertMessage(message) {
+    return  <Alert className="alertMessage" bsStyle="danger" onDismiss={this.dismissValidation}>
+                    {message} </Alert>
+  }
+
+  validateLogin(login) { //checks to make sure both fields have been entered by user
+
+    if (login.name.length === 0) {
+      let alert = this.getAlertMessage('Please enter a username');
+
+      this.setState ({
+        validationMessage: alert,
+      })
+
+      return false;
+    }
+    else if (login.password.length === 0) {
+      let alert = this.getAlertMessage('Please enter a password');
+
+      this.setState ({
+        validationMessage: alert,
+      })
+
+      return false;
+    }
+
+    return true;
+  }
+
+  showValidation() {
+    this.setState({
+      showingValidation:true,
+    })
+
+  }
+
+  dismissValidation() {
+    this.setState({
+      showingValidation:false,
+      validationMessage:null,
+    })
+
+  }
+
   render() {
     return (
       <div>
@@ -83,35 +144,14 @@ class Login extends Component {
       </FormGroup>
       </Col>
       </Row>
+      <FormGroup>
+        <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
+          {this.state.validationMessage}
+        </Col>
+      </FormGroup>
       </div>
     )
   }
 }
 
 export default Login
-/*
- <Row>
-        <Col xs={12} sm={12} md={12} lg={12}>
-          <h1> Voterific </h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12} sm={12} md={12} lg={12}>
-          <h2> Find out what your friends think with custom polls</h2>
-        </Col>
-      </Row>*/
-
-
-/*
-    <Row>
-        <Col md={12} className="loginFields">
-          <label>Password: </label>
-          <input type="text" name="password" placeholder="password" onChange={this.handleInput}></input> <br/>
-
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12} className="loginFields">
-        <Button bsStyle="primary" onClick={this.loginUser}>Sign In</Button>
-        </Col>
-      </Row>   */
