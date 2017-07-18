@@ -28,22 +28,22 @@ class BarChart extends Component {
          .domain([0, max(this.props.data)])
          .range([0, this.props.size[1]])
 
+      const newScale = scaleLinear()
+         .domain([0, max(this.props.data)])
+         .range([this.props.size[1],0])
+
       const margin = {top: 20, right: 30, bottom: 30, left: 40};
       const width = ((window.innerWidth/4) * 2) - margin.left - margin.right;
       const height = 300- margin.top - margin.bottom;
       const gapBetweenBars = 50;
 
       const yAxis = axisLeft()
-         .scale(yScale)
+         .scale(newScale)
+         .ticks(5)
 
      select(node)
          .attr('width', width + margin.left + margin.right)
          .attr('height', height + margin.top + margin.bottom)
-
-      console.log('width' + width);//551
-      console.log('inner width' + window.innerWidth); //1242
-      console.log('this.props.data.length' +this.props.data.length);
-      console.log('this.props.data' +this.props.data);
 
       select(node)
          .selectAll('foo')
@@ -62,9 +62,18 @@ class BarChart extends Component {
          .enter()
          .append('text')
          .text(d => d)
-         .attr('x', (d,i) => (i * (width/this.props.data.length) + gapBetweenBars) + (((width/this.props.data.length) * .5)/2))
+         .attr('x', (d,i) => (i * (width/this.props.data.length) + gapBetweenBars) + (((width/this.props.data.length) * .65)/2))
          .attr('y', (d,i) => 275)
          .style('font-weight', 'bold')
+         .exit()
+         .remove()
+
+
+      select(node)
+         //.selectAll('g')
+         .append('g')
+         .attr("transform", "translate(25)")
+         .call(yAxis)
 
 
 
