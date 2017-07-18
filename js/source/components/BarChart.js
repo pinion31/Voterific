@@ -29,7 +29,6 @@ class BarChart extends Component {
 
      const yAxis = axisLeft()
       .scale(yScale)
-      .ticks(1);
 
    select(node)
       .selectAll('rect')
@@ -55,7 +54,7 @@ class BarChart extends Component {
       .attr('width', window.innerWidth/(this.props.data.length*2.5))
 
    select(node)
-      .selectAll('g')
+      .selectAll('text')
       .data(this.props.data)
       .enter()
       .append('text')
@@ -63,7 +62,7 @@ class BarChart extends Component {
 
 
    select(node)
-      .selectAll('g')
+      .selectAll('text')
       .data(this.props.choices)
       .exit()
       .remove()
@@ -78,8 +77,9 @@ class BarChart extends Component {
           + ((window.innerWidth/(this.props.data.length*2.5))/2)  )
       .attr('y', 290)
 
-
 /*
+
+
  select(node)
       .selectAll('g')
       .data(this.props.data)
@@ -92,9 +92,9 @@ class BarChart extends Component {
       .data(this.props.data)
       .call(yAxis)
       .exit()
-      .remove()*/
+      .remove()
 
-/*
+
    select(node)
       .append('g')
      // .attr('transform',`translate(35,0)`)
