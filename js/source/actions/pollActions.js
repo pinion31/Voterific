@@ -145,15 +145,11 @@ export const loginExistingUser = (state,creds) => {
           return newState.currentUser;
         }
         else if (user.response === 'Invalid Password') {
-          //TODO: alert invalid password
-          console.log('Invalid Password');
-           creds.callback(user);
+          creds.callback(user);
 
         }
         else if (user.response === 'Invalid User') {
-          //TODO: alert invalid User
-          console.log('Invalid User');
-           creds.callback(user);
+          creds.callback(user);
 
         }
     })

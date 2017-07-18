@@ -19,7 +19,7 @@ class Login extends Component {
 
     this.loginUser = this.loginUser.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.showValidation = this.showValidation.bind(this);
+    //this.showValidation = this.showValidation.bind(this);
     this.dismissValidation = this.dismissValidation.bind(this);
     this.validateLogin = this.validateLogin.bind(this);
   }
@@ -37,6 +37,7 @@ class Login extends Component {
 
               this.setState ({
                 validationMessage: alert,
+                showingValidation:true,
               })
             }
       }));
@@ -44,6 +45,10 @@ class Login extends Component {
   }
 
   handleInput(event) {
+    if (this.state.showingValidation) {
+      this.dismissValidation();
+    }
+
     let loginCreds = Object.assign({}, this.state.cred);
     loginCreds[event.target.name] = event.target.value;
 
@@ -65,6 +70,7 @@ class Login extends Component {
 
       this.setState ({
         validationMessage: alert,
+        showingValidation:true,
       })
 
       return false;
@@ -74,7 +80,8 @@ class Login extends Component {
 
       this.setState ({
         validationMessage: alert,
-      })
+        showingValidation:true,
+        })
 
       return false;
     }
@@ -82,12 +89,13 @@ class Login extends Component {
     return true;
   }
 
+/*
   showValidation() {
     this.setState({
       showingValidation:true,
     })
 
-  }
+  }*/
 
   dismissValidation() {
     this.setState({
@@ -102,16 +110,15 @@ class Login extends Component {
       <div>
       <div className="header">
           <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-          <h1 className="titleLogin"> Voterific </h1>
-          <h2 className="subtitleLogin"> Find out what your friends think with custom polls.</h2>
-          </Col>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <h1 className="titleLogin"> Voterific </h1>
+              <h2 className="subtitleLogin"> Find out what your friends think with custom polls.</h2>
+            </Col>
           </Row>
       </div>
       <Row>
       <Col md={3} mdOffset={4} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={3} lgOffset={4}>
       <FormGroup>
-
         <FormControl
             name='name'
             type="text"
@@ -125,7 +132,6 @@ class Login extends Component {
        <Row>
       <Col md={3} mdOffset={4} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={3} lgOffset={4}>
       <FormGroup>
-
         <FormControl
             name='password'
             type="password"

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
 import {addNewUser} from '../actions/actionCreators';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
 
 
 class SignUp extends Component {
@@ -12,11 +12,15 @@ class SignUp extends Component {
     super(props);
     this.state = {
       newUser:{name:'',email:'',password:''},
+      showingValidation:false,
+      validationMessage: null,
+
     }
 
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.verifyInput= this.verifyInput.bind(this);
+    this.dismissValidation = this.dismissValidation.bind(this);
   }
 
   handleSubmit(e) {
@@ -35,17 +39,53 @@ class SignUp extends Component {
     }
   }
 
+  getAlertMessage(message) {
+    return  <Alert className="alertMessage" bsStyle="danger" onDismiss={this.dismissValidation}>
+                    {message} </Alert>
+  }
+
+  dismissValidation() {
+    this.setState({
+      showingValidation:false,
+      validationMessage:null,
+    })
+
+  }
+
   verifyInput(userInfo) {
     let {name, email, password} = userInfo;
 
-    if (!password.match(/[a-zA-Z0-9!$%#&*\^\.@?]{8}/)) { //verify password
-      alert("Password must be at least 8 characters.");
+    if (name.length === 0) {
+      let alert = this.getAlertMessage("Please enter a username.");
+
+      this.setState ({
+        validationMessage: alert,
+        showingValidation:true,
+      });
+
       return false;
     }
 
-    //verify email as valid email
+     //verify email as valid email
     if (!email.match(/^[a-zA-Z0-9\.]+[\@][a-zA-Z0-9]+[\.][a-zA-Z]{2,3}$/)) {
-      alert("Please enter a valid email.");
+      let alert = this.getAlertMessage("Please enter a valid email.");
+
+      this.setState ({
+        validationMessage: alert,
+        showingValidation:true,
+      });
+
+      return false;
+    }
+
+    if (!password.match(/[a-zA-Z0-9!$%#&*\^\.@?]{8}/)) { //verify password
+      let alert = this.getAlertMessage("Password must be at least 8 characters.");
+
+      this.setState ({
+        validationMessage: alert,
+        showingValidation:true,
+      });
+
       return false;
     }
 
@@ -53,6 +93,10 @@ class SignUp extends Component {
   }
 
   onChange(event) {
+    if (this.state.showingValidation) {
+      this.dismissValidation();
+    }
+
     const user = Object.assign({}, this.state.newUser);
     user[event.target.name] = event.target.value;
 
@@ -124,6 +168,11 @@ class SignUp extends Component {
         </Col>
         </Row>
       </form>
+      <FormGroup>
+        <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
+          {this.state.validationMessage}
+        </Col>
+      </FormGroup>
       </div>
     )
   }
