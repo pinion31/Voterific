@@ -31,14 +31,22 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015','stage-0']
         }
       },
       {
         test: /\.scss$/,
         loaders: ['style-loader', 'css-loader', 'sass-loader']
+      },
+      {
+        test: [/\.jsx$/],
+        loaders: ['react', 'es2015','jsx-loader?insertPragma=React.DOM&harmony'],
       }
     ]
+  },
+  resolve: {
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
   }
 };

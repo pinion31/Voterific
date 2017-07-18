@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import 'whatwg-fetch';
-import BarChart from './BarChart';
+import BarChart from './BarChart.jsx';
 
 class PollResults extends Component {
 
@@ -89,12 +89,7 @@ class PollResults extends Component {
       <div>
       <h1 className="results"> Results</h1>
       <h2 className="resultQuestion"> {this.state.poll.question} </h2>
-      <BarChart data={
-       this.state.poll.choices.map((ch, key)=> ch.votes)
-        } size={[(window.innerWidth/4) * 2,300]} choices= {
-       this.state.poll.choices.map((ch, key)=> ch.choice)
-        }
-          />
+      <BarChart title={this.state.poll.question} data={this.state.poll.choices} />
       </div>
     );
     //400  100
