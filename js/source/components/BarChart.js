@@ -56,6 +56,16 @@ class BarChart extends Component {
          .attr('height', d => yScale(d))
          .attr('width', (width/this.props.data.length) * .75)
 
+      select(node)
+         .selectAll('text')
+         .data(this.props.choices)
+         .enter()
+         .append('text')
+         .text(d => d)
+         .attr('x', (d,i) => (i * (width/this.props.data.length) + gapBetweenBars) + (((width/this.props.data.length) * .5)/2))
+         .attr('y', (d,i) => 275)
+         .style('font-weight', 'bold')
+
 
 
 
