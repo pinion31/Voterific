@@ -64,6 +64,7 @@ class SitePolls extends Component {
 
 }
 
+
 SitePolls.propTypes = {
   poll:React.PropTypes.any,
 }

@@ -79,7 +79,7 @@ render() {
 }
 
 BarChart.propTypes = {
-   data: React.PropTypes.object,
+   data: React.PropTypes.array,
 }
 
 export default BarChart

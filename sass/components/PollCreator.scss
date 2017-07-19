@@ -24,6 +24,7 @@
   margin: 10px 10px 10px 0px;
   background-color: $background-color-NavBar;
   border-color: $background-color-NavBar;
+  color:white;
 
   &:hover {
     background-color:$background-color-NavBar-hover;
@@ -31,11 +32,17 @@
     color:red;
   }
 
-  &:active {
+  &:focus {
+    background-color: $background-color-NavBar;
+    border-color: $background-color-NavBar;
     color:white;
+  }
+
+  &:active, &:visited {
     font-family: $navBarFont;
     background-color: $background-color-NavBar-active;
     border-color: $background-color-NavBar-active;
+    color:white;
   }
 }
 

@@ -207,7 +207,7 @@ class PollCreator extends Component {
       </Row>
       <Row>
         <Col md={4} mdOffset={4} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={4} lgOffset={4}>
-          <Button className="addChoice" bsStyle="primary" onClick={this.addNewChoiceSlot} className="addChoice">Add Choice</Button>
+          <Button className="addChoice" bsStyle="danger" onClick={this.addNewChoiceSlot} className="addChoice">Add Choice</Button>
         </Col>
       </Row>
       <Row>

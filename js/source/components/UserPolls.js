@@ -45,7 +45,7 @@ class UserPolls extends Component {
   getFormattedLink(poll,key) {
     if (poll.owner) {
       return (
-       <div>
+       <div key={key}>
          <Row>
           <Col xs={8} xsOffset={1} sm={8} smOffset={1} md={8} mdOffset={1} lg={8} lgOffset={1} >
               <a key={key}  href={`${HOST}${poll.owner}/${poll.id}`}>
