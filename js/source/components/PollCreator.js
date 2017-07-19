@@ -24,11 +24,38 @@ class PollCreator extends Component {
     this.setQuestion = this.setQuestion.bind(this);
     this.dismissValidation = this.dismissValidation.bind(this);
     this.validatePoll = this.validatePoll.bind(this);
+    this.checkChoiceForRedundancy = this.checkChoiceForRedundancy.bind(this);
   }
 
   //****VALIDATION FUNCTIONS***************
 
-  checkChoiceForRedundancy(event) {
+  checkChoiceForRedundancy() {
+    let pollChoices = Array.from(this.state.poll.choices);
+    let hasNoDuplicates = true;
+
+    pollChoices.map((choiceOne,keyOne) => {
+        pollChoices.map((choiceTwo,keyTwo) => {
+          if ((choiceOne.choice === choiceTwo.choice) && (keyOne != keyTwo)) {
+            hasNoDuplicates = false;
+          }
+        });
+    });
+
+    if (!hasNoDuplicates) {
+      let alert = this.getAlertMessage("Your Poll Contains Duplicate Choices.");
+
+      this.setState ({
+          validationMessage: alert,
+          showingValidation:true,
+        });
+    }
+
+    return hasNoDuplicates;
+
+
+
+
+    /*
     let newChoice = event.target.value;
     let redundant = false;
 
@@ -45,7 +72,7 @@ class PollCreator extends Component {
           validationMessage: alert,
           showingValidation:true,
         });
-    }
+    }*/
   }
 
   dismissValidation() {
@@ -60,7 +87,7 @@ class PollCreator extends Component {
                     {message} </Alert>
   }
 
-
+  //checks to see if user filled out all fields
   validatePoll() {
     if (this.state.poll.question.length === 0) {
       let alert = this.getAlertMessage("Please enter a question");
@@ -92,11 +119,6 @@ class PollCreator extends Component {
 
       return allValidChoices;
     }
-   /* else if () {
-      return false;
-    }*/
-
-
     return true;
   }
 
@@ -105,7 +127,7 @@ class PollCreator extends Component {
   submitPoll(e) {
     e.preventDefault();
 
-    if (this.validatePoll()) {
+    if (this.validatePoll() && this.checkChoiceForRedundancy()) {
       store.dispatch(addPoll(this.state.poll, this.state.returnPoll, `poll/${this.state.poll.owner}/${this.state.poll.id}`));
 
       this.setState({
@@ -227,11 +249,11 @@ class PollCreator extends Component {
 }
 
 PollCreator.propTypes = {
-  returnPoll: React.PropTypes.func.isRequired,
-  poll: React.PropTypes.object.isRequired,
-  counter: React.PropTypes.number.isRequired,
-  showingValidation:React.PropTypes.bool.isRequired,
-  validationMessage: React.PropTypes.any.isRequired,
+  returnPoll: React.PropTypes.func,
+  poll: React.PropTypes.object,
+  counter: React.PropTypes.number,
+  showingValidation:React.PropTypes.bool,
+  validationMessage: React.PropTypes.any,
 
 }
 

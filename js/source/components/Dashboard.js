@@ -63,8 +63,8 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  userContent: React.PropTypes.any.isRequired,
-  returnLink: React.PropTypes.func.isRequired,
+  userContent: React.PropTypes.any,
+  returnLink: React.PropTypes.func,
 }
 
 export default Dashboard

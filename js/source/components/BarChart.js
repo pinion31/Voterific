@@ -10,6 +10,7 @@ class BarChart extends Component {
       this.state = {
          data: this.props.data
       }
+
       this.createBarChart = this.createBarChart.bind(this)
    }
 
@@ -78,7 +79,7 @@ render() {
 }
 
 BarChart.propTypes = {
-   data: React.Proptypes.object.isRequired,
+   data: React.PropTypes.object.isRequired,
 }
 
 export default BarChart

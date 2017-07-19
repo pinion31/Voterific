@@ -38,7 +38,6 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
 
   app.post('/addUser', function (req, res) {
 
-    console.dir(req.body);
     db.collection('users').find({ name: req.body.name }).toArray(function (err, user) {
       if (user.length > 0) {
         res.status(400).send(false);
@@ -75,13 +74,9 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
   //delete polls from collective list
   app.post('/deletePollForAll', function (req, res) {
     db.collection('polls').deleteOne({ id: req.body.id.toString(), owner: req.body.name }, function (err, result) {
-      console.log(req.body.id.toString());
-      console.log(req.body.name);
-      console.dir(result);
       if (err) {
         return err;
       };
-      //res.send(result);
     });
   });
 
@@ -115,7 +110,6 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
       if (err) {
         return err;
       };
-      //console.dir(result);
       res.send(result);
     });
   });
@@ -125,7 +119,6 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
       if (err) {
         return err;
       };
-      //console.dir(result);
       res.send(result);
     });
   });

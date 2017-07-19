@@ -23,7 +23,6 @@ MongoClient.connect(dbUrl, (err, db) => {
 
   app.post('/addUser', (req,res) => {
 
-    console.dir(req.body);
     db.collection('users').find({name:req.body.name}).toArray((err, user) => {
       if (user.length > 0) {
            res.status(400).send(false);
@@ -71,11 +70,7 @@ MongoClient.connect(dbUrl, (err, db) => {
          db.collection('polls').deleteOne(
           {id: req.body.id.toString(), owner:req.body.name},
           function(err,result) {
-             console.log(req.body.id.toString());
-             console.log(req.body.name);
-            console.dir(result);
             if(err) {return err};
-            //res.send(result);
           }
       );
   });
@@ -113,7 +108,6 @@ MongoClient.connect(dbUrl, (err, db) => {
   app.get('/getAllPolls', (req,res) => {
       db.collection('polls').find({}).toArray((err,result) => {
         if (err) {return err};
-        //console.dir(result);
         res.send(result);
       });
   });
@@ -121,7 +115,6 @@ MongoClient.connect(dbUrl, (err, db) => {
   app.get('/poll/:name/:id', (req,res) => {
       db.collection('polls').find({owner:req.params.name, id:req.params.id}).toArray((err,result) => {
         if (err) {return err};
-        //console.dir(result);
         res.send(result);
       });
   });

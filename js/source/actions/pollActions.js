@@ -1,7 +1,6 @@
 import 'whatwg-fetch';
 import { history } from 'react-router';
 
-
 export const addPoll = (state, action) => {
   let newState = Object.assign({}, state);
   newState.currentUser.polls.push(action.poll);
@@ -26,8 +25,7 @@ export const addPoll = (state, action) => {
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify(action.poll),
    }).then(response => {
-      if (response.ok) {
-      }
+
     }).catch(err => {
       console.log('Error in sending data to server:' + err.message);
     });
