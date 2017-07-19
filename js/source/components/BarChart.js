@@ -76,4 +76,9 @@ render() {
       </svg>
    }
 }
+
+BarChart.propTypes = {
+   data: React.Proptypes.object.isRequired,
+}
+
 export default BarChart

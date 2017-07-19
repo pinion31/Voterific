@@ -112,4 +112,9 @@ class RoutedApp extends Component {
   }
 }
 
+RoutedApp.propTypes = {
+  header: React.PropTypes.any.isRequired,
+  main: React.PropTypes.func.isRequired,
+}
+
 export default RoutedApp

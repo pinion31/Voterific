@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {addPoll} from '../actions/actionCreators';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
 
 class PollCreator extends Component {
 
@@ -14,26 +14,112 @@ class PollCreator extends Component {
       poll:{question:"", choices:[{choice:'', votes:0}, {choice:'', votes:0}],
            id:'', owner: store.getState().currentUser.name},
       counter: store.getState().currentUser.counter,
+      showingValidation:false,
+      validationMessage: null,
     }
 
     this.submitPoll = this.submitPoll.bind(this);
     this.addNewChoiceSlot = this.addNewChoiceSlot.bind(this);
     this.updateChoice = this.updateChoice.bind(this);
     this.setQuestion = this.setQuestion.bind(this);
+    this.dismissValidation = this.dismissValidation.bind(this);
+    this.validatePoll = this.validatePoll.bind(this);
   }
+
+  //****VALIDATION FUNCTIONS***************
+
+  checkChoiceForRedundancy(event) {
+    let newChoice = event.target.value;
+    let redundant = false;
+
+    this.poll.choices.map(choice => {
+      if (choice.choice === newChoice) {
+        redundant = true;
+      }
+    });
+
+    if (redundant) {
+      let alert = this.getAlertMessage("Duplicate Choice");
+
+      this.setState ({
+          validationMessage: alert,
+          showingValidation:true,
+        });
+    }
+  }
+
+  dismissValidation() {
+    this.setState({
+      showingValidation:false,
+      validationMessage:null,
+    })
+  }
+
+  getAlertMessage(message) {
+    return  <Alert className="alertMessage" bsStyle="danger" onDismiss={this.dismissValidation}>
+                    {message} </Alert>
+  }
+
+
+  validatePoll() {
+    if (this.state.poll.question.length === 0) {
+      let alert = this.getAlertMessage("Please enter a question");
+
+      this.setState ({
+        validationMessage: alert,
+        showingValidation:true,
+      });
+
+      return false;
+    }
+    else  {
+      let allValidChoices = true;
+
+      this.state.poll.choices.map(choice => {
+        if (choice.choice.length === 0) {
+          allValidChoices  = false;
+        }
+      });
+
+      if (!allValidChoices) {
+        let alert = this.getAlertMessage("One or more choices are blank.");
+
+        this.setState ({
+          validationMessage: alert,
+          showingValidation:true,
+        });
+      }
+
+      return allValidChoices;
+    }
+   /* else if () {
+      return false;
+    }*/
+
+
+    return true;
+  }
+
+  //******HANDLE USER INFO FUNCTIONS********************
 
   submitPoll(e) {
     e.preventDefault();
-    store.dispatch(addPoll(this.state.poll, this.state.returnPoll, `poll/${this.state.poll.owner}/${this.state.poll.id}`));
 
-    this.setState({
-      counter:store.getState().currentUser.counter,
-    });
+    if (this.validatePoll()) {
+      store.dispatch(addPoll(this.state.poll, this.state.returnPoll, `poll/${this.state.poll.owner}/${this.state.poll.id}`));
 
-    //need to increment counter on currentUser then use that retrieve counter
+      this.setState({
+        counter:store.getState().currentUser.counter,
+      });
+    }
   }
 
+  //updates local question info with user input
   setQuestion(event) {
+    if (this.state.showingValidation) {
+      this.dismissValidation();
+    }
+
     let newQuestion = this.state.poll.question;
     newQuestion = event.target.value;
 
@@ -43,7 +129,13 @@ class PollCreator extends Component {
     });
   }
 
+  //updates local choice info with user input
   updateChoice(event) {
+
+   if (this.state.showingValidation) {
+      this.dismissValidation();
+    }
+
    let currentChoices = this.state.poll.choices;
    let newChoice = event.target.value;
 
@@ -68,11 +160,6 @@ class PollCreator extends Component {
             id:`${this.state.counter}`, owner: this.state.poll.owner},
    });
 
-  }
-
-//temp
-  printState() {
-    console.dir(store.getState());
   }
 
   render() {
@@ -128,9 +215,23 @@ class PollCreator extends Component {
           <Button bsStyle="primary" onClick={this.submitPoll} block>Add Poll</Button>
         </Col>
       </Row>
+      <FormGroup>
+        <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
+          {this.state.validationMessage}
+        </Col>
+      </FormGroup>
     </div>
     );
   }
+
+}
+
+PollCreator.propTypes = {
+  returnPoll: React.PropTypes.func.isRequired,
+  poll: React.PropTypes.object.isRequired,
+  counter: React.PropTypes.number.isRequired,
+  showingValidation:React.PropTypes.bool.isRequired,
+  validationMessage: React.PropTypes.any.isRequired,
 
 }
 

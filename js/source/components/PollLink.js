@@ -29,4 +29,8 @@ class PollLink extends Component {
   }
 }
 
+PollLink.propTypes = {
+  link:React.PropTypes.string.isRequired,
+}
+
 export default PollLink

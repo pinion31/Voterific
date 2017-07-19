@@ -79,5 +79,9 @@ class UserPolls extends Component {
   }
 }
 
+UserPolls.propTypes = {
+     polls: React.PropTypes.array.isRequired,
+}
+
 export default UserPolls
 

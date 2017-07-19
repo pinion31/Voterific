@@ -179,5 +179,12 @@ class SignUp extends Component {
 
 }
 
+SignUp.propTypes = {
+   newUser:React.PropTypes.object.isRequired,
+   showingValidation: React.PropTypes.bool.isRequired,
+   validationMessage: React.PropTypes.any.isRequired,
+
+}
+
 export default SignUp
 

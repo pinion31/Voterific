@@ -160,4 +160,11 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  cred: React.PropTypes.object.isRequired,
+  navBar: React.PropTypes.func.isRequired,
+  showingValidation:React.PropTypes.bool.isRequired,
+  validationMessage: React.PropTypes.any.isRequired,
+}
+
 export default Login

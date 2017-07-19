@@ -79,4 +79,11 @@ class Poll extends Component  {
   }
 }
 
+Poll.propTypes = {
+  question: React.PropTypes.string.isRequired,
+  choices: React.PropTypes.array.isRequired,
+  owner: React.PropTypes.string.isRequired,
+  id: React.PropTypes.string.isRequired,
+}
+
 export default Poll
