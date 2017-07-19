@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {deletePoll} from '../actions/actionCreators';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel, Glyphicon } from 'react-bootstrap';
 import {HOST} from '../constants/actionTypes';
 
 class UserPolls extends Component {
@@ -55,7 +55,7 @@ class UserPolls extends Component {
               </a>
           </Col>
           <Col xs={3} sm={3} md={3} lg={3}>
-              <Button className="dashBoardButton deletePollButton" bsStyle="primary" onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>Delete</Button>
+              <Button className="dashBoardButton deletePollButton" bsStyle="primary" onClick={()=> {this.deleteAPoll(poll.id, poll.owner);}}>{`Delete  `}<Glyphicon className="trash" glyph="trash" /> </Button>
           </Col>
         </Row>
        </div>

@@ -126,6 +126,7 @@ class SignUp extends Component {
             type="text"
             placeholder="Username"
             onChange={this.onChange}
+            maxLength="27"
         />
         <FormControl.Feedback />
       </FormGroup>
@@ -140,7 +141,7 @@ class SignUp extends Component {
               type="text"
               placeholder="Email"
               onChange={this.onChange}
-
+              maxLength="27"
           />
           <FormControl.Feedback />
         </FormGroup>
@@ -154,6 +155,7 @@ class SignUp extends Component {
               type="text"
               placeholder="Password"
               onChange={this.onChange}
+              maxLength="27"
           />
           <FormControl.Feedback />
         </FormGroup>

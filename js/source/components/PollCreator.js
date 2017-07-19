@@ -178,6 +178,7 @@ class PollCreator extends Component {
                 type="text"
                 placeholder="Question"
                 onChange={this.setQuestion}
+                maxLength="47"
             />
             <FormControl.Feedback />
           </FormGroup>
@@ -198,6 +199,7 @@ class PollCreator extends Component {
                           type="text"
                           placeholder="Answer"
                           onChange ={this.updateChoice}
+                          maxLength="18"
                       />
                       <FormControl.Feedback />
                     </FormGroup>

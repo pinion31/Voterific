@@ -25,8 +25,6 @@ class Poll extends Component  {
   }
 
   loadPoll() {
-   // console.dir(this.props.match.params);
-
     fetch(`/poll/${this.props.match.params.name}/${this.props.match.params.id}`)
     .then(result => {
       result.json().then(poll => {
@@ -65,9 +63,7 @@ class Poll extends Component  {
           <div className="answers">
           {this.state.choices.map((choice, key) => {
               return (
-
                   <Button bsSize="large" bsStyle="primary" name={choice.choice} onClick={this.answerPoll} key={key}>{choice.choice}</Button>
-
               );
             })
           }
