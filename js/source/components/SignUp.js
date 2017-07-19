@@ -180,9 +180,9 @@ class SignUp extends Component {
 }
 
 SignUp.propTypes = {
-   newUser:React.PropTypes.object.isRequired,
-   showingValidation: React.PropTypes.bool.isRequired,
-   validationMessage: React.PropTypes.any.isRequired,
+   newUser:React.PropTypes.object,
+   showingValidation: React.PropTypes.bool,
+   validationMessage: React.PropTypes.any,
 
 }
 

@@ -30,7 +30,7 @@ class PollLink extends Component {
 }
 
 PollLink.propTypes = {
-  link:React.PropTypes.string.isRequired,
+  link:React.PropTypes.string,
 }
 
 export default PollLink

@@ -65,7 +65,7 @@ class SitePolls extends Component {
 }
 
 SitePolls.propTypes = {
-  poll:React.PropTypes.any.isRequired,
+  poll:React.PropTypes.any,
 }
 
 export default SitePolls

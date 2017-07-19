@@ -51,28 +51,6 @@ class PollCreator extends Component {
     }
 
     return hasNoDuplicates;
-
-
-
-
-    /*
-    let newChoice = event.target.value;
-    let redundant = false;
-
-    this.poll.choices.map(choice => {
-      if (choice.choice === newChoice) {
-        redundant = true;
-      }
-    });
-
-    if (redundant) {
-      let alert = this.getAlertMessage("Duplicate Choice");
-
-      this.setState ({
-          validationMessage: alert,
-          showingValidation:true,
-        });
-    }*/
   }
 
   dismissValidation() {

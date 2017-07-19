@@ -89,14 +89,6 @@ class Login extends Component {
     return true;
   }
 
-/*
-  showValidation() {
-    this.setState({
-      showingValidation:true,
-    })
-
-  }*/
-
   dismissValidation() {
     this.setState({
       showingValidation:false,
@@ -161,10 +153,10 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  cred: React.PropTypes.object.isRequired,
-  navBar: React.PropTypes.func.isRequired,
-  showingValidation:React.PropTypes.bool.isRequired,
-  validationMessage: React.PropTypes.any.isRequired,
+  cred: React.PropTypes.object,
+  navBar: React.PropTypes.func,
+  showingValidation:React.PropTypes.bool,
+  validationMessage: React.PropTypes.any,
 }
 
 export default Login

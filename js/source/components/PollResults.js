@@ -51,7 +51,7 @@ class PollResults extends Component {
 }
 
 PollResults.propTypes = {
-  poll:React.PropTypes.object.isRequired,
+  poll:React.PropTypes.object,
 }
 
 export default PollResults
