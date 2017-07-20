@@ -7,8 +7,8 @@ import {MongoClient} from 'mongodb';
 
 SourceMapSupport.install();
 
-// let dbUrl = 'mongodb://127.0.0.1:27017/mydb'; //local db
-const dbUrl = 'mongodb://localhost/local'; // local db
+// const dbUrl = 'mongodb://localhost/local'; // local db
+const dbUrl = process.env.MONGOLAB_URI; // production db
 
 MongoClient.connect(dbUrl, (err, db) => {
   if (err) { return err; }

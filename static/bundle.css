@@ -1,7 +1,205 @@
-.example h1 {
-  color: green; }
+body {
+  color: black;
+  font-size: 14px; }
 
-.navBar {
+.form-control {
+  color: black;
+  font-family: 'Montserrat', sans-serif; }
+
+.alertMessage {
+  text-align: center;
+  margin-top: 10px; }
+
+.dashBoard {
+  background-color: #8FB8F2;
+  margin-bottom: 20px;
+  padding: 0px 0px 70px 0px; }
+
+.title {
+  font-family: 'Racing Sans One', cursive;
+  font-size: 7em; }
+
+.subtitle {
+  font-family: 'Montserrat', sans-serif; }
+
+.dashBoardButton {
+  margin: 20px 20px 0px 20px;
+  width: 25%;
+  background-color: #C41212;
+  border-color: #C41212; }
+  .dashBoardButton:hover {
+    background-color: #FCA9A9;
+    border-color: #FCA9A9;
+    color: red; }
+  .dashBoardButton:active {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    background-color: #FA3232;
+    border-color: #FA3232; }
+
+#navBar {
+  background-color: #C41212; }
+
+.navbar {
+  background-color: #C41212; }
+
+.navbar-default .navbar-nav li a {
+  color: white; }
+
+.navbar-default .navbar-nav .active a, .navbar-default .navbar-nav .active a:focus, .navbar-default .navbar-nav li a:active {
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  background-color: #C41212; }
+
+.navbar-default .navbar-nav .active a:hover, .navbar-default .navbar-nav li a:hover {
+  background-color: #FCA9A9;
   color: red; }
 
-/*# sourceMappingURL=bundle.css.map*/
+.navbar-default .navbar-brand {
+  color: white;
+  font-family: "Racing Sans One", cursive;
+  font-size: 2em; }
+  .navbar-default .navbar-brand:hover {
+    color: white; }
+
+#whiteText {
+  color: white; }
+
+.header {
+  background-color: #8FB8F2;
+  margin-bottom: 40px;
+  padding: 0px 0px 70px 0px; }
+
+.titleLogin {
+  text-align: center;
+  font-family: "Racing Sans One", cursive;
+  font-size: 7em; }
+
+.subtitleLogin {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif; }
+
+.loginFields {
+  text-align: center; }
+
+.noPolls {
+  text-align: center;
+  font-family: "Montserrat", sans-serif; }
+
+.deletePollButton {
+  margin: 20px 20px 20px 10px;
+  width: 50%; }
+
+.trash {
+  margin-left: 10px; }
+
+.pollContainer {
+  background-color: #8FB8F2;
+  margin-left: 0px;
+  margin-top: 20px;
+  text-indent: 20px;
+  padding: 8px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  color: black; }
+
+a {
+  color: black;
+  text-decoration: none; }
+  a :hover, a :visited, a :active {
+    color: black;
+    text-decoration: none; }
+
+.pollCreatorTitle {
+  font-family: "Montserrat", sans-serif;
+  text-align: center; }
+
+.pollCreator {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 50px; }
+
+.pollQuestion {
+  background-color: #8FB8F2;
+  width: 75%;
+  border-radius: 15px;
+  margin: 0 auto; }
+
+.titleText {
+  text-align: center; }
+
+.addChoice {
+  margin: 10px 10px 10px 0px;
+  background-color: #C41212;
+  border-color: #C41212;
+  color: white; }
+  .addChoice:hover {
+    background-color: #FCA9A9;
+    border-color: #FCA9A9;
+    color: red; }
+  .addChoice:focus {
+    background-color: #C41212;
+    border-color: #C41212;
+    color: white; }
+  .addChoice:active, .addChoice:visited {
+    font-family: "Montserrat", sans-serif;
+    background-color: #FA3232;
+    border-color: #FA3232;
+    color: white; }
+
+.addPoll {
+  background-color: #C41212;
+  border-color: #C41212; }
+  .addPoll:hover {
+    background-color: #FCA9A9;
+    border-color: #FCA9A9;
+    color: red; }
+  .addPoll:active {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    background-color: #FA3232;
+    border-color: #FA3232; }
+
+.pollLinkText {
+  text-align: center; }
+
+.pollLink {
+  text-align: center;
+  color: #337ab7; }
+  .pollLink:hover {
+    color: #337ab7; }
+
+.homePageTitle {
+  text-align: center;
+  font-size: 4em;
+  font-weight: bold;
+  font-family: "Racing Sans One", cursive; }
+
+.sitePollsLinkText a:hover {
+  text-decoration: none; }
+
+.question {
+  color: black;
+  text-align: center;
+  margin-bottom: 50px; }
+  .question h1 {
+    font-size: 3em;
+    font-family: "Montserrat", sans-serif; }
+
+.answers {
+  margin-top: 20px; }
+  .answers .btn {
+    width: 35%;
+    margin: 1% 7%; }
+
+.poll {
+  margin-top: 5%; }
+
+.results {
+  text-align: center; }
+
+.resultQuestion {
+  text-align: center; }
+
+.barChart {
+  margin: 30px 25% 1% 25%; }

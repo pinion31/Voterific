@@ -20,9 +20,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _sourceMapSupport2.default.install();
 
-// let dbUrl = 'mongodb://127.0.0.1:27017/mydb'; //local db
+// const dbUrl = 'mongodb://localhost/local'; // local db
 // 'use strict'
-var dbUrl = 'mongodb://localhost/local'; // local db
+var dbUrl = process.env.MONGOLAB_URI; // production db
 
 _mongodb.MongoClient.connect(dbUrl, function (err, db) {
   if (err) {
