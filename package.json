@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "node dist/server.js",
+    "start nodemon": "nodemon -w dist dist/server.js",
     "compile": "webpack",
     "watch": "webpack-dev-server --hot --inline",
     "compile-server": "babel server --presets es2015-node4 --out-dir dist --source-maps",
@@ -17,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.heroku.com/voterific.git"
+    "url": "git+https://github.com/pinion31/Voterific.git"
   },
   "author": "Chris Cantu",
   "license": "ISC",
