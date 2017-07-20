@@ -5,4 +5,4 @@ export const LOGIN_EXISTING_USER = 'LOGIN_EXISTING_USER';
 export const ANSWER_POLL = 'ANSWER_POLL';
 export const LOG_OUT = 'LOG_OUT';
 //export const HOST = 'http://localhost:8080/#/poll/'; // dev
-export const HOST = 'https://voterific.glitch.me/#/poll/'; // prod
+export const HOST = 'https://voterific.herokuapp.com/#/poll/'; // prod
