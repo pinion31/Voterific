@@ -197,7 +197,7 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
     res.send('no match');
   });
 
-  app.listen(3000, function () {
+  app.listen(process.env.PORT || 3000, function () {
     console.log('App started on port 3000');
   });
 });
