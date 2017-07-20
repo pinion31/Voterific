@@ -1,17 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Component, PropTypes} from 'react';
+import {Component} from 'react';
 import 'whatwg-fetch';
 import BarChart from './BarChart';
 
 class PollResults extends Component {
-
   constructor(props) {
     super(props);
-    this.state= {
-      poll:{questions:"", choices:[{choice:"1",votes:"1"}]},
-
-    }
+    this.state = {
+      poll: {questions: '', choices: [{choice: '1', votes: '1'}]},
+    };
     this.retrievePollData = this.retrievePollData.bind(this);
   }
 
@@ -20,39 +17,41 @@ class PollResults extends Component {
   }
 
   retrievePollData() {
-     fetch(`/poll/${this.props.match.params.name}/${this.props.match.params.id}`)
-    .then(result => {
-      result.json().then(poll => {
-        this.setState({
-          poll:poll[0],
+    fetch(`/poll/${this.props.match.params.name}/${this.props.match.params.id}`)
+      .then((result) => {
+        result.json().then((poll) => {
+          this.setState({
+            poll: poll[0],
+          });
         });
+      })
+      .catch((err) => {
+        if (err) { return err; }
       });
-    }).
-    catch(err => {
-      if (err){return err};
-    });
   }
 
   render() {
     return (
       <div>
-      <h1 className="results"> Results</h1>
-      <h2 className="resultQuestion"> {this.state.poll.question} </h2>
-      <BarChart data={
-       this.state.poll.choices.map((ch, key)=> ch.votes)
-        } size={[(window.innerWidth/4) * 2,250]} choices= {
-       this.state.poll.choices.map((ch, key)=> ch.choice)
-        }
-      />
+        <h1 className="results"> Results</h1>
+        <h2 className="resultQuestion"> {this.state.poll.question} </h2>
+        <BarChart
+          data={
+            this.state.poll.choices.map(result => result.votes)
+          }
+          size={[(window.innerWidth / 4) * 2, 250]}
+          choices={
+            this.state.poll.choices.map(result => result.choice)
+          }
+        />
       </div>
     );
   }
-
 }
 
 PollResults.propTypes = {
-  poll:React.PropTypes.object,
-}
+  poll: React.PropTypes.object,
+};
 
-export default PollResults
+export default PollResults;
 

@@ -1,4 +1,4 @@
-import {ADD_POLL, DELETE_POLL, ADD_NEW_USER,LOGIN_EXISTING_USER,ANSWER_POLL, LOG_OUT} from '../constants/actionTypes';
+import {ADD_POLL, DELETE_POLL, ADD_NEW_USER, LOGIN_EXISTING_USER, ANSWER_POLL, LOG_OUT} from '../constants/actionTypes';
 
 export const addPoll = (newPoll, callback, url) => ({
   type: ADD_POLL,
@@ -7,10 +7,10 @@ export const addPoll = (newPoll, callback, url) => ({
   url,
 });
 
-export const logOut = (callback) => ({
+export const logOut = callback => ({
   type: LOG_OUT,
   callback,
-})
+});
 
 export const deletePoll = (id, name, callback) => ({
   type: DELETE_POLL,
@@ -25,7 +25,7 @@ export const addNewUser = (user, redirect) => ({
   name: user.name,
   email: user.email,
   password: user.password,
-  callback:redirect, //callback redirect user to dashboard upon successful user add
+  callback: redirect, // callback redirect user to dashboard upon successful user add
 });
 
 export const loginExistingUser = (user, callback) => ({
@@ -39,5 +39,5 @@ export const answerPoll = (answer, name, id, callback) => ({
   answer,
   name,
   id,
-  callback
+  callback,
 });

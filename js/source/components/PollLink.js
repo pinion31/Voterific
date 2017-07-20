@@ -1,16 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Component, PropTypes} from 'react';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import {Component} from 'react';
+import {Row, Col} from 'react-bootstrap';
 import {HOST} from '../constants/actionTypes';
 
 class PollLink extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      link:"",
-    }
+      link: '',
+    };
   }
 
   render() {
@@ -18,19 +16,19 @@ class PollLink extends Component {
       <div>
         <Row>
           <Col xs={12} sm={12} md={12} lg={12}>
-             <h1 className="pollLinkText"> {`Your new poll can be found at:`} </h1>
-             <a href={`${HOST}${this.props.link.substring(5)}`}>
-             <h2 className="pollLink"> {`${HOST}${this.props.link.substring(5)}`} </h2>
-             </a>
+            <h1 className="pollLinkText"> {'Your new poll can be found at:'} </h1>
+            <a href={`${HOST}${this.props.link.substring(5)}`}>
+              <h2 className="pollLink"> {`${HOST}${this.props.link.substring(5)}`} </h2>
+            </a>
           </Col>
         </Row>
-    </div>
+      </div>
     );
   }
 }
 
 PollLink.propTypes = {
-  link:React.PropTypes.string,
-}
+  link: React.PropTypes.string,
+};
 
-export default PollLink
+export default PollLink;

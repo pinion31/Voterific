@@ -1,19 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Component, PropTypes} from 'react';
+import {Component} from 'react';
 import 'whatwg-fetch';
+import {Row, Col, Button} from 'react-bootstrap';
 import {answerPoll} from '../actions/actionCreators';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-class Poll extends Component  {
-
+class Poll extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      question:"",
-      choices:[],
-      owner:"",
-      id: "",
+      question: '',
+      choices: [],
+      owner: '',
+      id: '',
     };
 
     this.loadPoll = this.loadPoll.bind(this);
@@ -26,50 +24,48 @@ class Poll extends Component  {
 
   loadPoll() {
     fetch(`/poll/${this.props.match.params.name}/${this.props.match.params.id}`)
-    .then(result => {
-      result.json().then(poll => {
-        this.setState({
-          question:poll[0].question,
-          choices: poll[0].choices,
+      .then((result) => {
+        result.json().then((poll) => {
+          this.setState({
+            question: poll[0].question,
+            choices: poll[0].choices,
+          });
         });
+      })
+      .catch((err) => {
+        if (err) { return err; }
       });
-    }).
-    catch(err => {
-      if (err){return err};
-    });
   }
 
   answerPoll(e) {
-    store.dispatch(answerPoll(e.target.name, this.props.match.params.name,this.props.match.params.id,
-      ()=>{
-         this.props.history.push(`/results/${this.props.match.params.name}/${this.props.match.params.id}`);
-      })
+    store.dispatch(answerPoll(e.target.name,
+      this.props.match.params.name, this.props.match.params.id,
+      () => {
+        this.props.history.push(`/results/${this.props.match.params.name}/${this.props.match.params.id}`);
+      }),
     );
-
   }
 
   render() {
     return (
       <div className="poll">
-      <Row>
-        <Col>
+        <Row>
+          <Col>
             <div className="question">
               <h1>{this.state.question}</h1>
             </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6} mdOffset={3} sm={6}  smOffset={3} xs={6}  xsOffset={3} lg={6} lgOffset={3}>
-          <div className="answers">
-          {this.state.choices.map((choice, key) => {
-              return (
-                  <Button bsSize="large" bsStyle="primary" name={choice.choice} onClick={this.answerPoll} key={key}>{choice.choice}</Button>
-              );
-            })
-          }
-          </div>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6} mdOffset={3} sm={6} smOffset={3} xs={6} xsOffset={3} lg={6} lgOffset={3}>
+            <div className="answers">
+              {this.state.choices.map((choice, key) => (
+                <Button bsSize="large" bsStyle="primary" name={choice.choice} onClick={this.answerPoll} key={key}>{choice.choice}</Button>
+              ))
+              }
+            </div>
+          </Col>
+        </Row>
       </div>
     );
   }
@@ -80,6 +76,6 @@ Poll.propTypes = {
   choices: React.PropTypes.array,
   owner: React.PropTypes.string,
   id: React.PropTypes.string,
-}
+};
 
-export default Poll
+export default Poll;
