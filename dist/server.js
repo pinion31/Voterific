@@ -31,7 +31,7 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
 
   var app = (0, _express2.default)();
 
-  app.use(_express2.default.static(__dirname + 'static'));
+  app.use(_express2.default.static('static'));
   app.use(_bodyParser2.default.json());
 
   //* **************ADD NEW USER********************
