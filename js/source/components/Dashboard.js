@@ -46,7 +46,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
           <Row>
-            <Col md={6} mdOffset={4} sm={6} smOffset={4} xs={6} xsOffset={4} lg={6} lgOffset={4}>
+            <Col md={6} mdOffset={4} sm={6} smOffset={4} xs={5} xsOffset={3} lg={6} lgOffset={4}>
               <Button className="dashBoardButton" bsStyle="danger" onClick={this.routeToNewPoll}> Create New Poll </Button>
               <Button className="dashBoardButton" bsStyle="danger" onClick={this.routeToExistingPolls}> My Polls </Button>
             </Col>
