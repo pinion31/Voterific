@@ -119,6 +119,9 @@
     font-size:30px;
   }
 
+  .pollContainer {
+    width: 350px;
+  }
   .question h1 {
       font-size: 1.85em;
     }
@@ -126,12 +129,27 @@
     .answers .btn {
     margin: 5px 17%
   }
+
+  .deletePollButton {
+    width: 93%;
+    margin-left: 103%;
+  }
 }
 
 @media (max-width: 801px) and (min-width: 601px) {
   .dashBoardButton {
      margin-left: -3%;
      width: 400px;
+  }
+
+  .deletePollButton {
+    width: 100px;
+    margin-left: 95%;
+  }
+
+  .pollContainer {
+    width:400px;
+    margin-left: 23px;
   }
 
   .question h1 {
