@@ -340,7 +340,8 @@ a {
 
 @media (max-width: 801px) and (min-width: 601px) {
   .dashBoardButton {
-     margin-left: 35%;
+     margin-left: -3%;
+     width: 400px;
   }
 
   .question h1 {

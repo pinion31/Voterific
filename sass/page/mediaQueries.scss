@@ -126,13 +126,12 @@
     .answers .btn {
     margin: 5px 17%
   }
-
-
 }
 
 @media (max-width: 801px) and (min-width: 601px) {
   .dashBoardButton {
-     margin-left: 35%;
+     margin-left: -3%;
+     width: 400px;
   }
 
   .question h1 {
@@ -152,5 +151,4 @@
   .answers .btn {
     margin: 1% 33%;
   }
-
 }
