@@ -14163,7 +14163,7 @@ var Dashboard = function (_Component) {
             null,
             _react2.default.createElement(
               _reactBootstrap.Col,
-              { md: 6, mdOffset: 4, sm: 6, smOffset: 4, xs: 5, xsOffset: 3, lg: 6, lgOffset: 4 },
+              { md: 6, mdOffset: 4, sm: 6, smOffset: 3, xs: 5, xsOffset: 3, lg: 6, lgOffset: 4 },
               _react2.default.createElement(
                 _reactBootstrap.Button,
                 { className: 'dashBoardButton', bsStyle: 'danger', onClick: this.routeToNewPoll },
