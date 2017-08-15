@@ -136,19 +136,20 @@
   }
 }
 
-@media (max-width: 801px) and (min-width: 601px) {
+@media (max-width: 768px) and (min-width: 601px) {
   .dashBoardButton {
      margin-left: -3%;
      width: 400px;
   }
 
   .deletePollButton {
+    position: relative;
     width: 100px;
-    margin-left: 95%;
+    left: 176px;
   }
 
   .pollContainer {
-    width:400px;
+    width:435px;
     margin-left: 23px;
   }
 
@@ -165,7 +166,7 @@
   }
 }
 
-@media (min-width: 802px) and (max-width: 1000px) {
+@media (min-width: 769px) and (max-width: 1000px) {
   .answers .btn {
     margin: 1% 33%;
   }

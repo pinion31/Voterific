@@ -353,8 +353,9 @@ a {
   }
 
   .deletePollButton {
+    position: relative;
     width: 100px;
-    margin-left: 164px;
+    left: 176px;
   }
 
   .pollContainer {
