@@ -14603,8 +14603,8 @@ var UserPolls = function (_Component) {
             _reactBootstrap.Row,
             null,
             _react2.default.createElement(
-              _reactBootstrap.Col,
-              { xs: 5, xsOffset: 1, sm: 8, smOffset: 1, md: 8, mdOffset: 1, lg: 8, lgOffset: 1 },
+              'div',
+              { className: 'questionContainer' },
               _react2.default.createElement(
                 'a',
                 { key: key, href: '' + _actionTypes.HOST + poll.owner + '/' + poll.id },
@@ -14613,11 +14613,7 @@ var UserPolls = function (_Component) {
                   { className: 'pollContainer' },
                   poll.question
                 )
-              )
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.Col,
-              { xs: 3, sm: 3, md: 3, lg: 3 },
+              ),
               _react2.default.createElement(
                 _reactBootstrap.Button,
                 { className: 'dashBoardButton deletePollButton', bsStyle: 'danger', onClick: function onClick() {

@@ -23,16 +23,14 @@ class UserPolls extends Component {
       return (
         <div key={key}>
           <Row>
-            <Col xs={5} xsOffset={1} sm={8} smOffset={1} md={8} mdOffset={1} lg={8} lgOffset={1} >
+            <div className="questionContainer">
               <a key={key} href={`${HOST}${poll.owner}/${poll.id}`}>
                 <div className="pollContainer">
                   {poll.question}
                 </div>
               </a>
-            </Col>
-            <Col xs={3} sm={3} md={3} lg={3}>
               <Button className="dashBoardButton deletePollButton" bsStyle="danger" onClick={() => { this.deleteAPoll(poll.id, poll.owner); }}>{'Delete  '}<Glyphicon className="trash" glyph="trash" /> </Button>
-            </Col>
+            </div>
           </Row>
         </div>
       );

@@ -99,7 +99,7 @@ body {
 
 .pollContainer {
   background-color: #8FB8F2;
-  margin-left: 0px;
+  margin-left: 30px;
   margin-top: 20px;
   text-indent: 20px;
   padding: 8px;
@@ -114,6 +114,14 @@ a {
   a :hover, a :visited, a :active {
     color: black;
     text-decoration: none; }
+
+.questionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
 
 .pollCreatorTitle {
   font-family: "Montserrat", sans-serif;
@@ -209,6 +217,11 @@ a {
   margin: 30px 25% 1% 25%; }
 
 @media (max-width: 320px) {
+
+  .pollContainer {
+    margin-left: 25px;
+  }
+
   .titleLogin{
     font-size: 4em;
   }
@@ -251,6 +264,11 @@ a {
 }
 
 @media (max-width: 360px) and (min-width: 321px) {
+
+  .pollContainer {
+    margin-left: 25px;
+  }
+
   .titleLogin{
     font-size: 5em;
   }
@@ -284,6 +302,10 @@ a {
 }
 
 @media (max-width: 400px) and (min-width: 361px) {
+  .pollContainer {
+    margin-left: 30px;
+  }
+
   .titleLogin{
     font-size: 5em;
   }
@@ -331,6 +353,7 @@ a {
 
   .pollContainer {
     width: 350px;
+    margin-left: 15px;
   }
   .question h1 {
       font-size: 1.85em;
@@ -341,8 +364,8 @@ a {
   }
 
   .deletePollButton {
-    width: 93%;
-    margin-left: 103%;
+    width: 110px;
+    margin-left: 0px;
   }
 }
 
@@ -353,9 +376,8 @@ a {
   }
 
   .deletePollButton {
-    position: relative;
-    width: 100px;
-    left: 112%;
+    width: 110px;
+    margin-left: 0px;
   }
 
   .pollContainer {

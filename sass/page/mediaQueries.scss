@@ -1,4 +1,9 @@
 @media (max-width: 320px) {
+
+  .pollContainer {
+    margin-left: 25px;
+  }
+
   .titleLogin{
     font-size: 4em;
   }
@@ -41,6 +46,11 @@
 }
 
 @media (max-width: 360px) and (min-width: 321px) {
+
+  .pollContainer {
+    margin-left: 25px;
+  }
+
   .titleLogin{
     font-size: 5em;
   }
@@ -74,6 +84,10 @@
 }
 
 @media (max-width: 400px) and (min-width: 361px) {
+  .pollContainer {
+    margin-left: 30px;
+  }
+
   .titleLogin{
     font-size: 5em;
   }
@@ -121,6 +135,7 @@
 
   .pollContainer {
     width: 350px;
+    margin-left: 15px;
   }
   .question h1 {
       font-size: 1.85em;
@@ -131,8 +146,8 @@
   }
 
   .deletePollButton {
-    width: 93%;
-    margin-left: 103%;
+    width: 110px;
+    margin-left: 0px;
   }
 }
 
@@ -143,9 +158,8 @@
   }
 
   .deletePollButton {
-    position: relative;
-    width: 100px;
-    left: 112%;
+    width: 110px;
+    margin-left: 0px;
   }
 
   .pollContainer {
