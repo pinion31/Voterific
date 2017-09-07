@@ -28,6 +28,7 @@
   "homepage": "https://github.com/pinion31/Voterific#readme",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "d3-array": "1.2.0",

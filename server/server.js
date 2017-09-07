@@ -5,6 +5,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {MongoClient} from 'mongodb';
 
+const path = require('path');
+const bcrypt = require('bcryptjs');
 SourceMapSupport.install();
 
 // const dbUrl = 'mongodb://localhost/local'; // local db
@@ -25,9 +27,18 @@ MongoClient.connect(dbUrl, (err, db) => {
       if (user.length > 0) {
         res.status(400).send(false);
       } else {
-        db.collection('users').insertOne(req.body, () => {
-          res.status(201).send(true);
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(req.body.password, salt, (err, hash) => {
+              const newUser = req.body;
+              newUser.password = hash;
+
+              db.collection('users').insertOne(newUser, () => {
+                res.status(201).send(true);
+              });
+           });
         });
+
+
       }
     });
   });
@@ -195,7 +206,19 @@ MongoClient.connect(dbUrl, (err, db) => {
       {new: true},
       (err, user) => {
         if (err) { res.json(err); }
+        if (user.value) {
+          bcrypt.compare(req.body.password, user.value.password, (err, match) => {
+            if (match) {
+              res.json({login: 'success', response: user.value});
+            } else {
+              res.json({login: 'fail', response: 'Invalid Password'});
+            }
+          });
+        } else {
+          res.json({login: 'fail', response: 'Invalid User'});
+        }
 
+        /*
         if (user.value) {
           if (user.value.password === req.body.password) {
             res.json({login: 'success', response: user.value});
@@ -204,12 +227,12 @@ MongoClient.connect(dbUrl, (err, db) => {
           }
         } else {
           res.json({login: 'fail', response: 'Invalid User'});
-        }
+        }*/
       });
   });
 
   app.get('*', (req, res) => {
-    res.send('no match');
+    res.sendFile(path.resolve(__dirname, '../static', 'index.html'));
   });
 
   app.listen(process.env.PORT || 3000, () => {

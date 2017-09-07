@@ -18,10 +18,12 @@ var _mongodb = require('mongodb');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var path = require('path'); // 'use strict'
+
+var bcrypt = require('bcryptjs');
 _sourceMapSupport2.default.install();
 
 // const dbUrl = 'mongodb://localhost/local'; // local db
-// 'use strict'
 var dbUrl = process.env.MONGOLAB_URI; // production db
 
 _mongodb.MongoClient.connect(dbUrl, function (err, db) {
@@ -41,8 +43,15 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
       if (user.length > 0) {
         res.status(400).send(false);
       } else {
-        db.collection('users').insertOne(req.body, function () {
-          res.status(201).send(true);
+        bcrypt.genSalt(10, function (err, salt) {
+          bcrypt.hash(req.body.password, salt, function (err, hash) {
+            var newUser = req.body;
+            newUser.password = hash;
+
+            db.collection('users').insertOne(newUser, function () {
+              res.status(201).send(true);
+            });
+          });
         });
       }
     });
@@ -180,21 +189,33 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
       if (err) {
         res.json(err);
       }
-
       if (user.value) {
-        if (user.value.password === req.body.password) {
-          res.json({ login: 'success', response: user.value });
-        } else {
-          res.json({ login: 'fail', response: 'Invalid Password' });
-        }
+        bcrypt.compare(req.body.password, user.value.password, function (err, match) {
+          if (match) {
+            res.json({ login: 'success', response: user.value });
+          } else {
+            res.json({ login: 'fail', response: 'Invalid Password' });
+          }
+        });
       } else {
         res.json({ login: 'fail', response: 'Invalid User' });
       }
+
+      /*
+      if (user.value) {
+        if (user.value.password === req.body.password) {
+          res.json({login: 'success', response: user.value});
+        } else {
+          res.json({login: 'fail', response: 'Invalid Password'});
+        }
+      } else {
+        res.json({login: 'fail', response: 'Invalid User'});
+      }*/
     });
   });
 
   app.get('*', function (req, res) {
-    res.send('no match');
+    res.sendFile(path.resolve(__dirname, '../static', 'index.html'));
   });
 
   app.listen(process.env.PORT || 3000, function () {
