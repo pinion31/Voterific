@@ -811,8 +811,8 @@ var ADD_NEW_USER = exports.ADD_NEW_USER = 'ADD_NEW_USER';
 var LOGIN_EXISTING_USER = exports.LOGIN_EXISTING_USER = 'LOGIN_EXISTING_USER';
 var ANSWER_POLL = exports.ANSWER_POLL = 'ANSWER_POLL';
 var LOG_OUT = exports.LOG_OUT = 'LOG_OUT';
-//export const HOST = 'http://localhost:8080/#/poll/'; // dev
-var HOST = exports.HOST = 'https://voterific.herokuapp.com/#/poll/'; // prod
+//export const HOST = 'http://localhost:8080/poll/'; // dev
+var HOST = exports.HOST = 'https://voterific.herokuapp.com/poll/'; // prod
 
 /***/ }),
 /* 124 */
