@@ -175,7 +175,7 @@ MongoClient.connect(dbUrl, (err, db) => {
             {new: true},
             {upsert: true},
             (err, result2) => {
-              if (err) { console.dir(err); }
+              if (err) { throw err; }
               res.send(result2);
             },
           );
@@ -236,6 +236,6 @@ MongoClient.connect(dbUrl, (err, db) => {
   });
 
   app.listen(process.env.PORT || 3000, () => {
-    console.log('App started on port 3000');
+    console.log('App started');
   });
 });

@@ -165,7 +165,7 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
 
       db.collection('polls').findAndModify({ 'choices.choice': req.body.answer }, {}, { $set: { choices: poll[0].choices } }, { new: true }, { upsert: true }, function (err, result2) {
         if (err) {
-          console.dir(err);
+          throw err;
         }
         res.send(result2);
       });
@@ -219,7 +219,7 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
   });
 
   app.listen(process.env.PORT || 3000, function () {
-    console.log('App started on port 3000');
+    console.log('App started');
   });
 });
 //# sourceMappingURL=server.js.map

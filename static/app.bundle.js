@@ -708,7 +708,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.answerPoll = exports.loginExistingUser = exports.addNewUser = exports.deletePoll = exports.logOut = exports.addPoll = undefined;
 
-var _actionTypes = __webpack_require__(123);
+var _actionTypes = __webpack_require__(160);
 
 var addPoll = exports.addPoll = function addPoll(newPoll, callback, url) {
   return {
@@ -805,32 +805,13 @@ exports.default = function (a, b) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var ADD_POLL = exports.ADD_POLL = 'ADD_POLL';
-var DELETE_POLL = exports.DELETE_POLL = 'DELETE_POLL';
-var ADD_NEW_USER = exports.ADD_NEW_USER = 'ADD_NEW_USER';
-var LOGIN_EXISTING_USER = exports.LOGIN_EXISTING_USER = 'LOGIN_EXISTING_USER';
-var ANSWER_POLL = exports.ANSWER_POLL = 'ANSWER_POLL';
-var LOG_OUT = exports.LOG_OUT = 'LOG_OUT';
-//export const HOST = 'http://localhost:8080/poll/'; // dev
-var HOST = exports.HOST = 'https://voterific.herokuapp.com/poll/'; // prod
-
-/***/ }),
-/* 124 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 exports.default = function (x) {
   return x === null ? NaN : +x;
 };
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -844,7 +825,7 @@ exports.default = linear;
 
 var _d3Array = __webpack_require__(58);
 
-var _d3Interpolate = __webpack_require__(126);
+var _d3Interpolate = __webpack_require__(125);
 
 var _continuous = __webpack_require__(162);
 
@@ -922,7 +903,7 @@ function linear() {
 }
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1124,7 +1105,7 @@ Object.defineProperty(exports, "quantize", {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1172,7 +1153,7 @@ function nogamma(a, b) {
 }
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1189,6 +1170,7 @@ exports.default = function (s) {
 };
 
 /***/ }),
+/* 128 */,
 /* 129 */,
 /* 130 */,
 /* 131 */,
@@ -1220,7 +1202,25 @@ exports.default = function (s) {
 /* 157 */,
 /* 158 */,
 /* 159 */,
-/* 160 */,
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ADD_POLL = exports.ADD_POLL = 'ADD_POLL';
+var DELETE_POLL = exports.DELETE_POLL = 'DELETE_POLL';
+var ADD_NEW_USER = exports.ADD_NEW_USER = 'ADD_NEW_USER';
+var LOGIN_EXISTING_USER = exports.LOGIN_EXISTING_USER = 'LOGIN_EXISTING_USER';
+var ANSWER_POLL = exports.ANSWER_POLL = 'ANSWER_POLL';
+var LOG_OUT = exports.LOG_OUT = 'LOG_OUT';
+//export const HOST = 'http://localhost:8080/poll/'; // dev
+var HOST = exports.HOST = 'https://voterific.herokuapp.com/poll/'; // prod
+
+/***/ }),
 /* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1253,7 +1253,7 @@ exports.default = continuous;
 
 var _d3Array = __webpack_require__(58);
 
-var _d3Interpolate = __webpack_require__(126);
+var _d3Interpolate = __webpack_require__(125);
 
 var _array = __webpack_require__(88);
 
@@ -1613,7 +1613,7 @@ exports.default = function (values, p, valueof) {
   return value0 + (value1 - value0) * (i - i0);
 };
 
-var _number = __webpack_require__(124);
+var _number = __webpack_require__(123);
 
 var _number2 = _interopRequireDefault(_number);
 
@@ -4127,7 +4127,7 @@ exports.default = function (values, valueof) {
   if (m > 1) return sum / (m - 1);
 };
 
-var _number = __webpack_require__(124);
+var _number = __webpack_require__(123);
 
 var _number2 = _interopRequireDefault(_number);
 
@@ -4480,7 +4480,7 @@ var _basisClosed = __webpack_require__(395);
 
 var _basisClosed2 = _interopRequireDefault(_basisClosed);
 
-var _color = __webpack_require__(127);
+var _color = __webpack_require__(126);
 
 var _color2 = _interopRequireDefault(_color);
 
@@ -5226,7 +5226,7 @@ exports.default = function () {
 
 var _d3Array = __webpack_require__(58);
 
-var _d3Interpolate = __webpack_require__(126);
+var _d3Interpolate = __webpack_require__(125);
 
 var _d3Time = __webpack_require__(247);
 
@@ -6163,7 +6163,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(131);
+var _reactRouterDom = __webpack_require__(130);
 
 __webpack_require__(268);
 
@@ -6525,7 +6525,7 @@ var _reactBootstrap = __webpack_require__(54);
 
 var _reactRouter = __webpack_require__(31);
 
-var _reactRouterDom = __webpack_require__(131);
+var _reactRouterDom = __webpack_require__(130);
 
 var _reactRouterBootstrap = __webpack_require__(369);
 
@@ -7472,7 +7472,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
 
 exports.default = freeGlobal;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(132)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(131)))
 
 /***/ }),
 /* 873 */
@@ -7704,7 +7704,7 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(132), __webpack_require__(297)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(131), __webpack_require__(297)(module)))
 
 /***/ }),
 /* 880 */
@@ -8339,7 +8339,7 @@ exports.userReducer = undefined;
 
 var _pollActions = __webpack_require__(891);
 
-var _actionTypes = __webpack_require__(123);
+var _actionTypes = __webpack_require__(160);
 
 var userReducer = exports.userReducer = function userReducer(state, action) {
   switch (action.type) {
@@ -9323,7 +9323,7 @@ Object.defineProperty(exports, "scaleIdentity", {
   }
 });
 
-var _linear = __webpack_require__(125);
+var _linear = __webpack_require__(124);
 
 Object.defineProperty(exports, "scaleLinear", {
   enumerable: true,
@@ -9847,7 +9847,7 @@ var _ascending = __webpack_require__(106);
 
 var _ascending2 = _interopRequireDefault(_ascending);
 
-var _number = __webpack_require__(124);
+var _number = __webpack_require__(123);
 
 var _number2 = _interopRequireDefault(_number);
 
@@ -9957,7 +9957,7 @@ exports.default = function (values, valueof) {
   if (m) return sum / m;
 };
 
-var _number = __webpack_require__(124);
+var _number = __webpack_require__(123);
 
 var _number2 = _interopRequireDefault(_number);
 
@@ -10001,7 +10001,7 @@ var _ascending = __webpack_require__(106);
 
 var _ascending2 = _interopRequireDefault(_ascending);
 
-var _number = __webpack_require__(124);
+var _number = __webpack_require__(123);
 
 var _number2 = _interopRequireDefault(_number);
 
@@ -10480,7 +10480,7 @@ exports.default = identity;
 
 var _array = __webpack_require__(88);
 
-var _linear = __webpack_require__(125);
+var _linear = __webpack_require__(124);
 
 var _number = __webpack_require__(401);
 
@@ -10979,7 +10979,7 @@ exports.hslLong = undefined;
 
 var _d3Color = __webpack_require__(74);
 
-var _color = __webpack_require__(127);
+var _color = __webpack_require__(126);
 
 var _color2 = _interopRequireDefault(_color);
 
@@ -11018,7 +11018,7 @@ exports.default = lab;
 
 var _d3Color = __webpack_require__(74);
 
-var _color = __webpack_require__(127);
+var _color = __webpack_require__(126);
 
 var _color2 = _interopRequireDefault(_color);
 
@@ -11052,7 +11052,7 @@ exports.hclLong = undefined;
 
 var _d3Color = __webpack_require__(74);
 
-var _color = __webpack_require__(127);
+var _color = __webpack_require__(126);
 
 var _color2 = _interopRequireDefault(_color);
 
@@ -11091,7 +11091,7 @@ exports.cubehelixLong = undefined;
 
 var _d3Color = __webpack_require__(74);
 
-var _color = __webpack_require__(127);
+var _color = __webpack_require__(126);
 
 var _color2 = _interopRequireDefault(_color);
 
@@ -11584,7 +11584,7 @@ var _constant = __webpack_require__(245);
 
 var _constant2 = _interopRequireDefault(_constant);
 
-var _linear = __webpack_require__(125);
+var _linear = __webpack_require__(124);
 
 var _continuous = __webpack_require__(162);
 
@@ -11708,7 +11708,7 @@ var _d3Array = __webpack_require__(58);
 
 var _array = __webpack_require__(88);
 
-var _linear = __webpack_require__(125);
+var _linear = __webpack_require__(124);
 
 function quantize() {
   var x0 = 0,
@@ -12370,7 +12370,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _colors = __webpack_require__(128);
+var _colors = __webpack_require__(127);
 
 var _colors2 = _interopRequireDefault(_colors);
 
@@ -12389,7 +12389,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _colors = __webpack_require__(128);
+var _colors = __webpack_require__(127);
 
 var _colors2 = _interopRequireDefault(_colors);
 
@@ -12408,7 +12408,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _colors = __webpack_require__(128);
+var _colors = __webpack_require__(127);
 
 var _colors2 = _interopRequireDefault(_colors);
 
@@ -12427,7 +12427,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _colors = __webpack_require__(128);
+var _colors = __webpack_require__(127);
 
 var _colors2 = _interopRequireDefault(_colors);
 
@@ -12448,7 +12448,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _d3Color = __webpack_require__(74);
 
-var _d3Interpolate = __webpack_require__(126);
+var _d3Interpolate = __webpack_require__(125);
 
 exports.default = (0, _d3Interpolate.interpolateCubehelixLong)((0, _d3Color.cubehelix)(300, 0.5, 0.0), (0, _d3Color.cubehelix)(-240, 0.5, 1.0));
 
@@ -12475,7 +12475,7 @@ exports.default = function (t) {
 
 var _d3Color = __webpack_require__(74);
 
-var _d3Interpolate = __webpack_require__(126);
+var _d3Interpolate = __webpack_require__(125);
 
 var warm = exports.warm = (0, _d3Interpolate.interpolateCubehelixLong)((0, _d3Color.cubehelix)(-100, 0.75, 0.35), (0, _d3Color.cubehelix)(80, 1.50, 0.8));
 
@@ -12495,7 +12495,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.plasma = exports.inferno = exports.magma = undefined;
 
-var _colors = __webpack_require__(128);
+var _colors = __webpack_require__(127);
 
 var _colors2 = _interopRequireDefault(_colors);
 
@@ -12527,7 +12527,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = sequential;
 
-var _linear = __webpack_require__(125);
+var _linear = __webpack_require__(124);
 
 function sequential(interpolator) {
   var x0 = 0,
@@ -14559,7 +14559,7 @@ var _reactBootstrap = __webpack_require__(54);
 
 var _actionCreators = __webpack_require__(105);
 
-var _actionTypes = __webpack_require__(123);
+var _actionTypes = __webpack_require__(160);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14705,7 +14705,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(54);
 
-var _actionTypes = __webpack_require__(123);
+var _actionTypes = __webpack_require__(160);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14795,8 +14795,6 @@ __webpack_require__(122);
 
 var _reactBootstrap = __webpack_require__(54);
 
-var _actionTypes = __webpack_require__(123);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14844,6 +14842,8 @@ var SitePolls = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       return _react2.default.createElement(
         'div',
         null,
@@ -14869,15 +14869,17 @@ var SitePolls = function (_Component) {
             this.state.poll.map(function (result, key) {
               return _react2.default.createElement(
                 'div',
-                { key: key, className: 'sitePollsLinkText' },
+                {
+                  key: key,
+                  className: 'sitePollsLinkText',
+                  onClick: function onClick() {
+                    _this3.props.history.push('/poll/' + result.owner + '/' + result.id);
+                  }
+                },
                 _react2.default.createElement(
-                  'a',
-                  { href: '' + _actionTypes.HOST + result.owner + '/' + result.id, key: key },
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'pollContainer', key: key },
-                    result.question
-                  )
+                  'div',
+                  { className: 'pollContainer', key: key },
+                  result.question
                 )
               );
             })
@@ -14950,6 +14952,7 @@ var Poll = function (_Component) {
   _createClass(Poll, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log('hitting poll component');
       this.loadPoll();
     }
   }, {

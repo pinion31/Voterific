@@ -19,6 +19,7 @@ class Poll extends Component {
   }
 
   componentDidMount() {
+    console.log('hitting poll component');
     this.loadPoll();
   }
 

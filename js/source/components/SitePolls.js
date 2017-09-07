@@ -2,7 +2,6 @@ import React from 'react';
 import {Component} from 'react';
 import 'whatwg-fetch';
 import {Row, Col} from 'react-bootstrap';
-import {HOST} from '../constants/actionTypes';
 
 class SitePolls extends Component {
   constructor(props) {
@@ -40,10 +39,12 @@ class SitePolls extends Component {
         <Row>
           <Col xs={8} xsOffset={2} sm={8} smOffset={2} md={8} mdOffset={2} lg={8} lgOffset={2} >
             {this.state.poll.map((result, key) => (
-              <div key={key} className="sitePollsLinkText">
-                <a href={`${HOST}${result.owner}/${result.id}`} key={key}>
-                  <div className="pollContainer" key={key}>{result.question}</div>
-                </a>
+              <div
+                key={key}
+                className="sitePollsLinkText"
+                onClick={() => { this.props.history.push(`/poll/${result.owner}/${result.id}`); }}
+              >
+                <div className="pollContainer" key={key}>{result.question}</div>
               </div>
             ))
             }
