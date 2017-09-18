@@ -16,6 +16,12 @@ import {logOut} from '../actions/actionCreators';
 
 const NoMatch = () => <h2>This page does not exist! Please go back!</h2>;
 
+const Footer = () => (
+  <div className="footer-style">
+    <p>Copyright &copy; 2017 Chris Cantu. All Rights Reserved</p>
+  </div>
+);
+
 class RoutedApp extends Component {
   constructor(props) {
     super(props);

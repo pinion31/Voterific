@@ -1,5 +1,5 @@
-
-
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -9,12 +9,16 @@ module.exports = {
       'react-router-bootstrap', 'react-router-dom'],
   },
   output: {
-    path: 'C:\\Users\\Chris\\Documents\\WebDev\\Voterific\\static',
-    // path: path.resolve(__dirname, 'static'),
-    filename: 'app.bundle.js',
+    path: path.resolve(__dirname, 'static'),
+    filename: '[name].[chunkhash].js'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.bundle.js', })
+    new webpack.optimize.CommonsChunkPlugin({names: ['vendor', 'manifest']}),
+    new HtmlWebpackPlugin({
+      template: './static/index.html'}),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    })
   ],
   devServer: {
     port: 8080,
