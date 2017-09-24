@@ -100,6 +100,7 @@ export const loginExistingUser = (creds, callback) => (
   (dispatch) => {
     axios.post('/users/logIn', creds)
       .then((user) => {
+        console.log(user.data);
         callback(user.data);
         dispatch({type: 'LOGIN_EXISTING_USER', payload: user.data});
       }).catch((err) => {

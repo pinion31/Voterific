@@ -1,5 +1,5 @@
-import React from 'react';
-import {Component} from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {Route} from 'react-router';
 import {Switch} from 'react-router-dom';
@@ -96,7 +96,7 @@ class RoutedApp extends Component {
   updateHeader() {
     this.setState({
        // refactor getState
-     // header: this.getDynamicHeader(store.getState().currentUser.loggedIn || false),
+     header: this.getDynamicHeader(this.props.loggedIn || false),
     });
   }
 
@@ -108,9 +108,15 @@ class RoutedApp extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.currentUser.loggedIn
+  };
+}
+
 RoutedApp.propTypes = {
   header: React.PropTypes.any,
   main: React.PropTypes.func,
 };
 
-export default RoutedApp;
+export default connect(mapStateToProps)(RoutedApp);
