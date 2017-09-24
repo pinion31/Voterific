@@ -9,7 +9,7 @@ export const addPoll = (state, action) => {
   newState.currentUser.polls.push(action.poll);
   newState.currentUser.counter++;
 
-  fetch('/addPoll', {
+  fetch('/polls/addPoll', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(action.poll),
@@ -21,7 +21,7 @@ export const addPoll = (state, action) => {
   }).catch(err => `Error in sending data to server:${err.message}`);
 
 
-  fetch('/addPollToAll', {
+  fetch('/polls/addPollToAll', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(action.poll),
@@ -41,7 +41,7 @@ export const deletePoll = (state, action) => {
   });
 
   // database changes
-  fetch('/deletePollForUsers', {
+  fetch('/polls/deletePollForUsers', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(action)})
@@ -53,7 +53,7 @@ export const deletePoll = (state, action) => {
     });
 
 
-  fetch('/deletePollForAll', {
+  fetch('/polls/deletePollForAll', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(action)})
@@ -70,7 +70,7 @@ export const answerPoll = (state, action) => {
   // action.answer
   // action.name, action.id
 
-  fetch('/answerPollForUsers', {
+  fetch('/polls/answerPollForUsers', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(action)})
@@ -79,7 +79,7 @@ export const answerPoll = (state, action) => {
     });
 
 
-  fetch('/answerPollForAll', {
+  fetch('/polls/answerPollForAll', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(action)})
@@ -102,7 +102,7 @@ export const logOut = (state, callback) => {
   const userToLogOut = {name: newState.currentUser.name}; // retrieve user's name to send off to db
   newState.currentUser = {}; // no more current user
 
-  fetch('/logOut', {
+  fetch('/users/logOut', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(userToLogOut),
@@ -118,7 +118,7 @@ export const logOut = (state, callback) => {
 export const loginExistingUser = (state, creds) => {
   const newState = Object.assign({}, state);
 
-  fetch('/logIn', {
+  fetch('/users/logIn', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(creds.user),
@@ -155,7 +155,7 @@ export const addNewUser = (state, username, userEmail, pw, callback) => {
   };
 
   // send new user to server
-  fetch('/addUser', {
+  fetch('/users/addUser', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(user),

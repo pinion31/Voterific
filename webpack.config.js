@@ -1,21 +1,19 @@
-const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
     app: './js/source/app.js',
     vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-bootstrap', 'babel-polyfill', 'react-router',
-             'react-router-bootstrap', 'react-router-dom'],
+      'react-router-bootstrap', 'react-router-dom'],
   },
   output: {
     path: path.resolve(__dirname, 'static'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[hash].js'
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({names: ['vendor', 'manifest']}),
-    new ExtractTextPlugin('bundle.[chunkhash].css'),
     new HtmlWebpackPlugin({
       template: './static/index.html'}),
     new webpack.DefinePlugin({
@@ -27,25 +25,24 @@ module.exports = {
     contentBase: 'static',
     proxy: {
       '/': {
-        target: 'http://localhost:3000'
-      }
-    }
+        target: 'http://localhost:3000',
+      },
+    },
   },
-
+  devtool: 'source-map',
   module: {
     loaders: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
-        }
+          presets: ['react', 'es2015'],
+        },
       },
       {
         test: /\.scss$/,
-        loaders: ExtractTextPlugin.extract({fallback:'style-loader',
-        use:'css-loader!sass-loader'})
-      },
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+      }
     ],
-  }
+  },
 };

@@ -19,12 +19,11 @@ class Poll extends Component {
   }
 
   componentDidMount() {
-    console.log('hitting poll component');
     this.loadPoll();
   }
 
   loadPoll() {
-    fetch(`/poll/${this.props.match.params.name}/${this.props.match.params.id}`)
+    fetch(`/polls/${this.props.match.params.name}/${this.props.match.params.id}`)
       .then((result) => {
         result.json().then((poll) => {
           this.setState({

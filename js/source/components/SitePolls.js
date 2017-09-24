@@ -18,7 +18,7 @@ class SitePolls extends Component {
   }
 
   loadAllPolls() {
-    fetch('/getAllPolls')
+    fetch('/polls/getAllPolls')
       .then((response) => {
         response.json().then((poll) => {
           this.setState({
@@ -54,7 +54,6 @@ class SitePolls extends Component {
     );
   }
 }
-
 
 SitePolls.propTypes = {
   poll: React.PropTypes.any,
