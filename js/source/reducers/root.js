@@ -1,5 +1,7 @@
 import {userReducer} from './userReducer';
+import {pollReducer} from './pollReducer';
+import {combineReducers} from 'redux';
 
-export const rootReducer = (state, action) => Object.assign({}, state,
-  {currentUser:
-    userReducer(state, action)});
+export default combineReducers({currentUser: userReducer, polls: pollReducer});
+
+

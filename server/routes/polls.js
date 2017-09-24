@@ -38,10 +38,11 @@ router.post('/addPoll', (req, res) => {
     {name: req.body.owner},
     {}, // this must be here to work
     {$push: {polls: req.body}, $inc: {counter: 1}},
+    {new: true},
     {upsert: true},
     (err, result) => {
       if (err) { throw err; }
-      res.send(result);
+      res.send(result.polls);
     },
   );
 });

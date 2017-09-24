@@ -4,8 +4,6 @@ import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {Route} from 'react-router';
 import {Switch} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Provider} from 'react-redux';
-import {store} from '../store/UserStore';
 import Login from './Login';
 import SignUp from './SignUp';
 import PollResults from './PollResults';
@@ -39,7 +37,6 @@ class RoutedApp extends Component {
 
   getMainContent() {
     return (<main>
-      <Provider store={store}>
         <Switch>
           <Route exact path="/allPolls" component={SitePolls} />
           <Route path="/polls/:name/:id" component={Poll} />
@@ -49,7 +46,6 @@ class RoutedApp extends Component {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route path="*" component={NoMatch} />
         </Switch>
-      </Provider>
     </main>);
   }
 
@@ -69,7 +65,7 @@ class RoutedApp extends Component {
         </Nav>
         <Nav pullRight>
           <LinkContainer to="/">
-            <NavItem onClick={() => { store.dispatch(logOut(this.updateHeader)); }}>
+            <NavItem onClick={() => { /*store.dispatch(logOut(this.updateHeader)); */}}>
               Log Out
             </NavItem>
           </LinkContainer>
@@ -100,7 +96,7 @@ class RoutedApp extends Component {
   updateHeader() {
     this.setState({
        // refactor getState
-      header: this.getDynamicHeader(store.getState().currentUser.loggedIn || false),
+     // header: this.getDynamicHeader(store.getState().currentUser.loggedIn || false),
     });
   }
 

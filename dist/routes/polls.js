@@ -29,11 +29,11 @@ router.post('/deletePollForUsers', function (req, res) {
 router.post('/addPoll', function (req, res) {
   db = req.db;
   db.collection('users').findAndModify({ name: req.body.owner }, {}, // this must be here to work
-  { $push: { polls: req.body }, $inc: { counter: 1 } }, { upsert: true }, function (err, result) {
+  { $push: { polls: req.body }, $inc: { counter: 1 } }, { new: true }, { upsert: true }, function (err, result) {
     if (err) {
       throw err;
     }
-    res.send(result);
+    res.send(result.polls);
   });
 });
 

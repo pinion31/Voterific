@@ -3,7 +3,19 @@ import axios from 'axios';
 
 //* ***********ADDING AND DELETING POLLS********
 
-export const addPoll = (state, action) => {
+export const addPoll = (action) => {
+  (dispatch) => {
+    axios.post('/polls/addPoll', action.poll)
+      .then((res) => {
+        if (res.ok) {
+          action.callback(action.url);
+          dispatch({type: 'ADD_POLL', data: res.data});
+        };
+      }).catch((err) => {
+        throw err;
+      });
+  };
+  /*
   const newState = Object.assign({}, state);
   newState.currentUser.polls.push(action.poll);
   newState.currentUser.counter++;
@@ -19,7 +31,7 @@ export const addPoll = (state, action) => {
     }
   }).catch(err => `Error in sending data to server:${err.message}`);
 
-  return newState.currentUser;
+  return newState.currentUser;*/
 };
 
 export const deletePoll = (state, action) => {
