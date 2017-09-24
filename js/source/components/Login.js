@@ -1,7 +1,9 @@
-import React from 'react';
-import {Component} from 'react';
+import React,{Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {Row, Col, Button, FormGroup, FormControl, Alert} from 'react-bootstrap';
-import {loginExistingUser} from '../actions/actionCreators';
+import {loginExistingUser, addNewUser, logOut} from '../actions/pollActions';
+
 
 class Login extends Component {
   constructor(props) {
@@ -39,6 +41,36 @@ class Login extends Component {
 
   loginUser() {
     if (this.validateLogin(this.state.cred)) {
+      this.props.loginExistingUser(this.state.cred, (result) => {
+        if (result.login === 'success') {
+          this.props.history.push('/dashboard'); // redirects after successful user add
+          this.state.navBar();
+        } else {
+          const alert = this.getAlertMessage(result.response);
+
+          this.setState({
+            validationMessage: alert,
+            showingValidation: true,
+          });
+        }
+      });
+
+      /*
+        .then((result) => {
+          if (result.login === 'success') {
+            this.props.history.push('/dashboard'); // redirects after successful user add
+            this.state.navBar();
+          } else {
+            const alert = this.getAlertMessage(result.response);
+
+            this.setState({
+              validationMessage: alert,
+              showingValidation: true,
+            });
+          }
+        });*/
+    /*
+    if (this.validateLogin(this.state.cred)) {
       store.dispatch(loginExistingUser(this.state.cred, (result) => {
         if (result.login === 'success') {
           this.props.history.push('/dashboard'); // redirects after successful user add
@@ -52,6 +84,7 @@ class Login extends Component {
           });
         }
       }));
+    }*/
     }
   }
 
@@ -140,6 +173,12 @@ class Login extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    loginExistingUser,
+  }, dispatch);
+}
+
 Login.propTypes = {
   cred: React.PropTypes.object,
   navBar: React.PropTypes.func,
@@ -147,4 +186,4 @@ Login.propTypes = {
   validationMessage: React.PropTypes.any,
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);

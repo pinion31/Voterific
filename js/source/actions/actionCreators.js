@@ -28,10 +28,9 @@ export const addNewUser = (user, redirect) => ({
   callback: redirect, // callback redirect user to dashboard upon successful user add
 });
 
-export const loginExistingUser = (user, callback) => ({
+export const loginExistingUser = (user) => ({
   type: LOGIN_EXISTING_USER,
   user,
-  callback,
 });
 
 export const answerPoll = (answer, name, id, callback) => ({

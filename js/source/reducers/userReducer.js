@@ -6,7 +6,7 @@ export const userReducer = (state = {currentUser: {}}, action) => {
     case ADD_NEW_USER:
       return addNewUser(state, action.name, action.email, action.password, action.callback);
     case LOGIN_EXISTING_USER:
-      return loginExistingUser(state, action);
+      return {currentUser: action.payload.response};
     case LOG_OUT:
       return logOut(state, action.callback);
     default:

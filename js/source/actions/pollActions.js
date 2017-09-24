@@ -3,18 +3,19 @@ import axios from 'axios';
 
 //* ***********ADDING AND DELETING POLLS********
 
-export const addPoll = (action) => {
+export const addPoll = (action) => (
   (dispatch) => {
     axios.post('/polls/addPoll', action.poll)
       .then((res) => {
         if (res.ok) {
           action.callback(action.url);
           dispatch({type: 'ADD_POLL', data: res.data});
-        };
+        }
       }).catch((err) => {
         throw err;
       });
-  };
+  }
+);
   /*
   const newState = Object.assign({}, state);
   newState.currentUser.polls.push(action.poll);
@@ -32,7 +33,6 @@ export const addPoll = (action) => {
   }).catch(err => `Error in sending data to server:${err.message}`);
 
   return newState.currentUser;*/
-};
 
 export const deletePoll = (state, action) => {
   const newState = Object.assign({}, state);
@@ -96,7 +96,17 @@ export const logOut = (state, callback) => {
   return newState.currentUser;
 };
 
-export const loginExistingUser = (state, creds) => {
+export const loginExistingUser = (creds, callback) => (
+  (dispatch) => {
+    axios.post('/users/logIn', creds)
+      .then((user) => {
+        callback(user.data);
+        dispatch({type: 'LOGIN_EXISTING_USER', payload: user.data});
+      }).catch((err) => {
+        throw err;
+      });
+  }
+  /*
   const newState = Object.assign({}, state);
 
   fetch('/users/logIn', {
@@ -119,7 +129,8 @@ export const loginExistingUser = (state, creds) => {
       }
     })
     .catch(err => `Error in sending data to server:${err.message}`);
-};
+*/
+);
 
 //* ***********ADDING NEW USER*******************
 
