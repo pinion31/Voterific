@@ -27,8 +27,8 @@ class Poll extends Component {
       .then((result) => {
         result.json().then((poll) => {
           this.setState({
-            question: poll[0].question,
-            choices: poll[0].choices,
+            question: poll.question,
+            choices: poll.choices,
           });
         });
       })

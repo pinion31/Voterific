@@ -17,7 +17,7 @@ const dbUrl = process.env.MONGOLAB_URI; // production db
 MongoClient.connect(dbUrl, (err, db) => {
   if (err) { return err; }
 
-  const passDB = (res, req, next) => {
+  const passDB = (req, res, next) => {
     req.db = db;
     next();
   };

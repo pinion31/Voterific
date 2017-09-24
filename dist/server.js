@@ -42,7 +42,7 @@ _mongodb.MongoClient.connect(dbUrl, function (err, db) {
     return err;
   }
 
-  var passDB = function passDB(res, req, next) {
+  var passDB = function passDB(req, res, next) {
     req.db = db;
     next();
   };

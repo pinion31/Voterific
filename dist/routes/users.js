@@ -6,7 +6,7 @@ var bcrypt = require('bcryptjs');
 var db = void 0;
 
 router.post('/addUser', function (req, res) {
-  db = res.db;
+  db = req.db;
   db.collection('users').find({ name: req.body.name }).toArray(function (err, user) {
     if (err) return err;
     if (user.length > 0) {
@@ -27,7 +27,7 @@ router.post('/addUser', function (req, res) {
 });
 
 router.post('/logOut', function (req, res) {
-  db = res.db;
+  db = req.db;
   db.collection('users').findAndModify({ name: req.body.name }, {}, // this must be here to work
   { $set: { loggedIn: false } }, { upsert: true }, function (err, result) {
     if (err) {
@@ -38,7 +38,7 @@ router.post('/logOut', function (req, res) {
 });
 
 router.post('/logIn', function (req, res) {
-  db = res.db;
+  db = req.db;
   db.collection('users').findAndModify({ name: req.body.name }, {}, { $set: { loggedIn: true } }, { new: true }, function (err, user) {
     if (err) {
       res.json(err);

@@ -42,7 +42,7 @@ class SitePolls extends Component {
               <div
                 key={key}
                 className="sitePollsLinkText"
-                onClick={() => { this.props.history.push(`/poll/${result.owner}/${result.id}`); }}
+                onClick={() => { this.props.history.push(`/polls/${result.owner}/${result.id}`); }}
               >
                 <div className="pollContainer" key={key}>{result.question}</div>
               </div>

@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 let db;
 
-
 router.post('/deletePollForUsers', (req, res) => {
-  db = res.db;
+  db = req.db;
 
   db.collection('users').find({name: req.body.name})
     .toArray((err, user) => {
-      if (err) return err;
+      if (err) throw err;
       const userCopy = user;
 
       userCopy[0].polls = userCopy[0].polls.filter((poll) => {
@@ -24,47 +23,24 @@ router.post('/deletePollForUsers', (req, res) => {
         {new: true},
         {upsert: true},
         (err, result) => {
-          if (err) return err;
+          if (err) throw err;
           res.send(result);
         },
       );
     });
 });
 
-// delete polls from collective list
-router.post('/deletePollForAll', (req) => {
-  db = res.db;
-  db.collection('polls').deleteOne(
-    {id: req.body.id.toString(), owner: req.body.name},
-    (err) => {
-      if (err) { return err; }
-    },
-  );
-});
-
 //* *************ADD POLL***************************
 
 router.post('/addPoll', (req, res) => {
-  db = res.db;
+  db = req.db;
   db.collection('users').findAndModify(
     {name: req.body.owner},
     {}, // this must be here to work
     {$push: {polls: req.body}, $inc: {counter: 1}},
     {upsert: true},
     (err, result) => {
-      if (err) { return err; }
-      res.send(result);
-    },
-  );
-});
-
-// adds polls to collective list
-router.post('/addPollToAll', (req, res) => {
-  db = res.db;
-  db.collection('polls').insertOne(
-    req.body,
-    (err, result) => {
-      if (err) { return err; }
+      if (err) { throw err; }
       res.send(result);
     },
   );
@@ -74,27 +50,43 @@ router.post('/addPollToAll', (req, res) => {
 
 // returns all user polls
 router.get('/getAllPolls', (req, res) => {
-  db = res.db;
-  db.collection('polls').find({}).toArray((err, result) => {
-    if (err) { return err; }
-    res.send(result);
+  db = req.db;
+  let polls = [];
+  db.collection('users').find({}).toArray((err, users) => {
+    if (err) { throw err; }
+
+    users.forEach((user) => {
+      polls = polls.concat(user.polls);
+    });
+
+    res.send(polls);
   });
 });
 
 router.get('/:name/:id', (req, res) => {
-  db = res.db;
-  db.collection('polls').find({owner: req.params.name, id: req.params.id}).toArray((err, result) => {
-    if (err) { return err; }
-    res.send(result);
+  db = req.db;
+  let userPoll = {};
+
+  db.collection('users').find({name: req.params.name}).toArray((err, user) => {
+    if (err) { throw err; }
+
+    user[0].polls.forEach((poll) => {
+      if (poll.id.toString() === req.params.id.toString()) {
+        console.log(poll);
+        userPoll = poll;
+      }
+    });
+
+    res.send(userPoll);
   });
 });
 
 //* *************ANSWER POLL***************************
 
-router.post('/answerPollForUsers', (req) => {
-  db = res.db;
+router.post('/answerPollForUsers', (req, res) => {
+  db = req.db;
   db.collection('users').find({name: req.body.name}).toArray((err, user) => {
-    if (err) return err;
+    if (err) throw err;
 
     const userCopy = user;
     userCopy[0].polls.map((poll) => {
@@ -114,40 +106,10 @@ router.post('/answerPollForUsers', (req) => {
       {new: true},
       {upsert: true},
       (err) => {
-        if (err) return err;
+        if (err) throw err;
       },
     );
   });
-});
-
-router.post('/answerPollForAll', (req, res) => {
-  db = res.db;
-  db.collection('polls').find(
-    {'choices.choice': req.body.answer})
-    .toArray(
-      (err, result) => {
-        if (err) return err;
-        const poll = result;
-
-        poll[0].choices.map((answer) => {
-          if (answer.choice === req.body.answer) {
-            answer.votes++;
-          }
-        });
-
-        db.collection('polls').findAndModify(
-          {'choices.choice': req.body.answer},
-          {},
-          {$set: {choices: poll[0].choices}},
-          {new: true},
-          {upsert: true},
-          (err, result2) => {
-            if (err) { throw err; }
-            res.send(result2);
-          },
-        );
-      },
-    );
 });
 
 module.exports = router;

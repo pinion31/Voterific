@@ -1,6 +1,5 @@
 import 'whatwg-fetch';
-/*  global store:true */
-
+import axios from 'axios';
 
 //* ***********ADDING AND DELETING POLLS********
 
@@ -18,13 +17,6 @@ export const addPoll = (state, action) => {
       action.callback(action.url);
       store.getState().currentUser = newState.currentUser;
     }
-  }).catch(err => `Error in sending data to server:${err.message}`);
-
-
-  fetch('/polls/addPollToAll', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(action.poll),
   }).catch(err => `Error in sending data to server:${err.message}`);
 
   return newState.currentUser;
@@ -52,15 +44,6 @@ export const deletePoll = (state, action) => {
       if (err) return err;
     });
 
-
-  fetch('/polls/deletePollForAll', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(action)})
-    .catch((err) => {
-      if (err) return err;
-    });
-
   return newState.currentUser;
 };
 
@@ -74,20 +57,6 @@ export const answerPoll = (state, action) => {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(action)})
-    .catch((err) => {
-      if (err) return err;
-    });
-
-
-  fetch('/polls/answerPollForAll', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(action)})
-    .then((response) => {
-      if (response.ok) {
-        action.callback();
-      }
-    })
     .catch((err) => {
       if (err) return err;
     });
