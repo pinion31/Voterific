@@ -16,26 +16,6 @@ const Footer = () => (
   </div>
 );
 
-/*
-const Menu = () => (<Navbar>
-  <Navbar.Header>
-    <Navbar.Brand className="navItem">Voterific</Navbar.Brand>
-  </Navbar.Header>
-  <Nav>
-    <LinkContainer to="/allPolls">
-      <NavItem>All Polls</NavItem>
-    </LinkContainer>
-  </Nav>
-  <Nav pullRight>
-    <LinkContainer to="/">
-      <NavItem>Log In</NavItem>
-    </LinkContainer>
-    <LinkContainer to="/SignUp">
-      <NavItem>Sign Up</NavItem>
-    </LinkContainer>
-  </Nav>
-</Navbar>);*/
-
 const PageRouter = () => (
   <Switch>
     <Route exact path="/" component={Login} />

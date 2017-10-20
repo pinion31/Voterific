@@ -1,8 +1,104 @@
 import React, {Component} from 'react';
 import {Row, Col, Button, FormGroup, FormControl, Alert} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {loginUser} from '../actions/userActions';
 //import {loginExistingUser} from '../actions/actionCreators';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cred: {name: '', password: ''},
+      showingValidation: false,
+      validationMessage: null,
+    };
+    this.loginUser = this.loginUser.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.dismissValidation = this.dismissValidation.bind(this);
+    this.validateLogin = this.validateLogin.bind(this);
+  }
+
+  getAlertMessage(message) {
+    return (<Alert className="alertMessage" bsStyle="danger" onDismiss={this.dismissValidation}>
+      {message} </Alert>);
+  }
+
+  handleInput(event) {
+    if (this.state.showingValidation) {
+      this.dismissValidation();
+    }
+
+    const loginCreds = Object.assign({}, this.state.cred);
+    loginCreds[event.target.name] = event.target.value;
+
+    this.setState({
+      cred: loginCreds,
+    });
+  }
+  loginUser() {
+    if (this.validateLogin(this.state.cred)) {
+      console.log(this.state.cred);
+      this.props.loginUser(this.state.cred, (loggedIn) => {
+        if (loggedIn) {
+          this.props.history.push('/dashboard'); // redirects after successful user login
+        } else {
+          const alert = this.getAlertMessage(result.response);
+
+          this.setState({
+            validationMessage: alert,
+            showingValidation: true,
+          });
+        }
+       });
+      //});
+      /*
+      store.dispatch(loginExistingUser(this.state.cred, (result) => {
+        if (result.login === 'success') {
+          this.props.history.push('/dashboard'); // redirects after successful user add
+          this.state.navBar();
+        } else {
+          const alert = this.getAlertMessage(result.response);
+
+          this.setState({
+            validationMessage: alert,
+            showingValidation: true,
+          });
+        }
+      }));*/
+    }
+  }
+
+  validateLogin(login) { // checks to make sure both fields have been entered by user
+    if (login.name.length === 0) {
+      const alert = this.getAlertMessage('Please enter a username');
+
+      this.setState({
+        validationMessage: alert,
+        showingValidation: true,
+      });
+
+      return false;
+    } else if (login.password.length === 0) {
+      const alert = this.getAlertMessage('Please enter a password');
+
+      this.setState({
+        validationMessage: alert,
+        showingValidation: true,
+      });
+
+      return false;
+    }
+    return true;
+  }
+
+  dismissValidation() {
+    this.setState({
+      showingValidation: false,
+      validationMessage: null,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -43,14 +139,14 @@ class Login extends Component {
         <Row>
           <Col md={3} mdOffset={4} sm={6} smOffset={3} xs={6} xsOffset={3} lg={3} lgOffset={4}>
             <FormGroup>
-              <Button bsStyle="primary" onClick={this.loginUser} block>Sign In</Button>
+              <Button bsStyle="primary" onClick={this.loginUser} block>Log In</Button>
               <FormControl.Feedback />
             </FormGroup>
           </Col>
         </Row>
         <FormGroup>
           <Col md={6} mdOffset={3} sm={6} smOffset={3} xs={6} xsOffset={3} lg={6} lgOffset={3}>
-            {/*this.state.validationMessage*/}
+            {this.state.validationMessage}
           </Col>
         </FormGroup>
       </div>
@@ -58,8 +154,19 @@ class Login extends Component {
   }
 }
 
+
+function mapStateToProps(state) {
+  return;
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    loginUser
+  }, dispatch);
+}
+
 Login.propTypes = {
 
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps) (Login);

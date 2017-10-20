@@ -44,15 +44,6 @@ class SignUp extends Component {
       this.props.addNewUser({type: 'ADD_NEW_USER', payload: this.state.newUser}, () => {
         this.props.history.push('/Dashboard');
       });
-
-      /*store.dispatch(addNewUser(this.state.newUser, (userAddedSuccessful) => {
-        if (userAddedSuccessful) {
-          this.props.history.push('/dashboard'); // redirects after successful user add
-          this.props.navBarRender();
-        } else {
-          alert('Error adding user');
-        }
-      }));*/
     }
   }
 
