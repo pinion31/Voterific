@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './js/source/app.js',
+    app: './src/app.js',
     vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-bootstrap', 'babel-polyfill', 'react-router',
              'react-router-bootstrap', 'react-router-dom'],
   },
@@ -35,7 +35,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015']
@@ -47,5 +47,8 @@ module.exports = {
         use:'css-loader!sass-loader'})
       },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.scss']
   }
 };

@@ -7,18 +7,19 @@ var db = void 0;
 
 router.post('/addUser', function (req, res) {
   db = req.db;
-  db.collection('users').find({ name: req.body.name }).toArray(function (err, user) {
+  var newUser = req.body.payload;
+
+  db.collection('users').find({ name: newUser.name }).toArray(function (err, user) {
     if (err) return err;
-    if (user.length > 0) {
-      res.status(400).send(false);
+    if (user.name && user.length > 0) {
+      res.status(400).send('invalid');
     } else {
       bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(req.body.password, salt, function (err, hash) {
-          var newUser = req.body;
+        bcrypt.hash(newUser.password, salt, function (err, hash) {
           newUser.password = hash;
 
           db.collection('users').insertOne(newUser, function () {
-            res.status(201).send(true);
+            res.status(201).send(newUser.name);
           });
         });
       });

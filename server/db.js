@@ -8,6 +8,6 @@ module.exports = function myDB() {
 
     MongoClient.connect(dbUrl, (err, db) => {
       thisdb = db;
-    }
+    });
   }
 }

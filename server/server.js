@@ -11,8 +11,8 @@ import getDB from './db';
 const path = require('path');
 SourceMapSupport.install();
 
-// const dbUrl = 'mongodb://localhost/local'; // local db
-const dbUrl = process.env.MONGOLAB_URI; // production db
+const dbUrl = 'mongodb://localhost/local'; // local db
+// const dbUrl = process.env.MONGOLAB_URI; // production db
 
 MongoClient.connect(dbUrl, (err, db) => {
   if (err) { return err; }

@@ -5,18 +5,19 @@ let db;
 
 router.post('/addUser', (req, res) => {
   db = req.db;
-  db.collection('users').find({name: req.body.name}).toArray((err, user) => {
+  const newUser = req.body.payload;
+
+  db.collection('users').find({name: newUser.name}).toArray((err, user) => {
     if (err) return err;
-    if (user.length > 0) {
-      res.status(400).send(false);
+    if (user.name && user.length > 0) {
+      res.status(400).send('invalid');
     } else {
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-          const newUser = req.body;
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
           newUser.password = hash;
 
           db.collection('users').insertOne(newUser, () => {
-            res.status(201).send(true);
+            res.status(201).send(newUser.name);
           });
         });
       });

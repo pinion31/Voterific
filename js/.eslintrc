@@ -1,9 +1,0 @@
-{
-  "env": {
-    "browser":true
-  },
-  "rules": {
-    "no-alert":["off"]
-  },
-  "parser": "babel-eslint"
-}
