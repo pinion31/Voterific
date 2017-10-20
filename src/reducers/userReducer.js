@@ -1,5 +1,4 @@
-import {addNewUser} from '../actions/userActions';
-import {ADD_NEW_USER, LOGIN_USER, LOG_OUT} from '../constants/actionTypes';
+import {ADD_NEW_USER, LOGIN_USER, LOG_OUT_USER} from '../constants/actionTypes';
 
 
 export const userReducer = (state = {user: {}}, action) => {
@@ -7,6 +6,9 @@ export const userReducer = (state = {user: {}}, action) => {
     case ADD_NEW_USER:
       return action.payload;
     case LOGIN_USER:
+      return action.payload;
+    case LOG_OUT_USER:
+      console.log('LOG_OUT_USER', action.payload);
       return action.payload;
     default:
       return state;

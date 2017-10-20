@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_POLL, DELETE_POLL, ADD_NEW_USER, LOGIN_USER, ANSWER_POLL, LOG_OUT} from '../constants/actionTypes';
+import {ADD_POLL, DELETE_POLL, ADD_NEW_USER, LOGIN_USER, ANSWER_POLL, LOG_OUT_USER} from '../constants/actionTypes';
 
 
 export const addNewUser = (user, callback) => (
@@ -28,5 +28,9 @@ export const loginUser = (user, callback) => (
         throw err;
       });
   }
+);
+
+export const logOutUser = () => (
+  {type: LOG_OUT_USER, payload: {user: null, loggedIn: false}}
 );
 

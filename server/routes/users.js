@@ -27,20 +27,6 @@ router.post('/addUser', (req, res) => {
   });
 });
 
-router.post('/logOut', (req, res) => {
-  db = req.db;
-  db.collection('users').findAndModify(
-    {name: req.body.name},
-    {}, // this must be here to work
-    {$set: {loggedIn: false}},
-    {upsert: true},
-    (err, result) => {
-      if (err) { return err; }
-      res.send(result);
-    },
-  );
-});
-
 router.post('/LoginUser', (req, res) => {
   db = req.db;
   db.collection('users').findAndModify(

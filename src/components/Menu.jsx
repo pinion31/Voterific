@@ -2,10 +2,18 @@ import React, {Component} from 'react';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {logOutUser} from '../actions/userActions';
 
 class Menu extends Component {
   constructor(props) {
     super(props);
+
+   this.logOut = this.logOut.bind(this);
+  }
+
+  logOut() {
+    this.props.logOutUser();
   }
 
   render() {
@@ -17,9 +25,6 @@ class Menu extends Component {
               <Navbar.Brand className="navItem">Voterific</Navbar.Brand>
             </Navbar.Header>
             <Nav pullRight>
-              <LinkContainer to="/">
-                <NavItem>Log In</NavItem>
-              </LinkContainer>
               <LinkContainer to="/SignUp">
                 <NavItem>Sign Up</NavItem>
               </LinkContainer>
@@ -42,7 +47,7 @@ class Menu extends Component {
             </Nav>
             <Nav pullRight>
               <LinkContainer to="/">
-                <NavItem>Log Out</NavItem>
+                <NavItem onClick={this.logOut}>Log Out</NavItem>
               </LinkContainer>
             </Nav>
           </Navbar>
@@ -60,4 +65,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null) (Menu);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    logOutUser
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Menu);
