@@ -34,16 +34,19 @@ router.post('/deletePollForUsers', (req, res) => {
 
 router.post('/addPoll', (req, res) => {
   db = req.db;
-  db.collection('users').findAndModify(
-    {name: req.body.owner},
-    {}, // this must be here to work
-    {$push: {polls: req.body}, $inc: {counter: 1}},
-    {upsert: true},
-    (err, result) => {
-      if (err) { throw err; }
-      res.send(result);
-    },
-  );
+  db.collection('polls').insertOne(req.body)
+    .then((result) => {
+       db.collection('users').findAndModify(
+        {name: req.body.owner},
+        {}, // this must be here to work
+        {$push: {polls: result.insertedId}}, // add _id of new poll to
+        {upsert: true},                   // owner poll array
+        (err, response) => {
+          if (err) { throw err; }
+          res.send(req.body); //send poll back
+        },
+        );
+    });
 });
 
 //* *************GET POLLS***************************
@@ -72,7 +75,6 @@ router.get('/:name/:id', (req, res) => {
 
     user[0].polls.forEach((poll) => {
       if (poll.id.toString() === req.params.id.toString()) {
-        console.log(poll);
         userPoll = poll;
       }
     });

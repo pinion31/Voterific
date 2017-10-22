@@ -1,24 +1,24 @@
 import React,{Component} from 'react';
 import {Row, Col, Button} from 'react-bootstrap';
-//import PollCreator from './PollCreator';
-//import UserPolls from './UserPolls';
+import PollCreator from './PollCreator';
+import UserPolls from './UserPolls';
 //import PollLink from './PollLink';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    //  userContent: '',
-     // returnLink: this.returnPollLink.bind(this),
+      userContent: '',
+      //returnLink: this.returnPollLink.bind(this),
     };
 
-   // this.routeToNewPoll = this.routeToNewPoll.bind(this);
-   // this.routeToExistingPolls = this.routeToExistingPolls.bind(this);
+    this.routeToNewPoll = this.routeToNewPoll.bind(this);
+    this.routeToExistingPolls = this.routeToExistingPolls.bind(this);
   }
-/*
+
   routeToNewPoll() {
     this.setState({
-      userContent: <PollCreator returnLink={this.state.returnLink} />,
+      userContent: <PollCreator route={this.routeToExistingPolls} />,
     });
   }
 
@@ -27,7 +27,7 @@ class Dashboard extends Component {
       userContent: <UserPolls />,
     });
   }
-
+/*
   // returns link to user poll
   returnPollLink(link = 'temp') {
     this.setState({
@@ -51,8 +51,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </div>
-        {/*this.state.userContent*/}
-
+        {this.state.userContent}
       </div>
 
     );

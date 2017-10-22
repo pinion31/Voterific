@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_POLL, DELETE_POLL, ADD_NEW_USER, LOGIN_USER, ANSWER_POLL, LOG_OUT_USER} from '../constants/actionTypes';
+import {ADD_NEW_USER, LOGIN_USER, LOG_OUT_USER} from '../constants/actionTypes';
 
 
 export const addNewUser = (user, callback) => (

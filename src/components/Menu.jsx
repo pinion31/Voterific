@@ -9,7 +9,7 @@ class Menu extends Component {
   constructor(props) {
     super(props);
 
-   this.logOut = this.logOut.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   logOut() {
@@ -40,6 +40,11 @@ class Menu extends Component {
             <Navbar.Header>
               <Navbar.Brand className="navItem">Voterific</Navbar.Brand>
             </Navbar.Header>
+            <Nav>
+              <LinkContainer to="/Dashboard">
+                <NavItem>Home</NavItem>
+              </LinkContainer>
+            </Nav>
             <Nav>
               <LinkContainer to="/allPolls">
                 <NavItem>All Polls</NavItem>

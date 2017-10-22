@@ -8,7 +8,7 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newUser: {name: '', email: '', password: ''},
+      newUser: {name: '', email: '', password: '', polls: []},
       showingValidation: false,
       validationMessage: null,
     };

@@ -7,6 +7,8 @@ import Login from './Login';
 import SignUp from './SignUp';
 import Menu from './Menu';
 import Dashboard from './Dashboard';
+import Poll from './Poll';
+import UserPolls from './UserPolls';
 
 const NoMatch = () => <h2>This page does not exist! Please go back!</h2>;
 
@@ -18,6 +20,9 @@ const Footer = () => (
 
 const PageRouter = () => (
   <Switch>
+
+    <Route exact path="/UserPolls" component={UserPolls} />
+    <Route path="/poll/:id" component={Poll} />
     <Route exact path="/" component={Login} />
     <Route exact path="/SignUp" component={SignUp} />
     <Route exact path="/Dashboard" component={Dashboard} />

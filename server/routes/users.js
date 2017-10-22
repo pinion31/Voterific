@@ -8,7 +8,6 @@ let db;
 router.post('/addUser', (req, res) => {
   db = req.db;
   const newUser = req.body.payload;
-  console.log(newUser);
   db.collection('users').find({name: newUser.name}).toArray((err, user) => {
     if (err) return err;
     if (user.name && user.length > 0) {
@@ -19,7 +18,7 @@ router.post('/addUser', (req, res) => {
           newUser.password = hash;
 
           db.collection('users').insertOne(newUser, () => {
-            res.status(201).json({user: newUser.name, loggedIn: true});
+            res.status(201).json({user: newUser.name, loggedIn: true, polls: []});
           });
         });
       });
@@ -36,17 +35,20 @@ router.post('/LoginUser', (req, res) => {
     {new: true},
     (err, user) => {
       if (err) { res.json(err); }
-      console.log('at user', user);
       if (user.value.password) {
         bcrypt.compare(req.body.password, user.value.password, (err, match) => {
           if (match) {
-            res.json({user: user.value.name, loggedIn: true});
+            // populate user polls before sending back
+            db.collection('polls').find({_id: {$in: user.value.polls}}).toArray((err, polls) => {
+              if (err) { throw err; }
+              res.json({user: user.value.name, loggedIn: true, polls});
+            });
           } else {
-            res.json({user: 'Invalid Password', loggedIn: false});
+            res.json({user: 'Invalid Password', loggedIn: false, polls: []});
           }
         });
       } else {
-        res.json({user: 'Invalid User', loggedIn: false});
+        res.json({user: 'Invalid User', loggedIn: false, polls: []});
       }
     });
 });

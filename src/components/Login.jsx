@@ -36,9 +36,9 @@ class Login extends Component {
       cred: loginCreds,
     });
   }
+
   loginUser() {
     if (this.validateLogin(this.state.cred)) {
-      console.log(this.state.cred);
       this.props.loginUser(this.state.cred, (loggedIn) => {
         if (loggedIn) {
           this.props.history.push('/dashboard'); // redirects after successful user login
@@ -51,21 +51,6 @@ class Login extends Component {
           });
         }
        });
-      //});
-      /*
-      store.dispatch(loginExistingUser(this.state.cred, (result) => {
-        if (result.login === 'success') {
-          this.props.history.push('/dashboard'); // redirects after successful user add
-          this.state.navBar();
-        } else {
-          const alert = this.getAlertMessage(result.response);
-
-          this.setState({
-            validationMessage: alert,
-            showingValidation: true,
-          });
-        }
-      }));*/
     }
   }
 
@@ -156,7 +141,9 @@ class Login extends Component {
 
 
 function mapStateToProps(state) {
-  return;
+  return {
+    user: state.user
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -169,4 +156,4 @@ Login.propTypes = {
 
 };
 
-export default connect(null, mapDispatchToProps) (Login);
+export default connect(mapStateToProps, mapDispatchToProps) (Login);
