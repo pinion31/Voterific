@@ -3,32 +3,36 @@ const router = express.Router();
 const ObjectId = require('mongodb').ObjectId;
 let db;
 
+// input: {id: String, user:{user:String, polls: Array, loggedIn: Boolean }}
+// output: polls:[] (newPolls minus deletedPoll)
 router.post('/deletePollForUsers', (req, res) => {
   db = req.db;
+  db.collection('polls').deleteOne({_id: ObjectId(req.body.id)}, () => {
 
-  db.collection('users').find({name: req.body.name})
-    .toArray((err, user) => {
-      if (err) throw err;
-      const userCopy = user;
+    let newPolls = req.body.user.polls;
+    const pollListToInsertIntoDB = [];
 
-      userCopy[0].polls = userCopy[0].polls.filter((poll) => {
-        if (poll.id !== req.body.id) {
-          return poll;
-        }
-      });
-
-      db.collection('users').findAndModify(
-        {name: req.body.name},
-        {},
-        {$set: {polls: userCopy[0].polls}},
-        {new: true},
-        {upsert: true},
-        (err, result) => {
-          if (err) throw err;
-          res.send(result);
-        },
-      );
+    // simultaneously created updated array of _ids to insert into user db
+    // and creates new array of polls to send back to client
+    newPolls = newPolls.filter((poll) => {
+      if (poll._id !== req.body.id) {
+        pollListToInsertIntoDB.push(poll._id);  // adds id here
+        return poll;
+      }
     });
+
+    // insert new list of ids into user.polls
+    db.collection('users').findAndModify(
+      {name: req.body.user.user},
+      {}, // this must be here to work
+      {$set: {polls: pollListToInsertIntoDB}},
+      {update: true},
+      (err, poll) => {
+        if (err) {throw err;}
+        console.log('polls 33', newPolls);
+        res.send(newPolls); // sends back updated array of polls to client
+      });
+  });
 });
 
 //* *************ADD POLL***************************

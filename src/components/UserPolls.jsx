@@ -1,9 +1,7 @@
-import React from 'react';
-import {Component} from 'react';
-import {Row, Button, Glyphicon} from 'react-bootstrap';
-//import {deletePoll} from '../actions/actionCreators';
+import React, {Component} from 'react';
+import {deletePoll} from '../actions/pollActions';
 import {connect} from 'react-redux';
-import {HOST} from '../constants/actionTypes';
+import {bindActionCreators} from 'redux';
 import PollContainer from './PollContainer';
 
 class UserPolls extends Component {
@@ -13,41 +11,21 @@ class UserPolls extends Component {
       polls: [{question: 'No Polls Created'}], // default if no polls created by current user
     };
 
-    this.retrievePolls = this.retrievePolls.bind(this);
+    this.deletePoll = this.deletePoll.bind(this);
   }
 
-  componentDidMount() {
-    //this.retrievePolls();
-  }
-
-  deleteAPoll(id, owner) {
-    store.dispatch(deletePoll(id, owner, this.retrievePolls));
-  }
-
-  retrievePolls() {
-    const storedPolls = store.getState().currentUser.polls;
-
-    if (storedPolls.length > 0) { // currentUser has created polls, it will retrieve existing polls
-      this.setState({
-        polls: storedPolls,
-
-      });
-    } else {
-      this.setState({
-        polls: [{question: 'No Polls Created'}],
-
-      });
-    }
+  deletePoll(id, user) {
+    this.props.deletePoll({id, user});
   }
 
   render() {
     const hasPolls = this.props.polls;
-    console.log(this.props.polls);
+    console.log('UserPolls23', this.props.polls);
     if (hasPolls.length > 0) {
       return (
         <div>
           {this.props.polls.map((poll, key) => {
-            return <PollContainer key={key} poll={poll} />;
+            return <PollContainer key={key} poll={poll} deletePoll={this.deletePoll} />;
           })
           }
         </div>
@@ -56,22 +34,26 @@ class UserPolls extends Component {
       return (
         <h1 className="noPolls">No Polls Created </h1>
       );
-
     }
-
   }
 }
 
 function mapStateToProps(state) {
   return {
-    polls: state.user.polls
+    polls: state.user.polls,
+    user: state.user
   };
 }
 
-/*
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    deletePoll
+  }, dispatch);
+}
+
 UserPolls.propTypes = {
   polls: React.PropTypes.array,
 };
-*/
-export default connect(mapStateToProps, null) (UserPolls);
+
+export default connect(mapStateToProps, mapDispatchToProps) (UserPolls);
 

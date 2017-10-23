@@ -18,9 +18,17 @@ export const answerPoll = (poll, callback) => (
   (dispatch) => {
     axios.post('/polls/answerPollForUsers', poll)
       .then((res) => {
-        console.log('pollActions 21', res.data);
         dispatch({type: ANSWER_POLL, payload: res.data});
         callback();
+      });
+  }
+);
+
+export const deletePoll = (pollToDelete) => (
+  (dispatch) => {
+    axios.post('/polls/deletePollForUsers', pollToDelete)
+      .then((res) => {
+        dispatch({type: DELETE_POLL, payload: res.data});
       });
   }
 );

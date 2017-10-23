@@ -3,6 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
+var ObjectId = require('mongodb').ObjectId;
 var db = void 0;
 
 //  input: {name: String, password: String, email: String}
@@ -38,7 +39,12 @@ router.post('/LoginUser', function (req, res) {
       bcrypt.compare(req.body.password, user.value.password, function (err, match) {
         if (match) {
           // populate user polls before sending back
-          db.collection('polls').find({ _id: { $in: user.value.polls } }).toArray(function (err, polls) {
+          var ObjectIds = [];
+          user.value.polls.map(function (pollId) {
+            ObjectIds.push(ObjectId(pollId));
+          });
+
+          db.collection('polls').find({ _id: { $in: ObjectIds } }).toArray(function (err, polls) {
             if (err) {
               throw err;
             }

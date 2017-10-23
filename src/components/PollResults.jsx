@@ -1,5 +1,4 @@
-import React from 'react';
-import {Component} from 'react';
+import React, {Component} from 'react';
 import 'whatwg-fetch';
 import {connect} from 'react-redux';
 import BarChart from './BarChart';
@@ -18,11 +17,11 @@ class PollResults extends Component {
   }
 
   retrievePollData() {
-    this.props.polls.map(poll => {
+    this.props.polls.map((poll) => {
       if (poll._id === this.props.match.params.id) {
         this.setState({
           poll,
-        })
+        });
       }
     });
   }
