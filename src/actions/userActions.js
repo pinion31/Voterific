@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_NEW_USER, LOGIN_USER, LOG_OUT_USER} from '../constants/actionTypes';
+import {ADD_NEW_USER, LOGIN_USER, LOG_OUT_USER, ADD_POLL, DELETE_POLL, ANSWER_POLL} from '../constants/actionTypes';
 
 
 export const addNewUser = (user, callback) => (
@@ -34,3 +34,34 @@ export const logOutUser = () => (
   {type: LOG_OUT_USER, payload: {user: null, loggedIn: false}}
 );
 
+// poll arg format: {
+//  payload: {question: String, choices: Array, id: Number,
+//  owner: String}
+export const addPoll = (user, poll, callback) => (
+  (dispatch) => {
+    axios.post('/polls/addPoll', {user, poll})
+      .then((res) => {
+        dispatch({type: ADD_POLL, payload: res.data});
+        callback(res.data._id);
+      });
+  }
+);
+
+export const answerPoll = (user, poll, callback) => (
+  (dispatch) => { console.log('userActions 51', poll); console.log('userActions 51', user);
+    axios.post('/polls/answerPollForUsers', {user, poll})
+      .then((res) => {
+        dispatch({type: ANSWER_POLL, payload: res.data});
+        callback();
+      });
+  }
+);
+
+export const deletePoll = (pollToDelete) => (
+  (dispatch) => {
+    axios.post('/polls/deletePollForUsers', pollToDelete)
+      .then((res) => {
+        dispatch({type: DELETE_POLL, payload: res.data});
+      });
+  }
+);

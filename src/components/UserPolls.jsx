@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {deletePoll} from '../actions/pollActions';
+import {deletePoll} from '../actions/userActions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PollContainer from './PollContainer';
@@ -14,13 +14,13 @@ class UserPolls extends Component {
     this.deletePoll = this.deletePoll.bind(this);
   }
 
-  deletePoll(id, user) {
+  deletePoll(id, user) {  console.log('UserPolls 17', user);
     this.props.deletePoll({id, user});
   }
 
   render() {
     const hasPolls = this.props.polls;
-    console.log('UserPolls23', this.props.polls);
+
     if (hasPolls.length > 0) {
       return (
         <div>

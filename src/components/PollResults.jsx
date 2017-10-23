@@ -17,6 +17,7 @@ class PollResults extends Component {
   }
 
   retrievePollData() {
+    console.log('PollResults 20', this.props.polls);
     this.props.polls.map((poll) => {
       if (poll._id === this.props.match.params.id) {
         this.setState({

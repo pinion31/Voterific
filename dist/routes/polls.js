@@ -1,5 +1,7 @@
 'use strict';
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongodb').ObjectId;
@@ -24,13 +26,12 @@ router.post('/deletePollForUsers', function (req, res) {
     });
 
     // insert new list of ids into user.polls
-    db.collection('users').findAndModify({ name: req.body.user.user }, {}, // this must be here to work
-    { $set: { polls: pollListToInsertIntoDB } }, { update: true }, function (err, poll) {
+    db.collection('users').findAndModify({ name: req.body.user.name }, {}, // this must be here to work
+    { $set: { polls: pollListToInsertIntoDB } }, { update: true, new: true }, function (err, user) {
       if (err) {
         throw err;
       }
-      console.log('polls 33', newPolls);
-      res.send(newPolls); // sends back updated array of polls to client
+      res.send({ user: user.value.name, loggedIn: true, polls: newPolls }); // sends back updated array of polls to client
     });
   });
 });
@@ -39,15 +40,19 @@ router.post('/deletePollForUsers', function (req, res) {
 
 router.post('/addPoll', function (req, res) {
   db = req.db;
-  db.collection('polls').insertOne(req.body).then(function (result) {
-    db.collection('users').findAndModify({ name: req.body.owner }, {}, // this must be here to work
+  db.collection('polls').insertOne(req.body.poll).then(function (result) {
+    db.collection('users').findAndModify({ name: req.body.poll.owner }, {}, // this must be here to work
     { $push: { polls: result.insertedId } }, // add _id of new poll to
-    { upsert: true }, // owner poll array
+    { new: true }, // owner poll array
     function (err, response) {
       if (err) {
         throw err;
       }
-      res.send(req.body); //send poll back
+      res.send({
+        user: req.body.user.user,
+        loggedIn: true,
+        polls: [].concat(_toConsumableArray(req.body.user.polls), [req.body.poll])
+      }); // send user with polls back
     });
   });
 });
@@ -71,37 +76,24 @@ router.get('/getAllPolls', function (req, res) {
   });
 });
 
-router.get('/:name/:id', function (req, res) {
-  db = req.db;
-  var userPoll = {};
-
-  db.collection('users').find({ name: req.params.name }).toArray(function (err, user) {
-    if (err) {
-      throw err;
-    }
-
-    user[0].polls.forEach(function (poll) {
-      if (poll.id.toString() === req.params.id.toString()) {
-        userPoll = poll;
-      }
-    });
-
-    res.send(userPoll);
-  });
-});
-
 //* *************ANSWER POLL***************************
 
-// input: {question: String, choices:Array, _id:String, owner:String }
-// output: updated poll ({question: String, choices:Array, _id:String, owner:String })
+// input: {user: {user:String, loggedIn: true, polls: Array },
+// poll: {_id:String, question: String, choices: Array, owner: Strgin}
+// output: (user with updated poll) {user: {user:String, loggedIn: true, polls: Array },
 router.post('/answerPollForUsers', function (req, res) {
   db = req.db;
-  var newChoices = Array.from(req.body.choices);
-  db.collection('polls').findAndModify({ _id: ObjectId(req.body._id) }, {}, { $set: { choices: newChoices } }, { update: true }, function (err, poll) {
+
+  var newChoices = Array.from(req.body.poll.choices);
+  db.collection('polls').findAndModify({ _id: ObjectId(req.body.poll._id) }, {}, { $set: { choices: newChoices } }, { update: true }, function (err, poll) {
     if (err) {
       throw err;
     }
-    res.send(poll);
+    res.send({
+      user: req.body.user.user,
+      loggedIn: true,
+      polls: [].concat(_toConsumableArray(req.body.user.polls))
+    });
   });
 });
 

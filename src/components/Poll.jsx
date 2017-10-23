@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Row, Col, Button} from 'react-bootstrap';
-import {answerPoll} from '../actions/pollActions';
+import {answerPoll} from '../actions/userActions';
 
 class Poll extends Component {
   constructor(props) {
@@ -37,8 +37,7 @@ class Poll extends Component {
       }
     });
 
-    this.props.answerPoll(this.state.pollData, () => {
-      console.log('redirecting');
+    this.props.answerPoll(this.props.user, this.state.pollData, () => {
         this.props.history.push(`/PollResults/${this.state.pollData._id}`);
     });
   }
@@ -74,7 +73,8 @@ class Poll extends Component {
 
 function mapStateToProps(state) {
   return {
-    polls: state.user.polls
+    polls: state.user.polls,
+    user: state.user
   };
 }
 

@@ -3,7 +3,7 @@ import {Component} from 'react';
 import {Row, Col, Button, FormGroup, FormControl, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addPoll} from '../actions/pollActions';
+import {addPoll} from '../actions/userActions';
 import PollLink from './PollLink';
 
 class PollCreator extends Component {
@@ -55,7 +55,7 @@ class PollCreator extends Component {
     e.preventDefault();
 
     if (this.validatePoll() && this.checkChoiceForRedundancy(this.state.poll.choices)) {
-      this.props.addPoll(this.state.poll, () => {
+      this.props.addPoll(this.props.user, this.state.poll, () => {
         this.props.route();
       });
     }

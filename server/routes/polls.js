@@ -23,14 +23,13 @@ router.post('/deletePollForUsers', (req, res) => {
 
     // insert new list of ids into user.polls
     db.collection('users').findAndModify(
-      {name: req.body.user.user},
+      {name: req.body.user.name},
       {}, // this must be here to work
       {$set: {polls: pollListToInsertIntoDB}},
-      {update: true},
-      (err, poll) => {
+      {update: true, new: true},
+      (err, user) => {
         if (err) {throw err;}
-        console.log('polls 33', newPolls);
-        res.send(newPolls); // sends back updated array of polls to client
+        res.send({user: user.value.name, loggedIn: true, polls: newPolls}); // sends back updated array of polls to client
       });
   });
 });
@@ -39,16 +38,20 @@ router.post('/deletePollForUsers', (req, res) => {
 
 router.post('/addPoll', (req, res) => {
   db = req.db;
-  db.collection('polls').insertOne(req.body)
+  db.collection('polls').insertOne(req.body.poll)
     .then((result) => {
        db.collection('users').findAndModify(
-        {name: req.body.owner},
+        {name: req.body.poll.owner},
         {}, // this must be here to work
         {$push: {polls: result.insertedId}}, // add _id of new poll to
-        {upsert: true},                   // owner poll array
+        {new: true },                   // owner poll array
         (err, response) => {
           if (err) { throw err; }
-          res.send(req.body); //send poll back
+          res.send({
+            user: req.body.user.user,
+            loggedIn: true,
+            polls: [...req.body.user.polls, req.body.poll]
+          }); // send user with polls back
         },
         );
     });
@@ -71,38 +74,27 @@ router.get('/getAllPolls', (req, res) => {
   });
 });
 
-router.get('/:name/:id', (req, res) => {
-  db = req.db;
-  let userPoll = {};
-
-  db.collection('users').find({name: req.params.name}).toArray((err, user) => {
-    if (err) { throw err; }
-
-    user[0].polls.forEach((poll) => {
-      if (poll.id.toString() === req.params.id.toString()) {
-        userPoll = poll;
-      }
-    });
-
-    res.send(userPoll);
-  });
-});
-
 //* *************ANSWER POLL***************************
 
-// input: {question: String, choices:Array, _id:String, owner:String }
-// output: updated poll ({question: String, choices:Array, _id:String, owner:String })
+// input: {user: {user:String, loggedIn: true, polls: Array },
+// poll: {_id:String, question: String, choices: Array, owner: Strgin}
+// output: (user with updated poll) {user: {user:String, loggedIn: true, polls: Array },
 router.post('/answerPollForUsers', (req, res) => {
   db = req.db;
-  const newChoices = Array.from(req.body.choices);
+
+  const newChoices = Array.from(req.body.poll.choices);
   db.collection('polls').findAndModify(
-    {_id: ObjectId(req.body._id)},
+    {_id: ObjectId(req.body.poll._id)},
     {},
     {$set:{ choices: newChoices}},
     {update: true},
     (err, poll) => {
       if (err) { throw err; }
-      res.send(poll);
+      res.send({
+        user: req.body.user.user,
+        loggedIn: true,
+        polls: [...req.body.user.polls]
+      });
     });
 });
 
