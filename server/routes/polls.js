@@ -16,7 +16,7 @@ router.post('/deletePollForUsers', (req, res) => {
     // and creates new array of polls to send back to client
     newPolls = newPolls.filter((poll) => {
       if (poll._id !== req.body.id) {
-        pollListToInsertIntoDB.push(poll._id);  // adds id here
+        pollListToInsertIntoDB.push(poll._id); // adds id here
         return poll;
       }
     });
@@ -40,12 +40,12 @@ router.post('/addPoll', (req, res) => {
   db = req.db;
   db.collection('polls').insertOne(req.body.poll)
     .then((result) => {
-       db.collection('users').findAndModify(
+      db.collection('users').findAndModify(
         {name: req.body.poll.owner},
         {}, // this must be here to work
         {$push: {polls: result.insertedId}}, // add _id of new poll to
         {new: true },                   // owner poll array
-        (err, response) => {
+        (err) => {
           if (err) { throw err; }
           res.send({
             user: req.body.user.user,
@@ -53,7 +53,7 @@ router.post('/addPoll', (req, res) => {
             polls: [...req.body.user.polls, req.body.poll]
           }); // send user with polls back
         },
-        );
+      );
     });
 });
 
@@ -62,15 +62,9 @@ router.post('/addPoll', (req, res) => {
 // returns all user polls
 router.get('/getAllPolls', (req, res) => {
   db = req.db;
-  let polls = [];
-  db.collection('users').find({}).toArray((err, users) => {
+  db.collection('polls').find({}).toArray((err, polls) => {
     if (err) { throw err; }
-
-    users.forEach((user) => {
-      polls = polls.concat(user.polls);
-    });
-
-    res.send(polls);
+      res.send(polls);
   });
 });
 

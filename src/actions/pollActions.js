@@ -1,12 +1,12 @@
 import axios from 'axios';
-import {ADD_POLL, DELETE_POLL, ANSWER_POLL} from '../constants/actionTypes';
+import {GET_ALL_POLLS} from '../constants/actionTypes';
 
-// poll arg format: {
-//  payload: {question: String, choices: Array, id: Number,
-//  owner: String}
-/*
-export const getAllPolls = (poll, callback) => (
-
-);*/
-
+export const getAllPolls = () => (
+  (dispatch) => {
+    axios.get('/polls/getAllPolls')
+      .then((res) => {
+        dispatch({type: GET_ALL_POLLS, payload: res.data});
+      });
+  }
+);
 

@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {Route} from 'react-router';
 import {Switch} from 'react-router-dom';
-import {LinkContainer} from 'react-router-bootstrap';
 import Login from './Login';
 import SignUp from './SignUp';
 import Menu from './Menu';
 import Dashboard from './Dashboard';
 import Poll from './Poll';
 import UserPolls from './UserPolls';
+import SitePolls from './SitePolls';
 import PollResults from './PollResults';
 
 const NoMatch = () => <h2>This page does not exist! Please go back!</h2>;
@@ -22,6 +21,7 @@ const Footer = () => (
 const PageRouter = () => (
   <Switch>
     <Route exact path="/UserPolls" component={UserPolls} />
+    <Route exact path="/AllPolls" component={SitePolls} />
     <Route exact path="/PollResults/:id" component={PollResults} />
     <Route path="/poll/:id" component={Poll} />
     <Route exact path="/" component={Login} />

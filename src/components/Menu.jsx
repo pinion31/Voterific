@@ -46,7 +46,7 @@ class Menu extends Component {
               </LinkContainer>
             </Nav>
             <Nav>
-              <LinkContainer to="/allPolls">
+              <LinkContainer to="/AllPolls">
                 <NavItem>All Polls</NavItem>
               </LinkContainer>
             </Nav>

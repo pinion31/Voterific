@@ -44,7 +44,7 @@ router.post('/addPoll', function (req, res) {
     db.collection('users').findAndModify({ name: req.body.poll.owner }, {}, // this must be here to work
     { $push: { polls: result.insertedId } }, // add _id of new poll to
     { new: true }, // owner poll array
-    function (err, response) {
+    function (err) {
       if (err) {
         throw err;
       }
@@ -62,16 +62,10 @@ router.post('/addPoll', function (req, res) {
 // returns all user polls
 router.get('/getAllPolls', function (req, res) {
   db = req.db;
-  var polls = [];
-  db.collection('users').find({}).toArray(function (err, users) {
+  db.collection('polls').find({}).toArray(function (err, polls) {
     if (err) {
       throw err;
     }
-
-    users.forEach(function (user) {
-      polls = polls.concat(user.polls);
-    });
-
     res.send(polls);
   });
 });

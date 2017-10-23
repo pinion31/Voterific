@@ -31,7 +31,7 @@ class Poll extends Component {
   }
 
   answerPoll(e) {
-    this.state.pollData.choices.map(choice => {
+    this.state.pollData.choices.map((choice) => {
       if (choice.choice === e.target.name) {
         choice.votes++;
       }
