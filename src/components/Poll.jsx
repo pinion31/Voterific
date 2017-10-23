@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import 'whatwg-fetch';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {Row, Col, Button} from 'react-bootstrap';
-import {answerPoll} from '../actions/actionCreators';
+import {answerPoll} from '../actions/pollActions';
 
 class Poll extends Component {
   constructor(props) {
@@ -30,13 +31,18 @@ class Poll extends Component {
   }
 
   answerPoll(e) {
-    store.dispatch(answerPoll(e.target.name,
-      this.props.match.params.name, this.props.match.params.id,
-      () => {
-        this.props.history.push(`/results/${this.props.match.params.name}/${this.props.match.params.id}`);
-      }),
-    );
+    this.state.pollData.choices.map(choice => {
+      if (choice.choice === e.target.name) {
+        choice.votes++;
+      }
+    });
+
+    this.props.answerPoll(this.state.pollData, () => {
+      console.log('redirecting');
+        this.props.history.push(`/PollResults/${this.state.pollData._id}`);
+    });
   }
+
   render() {
     if (this.state.pollData.choices) {
       return (
@@ -72,8 +78,13 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators ({
+    answerPoll,
+  }, dispatch);
+}
 Poll.propTypes = {
   pollData: React.PropTypes.object,
 };
 
-export default connect(mapStateToProps, null) (Poll);
+export default connect(mapStateToProps, mapDispatchToProps) (Poll);

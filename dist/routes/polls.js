@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var ObjectId = require('mongodb').ObjectId;
 var db = void 0;
 
 router.post('/deletePollForUsers', function (req, res) {
@@ -81,25 +82,16 @@ router.get('/:name/:id', function (req, res) {
 
 //* *************ANSWER POLL***************************
 
+// input: {question: String, choices:Array, _id:String, owner:String }
+// output: updated poll ({question: String, choices:Array, _id:String, owner:String })
 router.post('/answerPollForUsers', function (req, res) {
   db = req.db;
-  db.collection('users').find({ name: req.body.name }).toArray(function (err, user) {
-    if (err) throw err;
-
-    var userCopy = user;
-    userCopy[0].polls.map(function (poll) {
-      if (poll.id === req.body.id) {
-        poll.choices.map(function (choice) {
-          if (choice.choice === req.body.answer) {
-            choice.votes++;
-          }
-        });
-      }
-    });
-
-    db.collection('users').findAndModify({ name: req.body.name }, {}, { $set: { polls: userCopy[0].polls } }, { new: true }, { upsert: true }, function (err) {
-      if (err) throw err;
-    });
+  var newChoices = Array.from(req.body.choices);
+  db.collection('polls').findAndModify({ _id: ObjectId(req.body._id) }, {}, { $set: { choices: newChoices } }, { update: true }, function (err, poll) {
+    if (err) {
+      throw err;
+    }
+    res.send(poll);
   });
 });
 

@@ -13,3 +13,14 @@ export const addPoll = (poll, callback) => (
       });
   }
 );
+
+export const answerPoll = (poll, callback) => (
+  (dispatch) => {
+    axios.post('/polls/answerPollForUsers', poll)
+      .then((res) => {
+        console.log('pollActions 21', res.data);
+        dispatch({type: ANSWER_POLL, payload: res.data});
+        callback();
+      });
+  }
+);

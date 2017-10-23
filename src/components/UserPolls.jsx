@@ -19,28 +19,7 @@ class UserPolls extends Component {
   componentDidMount() {
     //this.retrievePolls();
   }
-/*
-  getFormattedLink(poll, key) {
-    if (poll.owner) {
-      return (
-        <div key={key}>
-          <Row>
-            <div className="questionContainer">
-              <a key={key} href={`${HOST}${poll.owner}/${poll.id}`}>
-                <div className="pollContainer">
-                  {poll.question}
-                </div>
-              </a>
-              <Button className="dashBoardButton deletePollButton" bsStyle="danger" onClick={() => { this.deleteAPoll(poll.id, poll.owner); }}>{'Delete  '}<Glyphicon className="trash" glyph="trash" /> </Button>
-            </div>
-          </Row>
-        </div>
-      );
-    }
 
-    return <div key={key}> <h1 key={key} className="noPolls">{poll.question}</h1></div>;
-  }
-*/
   deleteAPoll(id, owner) {
     store.dispatch(deletePoll(id, owner, this.retrievePolls));
   }
@@ -60,20 +39,11 @@ class UserPolls extends Component {
       });
     }
   }
-/*
-  render() {
-    return (
-      <div>
-        { this.state.polls.map((poll, key) => this.getFormattedLink(poll, key))
-        }
-      </div>
-    );
-  }*/
 
   render() {
     const hasPolls = this.props.polls;
-
-    if (hasPolls) {
+    console.log(this.props.polls);
+    if (hasPolls.length > 0) {
       return (
         <div>
           {this.props.polls.map((poll, key) => {
@@ -84,7 +54,7 @@ class UserPolls extends Component {
       );
     } else {
       return (
-        <h1>No Polls Created </h1>
+        <h1 className="noPolls">No Polls Created </h1>
       );
 
     }

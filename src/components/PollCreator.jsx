@@ -13,7 +13,6 @@ class PollCreator extends Component {
       pollCreated: false,
       poll: {question: '',
         choices: [{choice: '', votes: 0}, {choice: '', votes: 0}],
-        id: '',
         owner: this.props.user.user},
       //counter: store.getState().currentUser.counter,
       showingValidation: false,
@@ -47,7 +46,6 @@ class PollCreator extends Component {
       poll: {
         question: newQuestion,
         choices: this.state.poll.choices,
-        id: this.props.user.polls.length,
         owner: this.props.user.user
       },
     });
@@ -146,7 +144,6 @@ class PollCreator extends Component {
       poll: {
         question: this.state.poll.question,
         choices: currentChoices,
-        id: this.props.user.polls.length,
         owner: this.props.user.user
       },
     });
@@ -162,7 +159,6 @@ class PollCreator extends Component {
       poll: {
         question: this.state.poll.question,
         choices: currentChoices,
-        id: this.props.user.polls.length,
         owner: this.props.user.user
       },
     });

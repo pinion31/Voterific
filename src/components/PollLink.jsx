@@ -27,21 +27,6 @@ class PollLink extends Component {
     );
   }
 }
-/*
-render() {
-      console.log(`${HOST}${this.props.id}`);
-    return (
-      <div>
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <h1 className="pollLinkText"> {'Your new poll can be found at:'} </h1>
-            <Link to={`/poll/${this.props.id}`}>test</Link>
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-}*/
 
 function mapStateToProps(state) {
   return {
