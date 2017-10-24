@@ -46,7 +46,7 @@ class SitePolls extends Component {
             {this.props.polls ? (
               this.props.polls.map(poll => (
                 <div key={poll._id} className="sitePollsLinkText">
-                  <Link to={`/poll/${poll._id}`} key={poll._id} className="sitePollsLinkText">
+                  <Link to={`/poll/${poll._id}`} className="sitePollsLinkText">
                     <div className="pollContainer">{poll.question}</div>
                   </Link>
                 </div>

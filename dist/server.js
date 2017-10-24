@@ -34,8 +34,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var path = require('path');
 _sourceMapSupport2.default.install();
 
-var dbUrl = 'mongodb://localhost/local'; // local db
-// const dbUrl = process.env.MONGOLAB_URI; // production db
+//const dbUrl = 'mongodb://localhost/local'; // local db
+var dbUrl = process.env.MONGOLAB_URI; // production db
 
 _mongodb.MongoClient.connect(dbUrl, function (err, db) {
   if (err) {

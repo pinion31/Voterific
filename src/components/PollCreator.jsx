@@ -193,16 +193,17 @@ class PollCreator extends Component {
       </Row>
       <Row>
         <Col md={4} mdOffset={4} sm={6} smOffset={3} xs={6} xsOffset={3} lg={4} lgOffset={4}>
-          {this.state.poll.choices.map((choice, key) => (<FormGroup key={key}>
-            <FormControl
-              name={key}
-              type="text"
-              placeholder="Answer"
-              onChange={this.updateChoice}
-              maxLength="18"
-            />
-            <FormControl.Feedback />
-          </FormGroup>))
+          {this.state.poll.choices.map((choice, key) => (
+            <FormGroup key={key}>
+              <FormControl
+                name={key}
+                type="text"
+                placeholder="Answer"
+                onChange={this.updateChoice}
+                maxLength="18"
+              />
+              <FormControl.Feedback />
+            </FormGroup>))
           }
         </Col>
       </Row>

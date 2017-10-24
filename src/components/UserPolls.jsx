@@ -25,8 +25,8 @@ class UserPolls extends Component {
     if (hasPolls.length > 0) {
       return (
         <div>
-          {this.props.polls.map((poll, key) => {
-            return <PollContainer key={key} poll={poll} deletePoll={this.deletePoll} />;
+          {this.props.polls.map((poll) => {
+            return <PollContainer key={poll._id} poll={poll} deletePoll={this.deletePoll} />;
           })
           }
         </div>
