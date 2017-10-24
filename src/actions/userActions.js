@@ -48,7 +48,7 @@ export const addPoll = (user, poll, callback) => (
 );
 
 export const answerPoll = (user, poll, callback) => (
-  (dispatch) => { console.log('userActions 51', poll); console.log('userActions 51', user);
+  (dispatch) => {
     axios.post('/polls/answerPollForUsers', {user, poll})
       .then((res) => {
         dispatch({type: ANSWER_POLL, payload: res.data});

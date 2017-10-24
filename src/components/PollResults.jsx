@@ -17,7 +17,18 @@ class PollResults extends Component {
   }
 
   retrievePollData() {
-    this.props.polls.map((poll) => {
+    // Searches thru all user polls to find poll
+    if (this.props.polls && this.props.polls.length > 0) {
+      this.props.polls[0].map((poll) => {
+        if (poll._id === this.props.match.params.id) {
+          this.setState({
+            poll,
+          });
+        }
+      });
+    }
+    // Searches thru user polls to find poll
+    this.props.user.polls.map((poll) => {
       if (poll._id === this.props.match.params.id) {
         this.setState({
           poll,
@@ -47,7 +58,8 @@ class PollResults extends Component {
 
 function mapStateToProps(state) {
   return {
-    polls: state.user.polls,
+    polls: state.polls,
+    user: state.user
   };
 }
 
@@ -55,5 +67,5 @@ PollResults.propTypes = {
   poll: React.PropTypes.object,
 };
 
-export default connect(mapStateToProps, null) (PollResults);
+export default connect(mapStateToProps, null)(PollResults);
 

@@ -21,8 +21,18 @@ class Poll extends Component {
   }
 
   loadPoll() {
-    console.log('loading');
-    this.props.polls.map((poll) => {
+    // Searches thru all user polls to find poll
+    if (this.props.polls && this.props.polls.length > 0) {
+      this.props.polls[0].map((poll) => {
+        if (poll._id === this.props.match.params.id) {
+          this.setState({
+            pollData: poll,
+          });
+        }
+      });
+    }
+    // Searches thru user polls to find poll
+    this.props.user.polls.map((poll) => {
       if (poll._id === this.props.match.params.id) {
         this.setState({
           pollData: poll,
@@ -44,7 +54,6 @@ class Poll extends Component {
   }
 
   render() {
-    console.log(this.state.pollData);
     if (this.state.pollData.choices) {
       return (
         <div className="poll">
@@ -75,7 +84,7 @@ class Poll extends Component {
 
 function mapStateToProps(state) {
   return {
-    polls: state.user.polls,
+    polls: state.polls,
     user: state.user
   };
 }

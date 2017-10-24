@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import {Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {getAllPolls} from '../actions/pollActions';
-import {NO_POLLS} from '../constants/messages';
 
 class SitePolls extends Component {
   constructor(props) {
@@ -19,15 +18,19 @@ class SitePolls extends Component {
   shouldComponentUpdate(newProps) {
     let componentShouldUpdate = false;
 
-    if (this.props.polls.length !== newProps.polls.length) {
+    if (this.props.polls && newProps.polls) {
+      if (this.props.polls.length !== newProps.polls.length) {
+        return true;
+      }
+
+      this.props.polls.map((poll, key) => {
+        if (poll._id !== newProps.polls[key]._id) {
+          componentShouldUpdate = true;
+        }
+      });
+    } else {
       return true;
     }
-
-    this.props.polls.map((poll, key) => {
-      if (poll._id !== newProps.polls[key]._id) {
-        componentShouldUpdate = true;
-      }
-    });
 
     return componentShouldUpdate;
   }
@@ -50,7 +53,7 @@ class SitePolls extends Component {
                   </Link>
                 </div>
               ))
-            ) : <div>{NO_POLLS}</div>
+            ) : <div></div>
             }
           </Col>
         </Row>
