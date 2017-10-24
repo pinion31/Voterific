@@ -3,6 +3,7 @@ import {Row, Col, Button, FormGroup, FormControl, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addNewUser} from '../actions/userActions';
+import {INVALID_NAME, INVALID_EMAIL, INVALID_PASSWORD_LENGTH} from '../constants/messages';
 
 class SignUp extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class SignUp extends Component {
     const {name, email, password} = userInfo;
 
     if (name.length === 0) {
-      const alert = this.getAlertMessage('Please enter a username.');
+      const alert = this.getAlertMessage(INVALID_NAME);
 
       this.setState({
         validationMessage: alert,
@@ -70,7 +71,7 @@ class SignUp extends Component {
 
     // verify email as valid email
     if (!email.match(/^[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.][a-zA-Z]{2,3}$/)) {
-      const alert = this.getAlertMessage('Please enter a valid email.');
+      const alert = this.getAlertMessage(INVALID_EMAIL);
 
       this.setState({
         validationMessage: alert,
@@ -81,7 +82,7 @@ class SignUp extends Component {
     }
 
     if (!password.match(/[a-zA-Z0-9!$%#&*^.@?]{8}/)) { // verify password
-      const alert = this.getAlertMessage('Password must be at least 8 characters.');
+      const alert = this.getAlertMessage(INVALID_PASSWORD_LENGTH);
 
       this.setState({
         validationMessage: alert,

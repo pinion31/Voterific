@@ -3,18 +3,19 @@ import {deletePoll} from '../actions/userActions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PollContainer from './PollContainer';
+import {NO_POLLS} from '../constants/messages';
 
 class UserPolls extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      polls: [{question: 'No Polls Created'}], // default if no polls created by current user
+      polls: [{question: NO_POLLS}], // default if no polls created by current user
     };
 
     this.deletePoll = this.deletePoll.bind(this);
   }
 
-  deletePoll(id, user) {  console.log('UserPolls 17', user);
+  deletePoll(id, user) {
     this.props.deletePoll({id, user});
   }
 
@@ -32,7 +33,7 @@ class UserPolls extends Component {
       );
     } else {
       return (
-        <h1 className="noPolls">No Polls Created </h1>
+        <h1 className="noPolls">{NO_POLLS}</h1>
       );
     }
   }

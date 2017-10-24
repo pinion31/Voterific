@@ -1,0 +1,11 @@
+export const NO_MATCH = 'This page does not exist! Please go back!';
+export const INVALID_NAME = 'Please enter a username.';
+export const INVALID_PASSWORD = 'Please enter a password.';
+export const INVALID_PASSWORD_LENGTH = 'Password must be at least 8 characters.';
+export const INVALID_EMAIL = 'Please enter a valid email.';
+export const INVALID_QUESTION = 'Please enter a question.';
+export const BLANK_CHOICES = 'One or more choices are blank.';
+export const DUPLICATE_CHOICES = 'One or more choices are blank.';
+export const NO_POLLS = 'No Polls Created';
+export const WELCOME_QUERY = 'What would you like to do today?';
+export const POLL_LOCATION = 'Your new poll can be found at:';

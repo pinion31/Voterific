@@ -3,6 +3,7 @@ import {Row, Col} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {HOST} from '../constants/actionTypes';
+import {POLL_LOCATION} from '../constants/messages';
 
 class PollLink extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class PollLink extends Component {
       <div>
         <Row>
           <Col xs={12} sm={12} md={12} lg={12}>
-            <h1 className="pollLinkText"> {'Your new poll can be found at:'} </h1>
+            <h1 className="pollLinkText"> {POLL_LOCATION} </h1>
             <Link to={`/poll/${this.props.id}`}>
               <h2 className="pollLink"> {`${HOST}${this.props.id}`} </h2>
             </Link>

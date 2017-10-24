@@ -9,8 +9,9 @@ import Poll from './Poll';
 import UserPolls from './UserPolls';
 import SitePolls from './SitePolls';
 import PollResults from './PollResults';
+import {NO_MATCH} from '../constants/messages';
 
-const NoMatch = () => <h2>This page does not exist! Please go back!</h2>;
+const NoMatch = () => <h2>{NO_MATCH}</h2>;
 
 const Footer = () => (
   <div className="footer-style">

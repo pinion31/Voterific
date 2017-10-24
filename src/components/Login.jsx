@@ -3,6 +3,7 @@ import {Row, Col, Button, FormGroup, FormControl, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {loginUser} from '../actions/userActions';
+import {INVALID_NAME, INVALID_PASSWORD} from '../constants/messages';
 //import {loginExistingUser} from '../actions/actionCreators';
 
 class Login extends Component {
@@ -56,7 +57,7 @@ class Login extends Component {
 
   validateLogin(login) { // checks to make sure both fields have been entered by user
     if (login.name.length === 0) {
-      const alert = this.getAlertMessage('Please enter a username');
+      const alert = this.getAlertMessage(INVALID_NAME);
 
       this.setState({
         validationMessage: alert,
@@ -65,7 +66,7 @@ class Login extends Component {
 
       return false;
     } else if (login.password.length === 0) {
-      const alert = this.getAlertMessage('Please enter a password');
+      const alert = this.getAlertMessage(INVALID_PASSWORD);
 
       this.setState({
         validationMessage: alert,

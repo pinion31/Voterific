@@ -4,7 +4,7 @@ import {Row, Col, Button, FormGroup, FormControl, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addPoll} from '../actions/userActions';
-import PollLink from './PollLink';
+import {INVALID_QUESTION, BLANK_CHOICES, DUPLICATE_CHOICES} from '../constants/messages';
 
 class PollCreator extends Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class PollCreator extends Component {
       poll: {question: '',
         choices: [{choice: '', votes: 0}, {choice: '', votes: 0}],
         owner: this.props.user.user},
-      //counter: store.getState().currentUser.counter,
       showingValidation: false,
       validationMessage: null,
     };
@@ -71,7 +70,7 @@ class PollCreator extends Component {
   // checks to see if user filled out all fields
   validatePoll() {
     if (this.state.poll.question.length === 0) {
-      const alert = this.getAlertMessage('Please enter a question');
+      const alert = this.getAlertMessage(INVALID_QUESTION);
 
       this.setState({
         validationMessage: alert,
@@ -90,7 +89,7 @@ class PollCreator extends Component {
     });
 
     if (!allValidChoices) {
-      const alert = this.getAlertMessage('One or more choices are blank.');
+      const alert = this.getAlertMessage(BLANK_CHOICES);
 
       this.setState({
         validationMessage: alert,
@@ -115,7 +114,7 @@ class PollCreator extends Component {
     });
 
     if (!hasNoDuplicates) {
-      const alert = this.getAlertMessage('Your Poll Contains Duplicate Choices.');
+      const alert = this.getAlertMessage(DUPLICATE_CHOICES);
 
       this.setState({
         validationMessage: alert,
