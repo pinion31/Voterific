@@ -36,7 +36,7 @@ router.post('/LoginUser', (req, res) => {
     {new: true},
     (err, user) => {
       if (err) { res.json(err); }
-      if (user.value.password) {
+      if (user.value) {
         bcrypt.compare(req.body.password, user.value.password, (err, match) => {
           if (match) {
             // populate user polls before sending back

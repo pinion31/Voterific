@@ -40,11 +40,11 @@ class Login extends Component {
 
   loginUser() {
     if (this.validateLogin(this.state.cred)) {
-      this.props.loginUser(this.state.cred, (loggedIn) => {
-        if (loggedIn) {
+      this.props.loginUser(this.state.cred, (result) => {
+        if (result.loggedIn) {
           this.props.history.push('/dashboard'); // redirects after successful user login
         } else {
-          const alert = this.getAlertMessage(result.response);
+          const alert = this.getAlertMessage(result.user);
 
           this.setState({
             validationMessage: alert,

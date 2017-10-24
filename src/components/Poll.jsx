@@ -16,11 +16,12 @@ class Poll extends Component {
     this.answerPoll = this.answerPoll.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadPoll();
   }
 
   loadPoll() {
+    console.log('loading');
     this.props.polls.map((poll) => {
       if (poll._id === this.props.match.params.id) {
         this.setState({
@@ -38,11 +39,12 @@ class Poll extends Component {
     });
 
     this.props.answerPoll(this.props.user, this.state.pollData, () => {
-        this.props.history.push(`/PollResults/${this.state.pollData._id}`);
+      this.props.history.push(`/PollResults/${this.state.pollData._id}`);
     });
   }
 
   render() {
+    console.log(this.state.pollData);
     if (this.state.pollData.choices) {
       return (
         <div className="poll">
