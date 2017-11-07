@@ -8,7 +8,6 @@ import {logOutUser} from '../actions/userActions';
 class Menu extends Component {
   constructor(props) {
     super(props);
-
     this.logOut = this.logOut.bind(this);
   }
 

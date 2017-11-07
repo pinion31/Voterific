@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import PollContainer from './PollContainer';
 import {NO_POLLS} from '../constants/messages';
 
-class UserPolls extends Component {
+export class UserPolls extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +21,6 @@ class UserPolls extends Component {
 
   render() {
     const hasPolls = this.props.polls;
-
     if (hasPolls.length > 0) {
       return (
         <div>

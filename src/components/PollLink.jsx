@@ -5,14 +5,7 @@ import {Link} from 'react-router-dom';
 import {HOST} from '../constants/actionTypes';
 import {POLL_LOCATION} from '../constants/messages';
 
-class PollLink extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      link: '',
-    };
-  }
-
+const PollLink = (props) => {
   render() {
     return (
       <div>
@@ -34,9 +27,5 @@ function mapStateToProps(state) {
     user: state.user
   };
 }
-
-PollLink.propTypes = {
-  link: React.PropTypes.string,
-};
 
 export default connect(mapStateToProps, null) (PollLink);
