@@ -6,14 +6,22 @@ import {Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {getAllPolls} from '../actions/pollActions';
 
-class SitePolls extends Component {
+/** Component displays polls for all users */
+export class SitePolls extends Component {
   constructor(props) {
     super(props);
   }
 
+  /**
+   * Makes API call to retrieves all site polls after mounting
+   */
   componentDidMount() {
     this.props.getAllPolls();
   }
+
+  /** Optimizes rendering; checks if any changes made to virtual dom
+   *
+   */
 
   shouldComponentUpdate(newProps) {
     let componentShouldUpdate = false;

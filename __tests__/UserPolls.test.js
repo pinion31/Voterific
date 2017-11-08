@@ -10,8 +10,10 @@ const initialProps = {
       { question: 'Is this test working?',
         id: 1,
         owner: 'chris',
-        choices: [{choice: 'yes', votes: 0},
-                  {choice: 'no', votes: 0}],
+        choices: [
+          {choice: 'yes', votes: 0},
+          {choice: 'no', votes: 0}
+        ],
       }
     ]
 };
@@ -24,13 +26,16 @@ describe('UserPolls with one poll', () => {
   });
 
   it('has one question', () => {
-    expect(userPolls.find(PollContainer).at(0).props().poll.question).toEqual(initialProps.polls[0].question);
+    expect(userPolls.find(PollContainer).at(0).props().poll.question)
+      .toEqual(initialProps.polls[0].question);
   });
 
   it('has two choices: yes and no', () => {
     expect(userPolls.find(PollContainer).at(0).props().poll.choices.length).toEqual(2);
-    expect(userPolls.find(PollContainer).at(0).props().poll.choices[0].choice).toEqual(initialProps.polls[0].choices[0].choice);
-    expect(userPolls.find(PollContainer).at(0).props().poll.choices[1].choice).toEqual(initialProps.polls[0].choices[1].choice);
+    expect(userPolls.find(PollContainer).at(0).props().poll.choices[0].choice)
+      .toEqual(initialProps.polls[0].choices[0].choice);
+    expect(userPolls.find(PollContainer).at(0).props().poll.choices[1].choice)
+      .toEqual(initialProps.polls[0].choices[1].choice);
   });
 });
 

@@ -5,7 +5,8 @@ import {bindActionCreators} from 'redux';
 import {addNewUser} from '../actions/userActions';
 import {INVALID_NAME, INVALID_EMAIL, INVALID_PASSWORD_LENGTH} from '../constants/messages';
 
-class SignUp extends Component {
+/** Component handles creation of new users**/
+export class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,9 +18,13 @@ class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.verifyInput = this.verifyInput.bind(this);
     this.dismissValidation = this.dismissValidation.bind(this);
-
   }
 
+ /**
+   * keeps user state updated as user enters username, password and email for account creation
+   * @param event - onChange event object passed from form
+   * this.state.newUser will be submitted to db as new user
+   */
   onChange(event) {
     if (this.state.showingValidation) {
       this.dismissValidation();
@@ -32,12 +37,22 @@ class SignUp extends Component {
       newUser: user,
     });
   }
-
+  /**
+   * Displays error message as Alert component if user enters invalid info in field
+   * during account creation
+   * @param {String} message - Error message to be displayed if error occurs
+   * @return {Component} - Alert component with message string
+   */
   getAlertMessage(message) {
     return (<Alert className="alertMessage" bsStyle="danger" onDismiss={this.dismissValidation}>
       {message} </Alert>);
   }
 
+  /**
+   * If new user info passes verification, info is sent to db to create new user
+   * via props func, addNewUser. User is then redirected to Dashboard
+   * @param {Event} e - onSubmit Event
+   */
   handleSubmit(e) {
     e.preventDefault();
 
@@ -48,6 +63,10 @@ class SignUp extends Component {
     }
   }
 
+  /**
+   * Removes error message once user enters new info into a field.
+   *
+   */
   dismissValidation() {
     this.setState({
       showingValidation: false,
@@ -55,6 +74,12 @@ class SignUp extends Component {
     });
   }
 
+    /**
+   * Verifuy user has entered info in all fields and input is valid.
+   * Function will prevent account creation unless info passes verification
+   * @param {Obj} userInfo - new user obj (format: {name: String, email: String, password: String})
+   * @return {Boolean} - false if fails verification, true otherwise
+   */
   verifyInput(userInfo) {
     const {name, email, password} = userInfo;
 
@@ -101,8 +126,8 @@ class SignUp extends Component {
         <div className="header">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <h1 className="titleLogin"> Voterific </h1>
-              <h2 className="subtitleLogin"> Create polls and have your friends vote.</h2>
+              <h1 className="titleLogin">Voterific</h1>
+              <h2 className="subtitleLogin">Create polls and have your friends vote.</h2>
             </Col>
           </Row>
         </div>
@@ -141,7 +166,7 @@ class SignUp extends Component {
               <FormGroup>
                 <FormControl
                   name="password"
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   onChange={this.onChange}
                   maxLength="27"

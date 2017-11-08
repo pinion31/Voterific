@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import PollContainer from './PollContainer';
 import {NO_POLLS} from '../constants/messages';
 
+/* Component to display all polls created by current user*/
 export class UserPolls extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +16,12 @@ export class UserPolls extends Component {
     this.deletePoll = this.deletePoll.bind(this);
   }
 
+  /**
+   * wrapper func to delete a poll via prop func, deletePoll
+   * This func passed as callback to PollContainer component
+   * @param {Number} id - id of poll to delete
+   * @return {String} user - current user; sent to server for query purposes
+   */
   deletePoll(id, user) {
     this.props.deletePoll({id, user});
   }
